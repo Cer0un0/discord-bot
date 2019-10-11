@@ -1,5 +1,6 @@
 # インストールした discord.py を読み込む
 import discord
+import random as ra
 
 # 自分のBotのアクセストークンに置き換えてください
 # a
@@ -23,6 +24,21 @@ async def on_message(message):
     # 「/neko」と発言したら「にゃーん」が返る処理
     if message.content == '/neko':
         await message.channel.send('にゃーん')
+
+    if message.content == '/unko':
+        msg = ""
+        s = ["ブリ", "モリ"][ra.randrange(2)]
+        for i in range(ra.randrange(50)):
+            msg += s
+        for i in range(ra.randrange(10)):
+            msg += "ィ"
+        for i in range(ra.randrange(20)):
+            msg += "ッ"
+        for i in range(ra.randrange(30)):
+            msg += "！"
+        for i in range(ra.randrange(20)):
+            msg += "💩"
+        await message.channel.send(msg)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
