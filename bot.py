@@ -9,6 +9,21 @@ TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.XaBBQg.nle5WkuPvYSo1EB6aaviB7CbU70'
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
+def char_unko():
+    reply = ""
+    s = ["ブリ", "モリ"][ra.randrange(2)]
+    for i in range(ra.randrange(50)):
+        reply += s
+    for i in range(ra.randrange(10)):
+        reply += "ィ"
+    for i in range(ra.randrange(20)):
+        reply += "ッ"
+    for i in range(ra.randrange(30)):
+        reply += "！"
+    for i in range(ra.randrange(20)):
+        reply += "💩"
+
+    return reply
 
 
 # 起動時に動作する処理
@@ -28,21 +43,14 @@ async def on_message(message):
         # 「/neko」と発言したら「にゃーん」が返る処理
         if msg == '/neko':
             await message.channel.send('にゃーん')
+            continue
 
         if msg == '/unko':
-            reply = ""
-            s = ["ブリ", "モリ"][ra.randrange(2)]
-            for i in range(ra.randrange(50)):
-                reply += s
-            for i in range(ra.randrange(10)):
-                reply += "ィ"
-            for i in range(ra.randrange(20)):
-                reply += "ッ"
-            for i in range(ra.randrange(30)):
-                reply += "！"
-            for i in range(ra.randrange(20)):
-                reply += "💩"
-            await message.channel.send(reply)
+            await message.channel.send(char_unko())
+            continue
+
+        if "[" in msg:
+            await message.channel.send(msg.replace('[unko]', char_unko()))
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
