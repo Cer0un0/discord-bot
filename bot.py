@@ -49,7 +49,7 @@ async def on_message(message):
             await message.channel.send(char_unko())
             continue
 
-        if "[" in msg
+        if "[" in msg:
             await message.channel.send(msg.replace('[unko]', char_unko()))
 
 # Botの起動とDiscordサーバーへの接続
