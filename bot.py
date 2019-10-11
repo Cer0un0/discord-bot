@@ -24,8 +24,6 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    await message.channel.send(message.content)
-
     for msg in message.content.split():
         # 「/neko」と発言したら「にゃーん」が返る処理
         if msg == '/neko':
