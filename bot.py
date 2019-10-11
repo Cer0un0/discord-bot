@@ -9,6 +9,8 @@ TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.XaBBQg.nle5WkuPvYSo1EB6aaviB7CbU70'
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
+
+
 # 起動時に動作する処理
 @client.event
 async def on_ready():
@@ -21,6 +23,9 @@ async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
+
+    await message.channel.send(message.content)
+    return
     # 「/neko」と発言したら「にゃーん」が返る処理
     if message.content == '/neko':
         await message.channel.send('にゃーん')
