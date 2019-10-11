@@ -1,6 +1,7 @@
 # インストールした discord.py を読み込む
 import discord
 import random as ra
+import re
 
 # 自分のBotのアクセストークンに置き換えてください
 # a
@@ -37,6 +38,15 @@ async def on_ready():
 async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
+        return
+
+    if re.match('(\d+)d(\d+)', message.content):
+        n, me = map(int, message.content.split("d"))
+        reply = ""
+        for i in range(n):
+            reply += f"{ra.randrange(me)+1} "
+
+        await message.channel.send(reply)
         return
 
     for msg in message.content.split():
