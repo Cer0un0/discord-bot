@@ -25,25 +25,26 @@ async def on_message(message):
         return
 
     await message.channel.send(message.content)
-    return
-    # 「/neko」と発言したら「にゃーん」が返る処理
-    if message.content == '/neko':
-        await message.channel.send('にゃーん')
 
-    if message.content == '/unko':
-        msg = ""
-        s = ["ブリ", "モリ"][ra.randrange(2)]
-        for i in range(ra.randrange(50)):
-            msg += s
-        for i in range(ra.randrange(10)):
-            msg += "ィ"
-        for i in range(ra.randrange(20)):
-            msg += "ッ"
-        for i in range(ra.randrange(30)):
-            msg += "！"
-        for i in range(ra.randrange(20)):
-            msg += "💩"
-        await message.channel.send(msg)
+    for msg in message.content.split():
+        # 「/neko」と発言したら「にゃーん」が返る処理
+        if msg == '/neko':
+            await message.channel.send('にゃーん')
+
+        if msg == '/unko':
+            reply = ""
+            s = ["ブリ", "モリ"][ra.randrange(2)]
+            for i in range(ra.randrange(50)):
+                reply += s
+            for i in range(ra.randrange(10)):
+                reply += "ィ"
+            for i in range(ra.randrange(20)):
+                reply += "ッ"
+            for i in range(ra.randrange(30)):
+                reply += "！"
+            for i in range(ra.randrange(20)):
+                reply += "💩"
+            await message.channel.send(reply)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
