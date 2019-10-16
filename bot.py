@@ -5,7 +5,7 @@ import re
 import discord
 import chatbot
 
-# 自分のBotのアクセストークンに置き換えてください
+# 自分のBotのアクセストークンに置き換えてください.
 TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.XaGuag.FDCTiWyycPKxYq-jgWRrF0W-RcY'
 
 # 接続に必要なオブジェクトを生成
