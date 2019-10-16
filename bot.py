@@ -1,30 +1,33 @@
 # インストールした discord.py を読み込む
-import discord
 import random as ra
 import re
 
+import discord
+import chatbot
+
 # 自分のBotのアクセストークンに置き換えてください
-# a
-TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.XaGuag.FDCTiWyycPKxYq-jgWRrF0W-RcY'
+# TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.XaGuag.FDCTiWyycPKxYq-jgWRrF0W-RcY'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-def char_unko():
+def msg_neko():
+    return "にゃーん"
+
+def msg_unko():
     reply = ""
     s = ["ブリ", "モリ"][ra.randrange(2)]
-    for i in range(ra.randrange(50)):
-        reply += s
-    for i in range(ra.randrange(10)):
-        reply += "ィ"
-    for i in range(ra.randrange(20)):
-        reply += "ッ"
-    for i in range(ra.randrange(30)):
-        reply += "！"
-    for i in range(ra.randrange(20)):
-        reply += "💩"
+
+    reply += s * ra.randrange(50)
+    reply += "ィ" * ra.randrange(10)
+    reply += "ッ" * ra.randrange(20)
+    reply += "！" * ra.randrange(30)
+    reply += "💩" * ra.randrange(30)
 
     return reply
+
+def msg_talk():
+    pass
 
 
 # 起動時に動作する処理
@@ -49,18 +52,23 @@ async def on_message(message):
         await message.channel.send(reply)
         return
 
+    # オウム返し
     for msg in message.content.split():
-        # 「/neko」と発言したら「にゃーん」が返る処理
         if msg == '/neko':
-            await message.channel.send('にゃーん')
+            await message.channel.send(msg_neko())
             continue
-
-        if msg == '/unko':
-            await message.channel.send(char_unko())
+        elif msg == '/unko':
+            await message.channel.send(msg_unko())
             continue
-
-        if "[" in msg:
+        elif "[" in msg:
             await message.channel.send(msg.replace('[unko]', char_unko()))
+            continue
+        else:
+            reply = ""
+            reply += "ぶり" * [msg.count("💩")]
+            await message.channel.send(reply + "っ")
+
+        msg_talk()
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
