@@ -46,6 +46,10 @@ def msg_unko():
 
     return reply
 
+def msg_omikuji():
+    reply = ["大", "中", "小", "末", "凶", "大凶"][ra.randrange(6)]
+    return reply + "便"
+
 def msg_talk():
     pass
 
@@ -86,13 +90,17 @@ async def on_message(message):
         if msg == '/washlet':
             await message.channel.send(msg_washlet())
 
+        if msg == '/omikuji':
+            await message.channel.send(msg_omikuji())
+
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
 
         if "💩" in msg:
             reply = ""
             reply += "ぶり" * [msg.count("💩")]
-            await message.channel.send(reply + "っ")
+            reply += "っ"
+            await message.channel.send(reply)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
