@@ -92,7 +92,7 @@ async def on_message(message):
 
         if msg == '/omikuji':
             msg_ = msg_omikuji()
-            await message.channel.send(msg_omikuji())
+            await message.channel.send(msg_)
 
             if msg_ == "大便":
                 await message.channel.send(msg_unko())
