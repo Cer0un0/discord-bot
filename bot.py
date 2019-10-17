@@ -3,7 +3,7 @@ import random as ra
 import re
 
 import discord
-# import chatbot
+#import chatbot
 
 # 自分のBotのアクセストークンに置き換えてください.
 TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xahv4A.iDl1JTtxxJGWBKratbjh9fiBamk'
