@@ -16,6 +16,17 @@ def msg_neko():
 
 def msg_kireji():
     reply = ""
+    s = ["ブチ", "ぶち"][ra.randrange(2)]
+
+    reply += s * ra.randrange(50)
+    reply += "ィ" * ra.randrange(10)
+    reply += "ッ" * ra.randrange(20)
+    reply += "！" * ra.randrange(30)
+
+    return reply
+
+def msg_washlet():
+    reply = ""
     reply += "ン゛" * ra.randrange(10)
     reply += "ッ" * ra.randrange(20)
     reply += "！" * ra.randrange(30)
@@ -65,25 +76,23 @@ async def on_message(message):
     for msg in message.content.split():
         if msg == '/neko':
             await message.channel.send(msg_neko())
-            continue
 
         if msg == '/unko':
             await message.channel.send(msg_unko())
-            continue
+
         if msg == '/kireji':
             await message.channel.send(msg_kireji())
-            continue
+
+        if msg == '/washlet':
+            await message.channel.send(msg_washlet())
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', char_unko()))
-            continue
 
-        if "💩" in msg:
+        if ":poop:" in msg:
             reply = ""
-            reply += "ぶり" * [msg.count("💩")]
+            reply += "ぶり" * [msg.count(":poop:")]
             await message.channel.send(reply + "っ")
-
-        msg_talk()
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
