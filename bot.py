@@ -71,11 +71,10 @@ async def on_message(message):
             await message.channel.send(msg_unko())
             continue
         if msg == '/kireji':
-            await message.channel.send(msg_unko())
+            await message.channel.send(msg_kireji())
             continue
 
         if "[" in msg:
-            await message.channel.send('unkounko')
             await message.channel.send(msg.replace('[unko]', char_unko()))
             continue
 
