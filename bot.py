@@ -50,13 +50,42 @@ def msg_omikuji():
     reply = ["大", "中", "小", "末", "凶", "大凶"][ra.randrange(6)]
     return reply + "便"
 
-def msg_slot():
+def msg_slot_hamako():
     reply = ""
     reply += ["ハ", "ヒ", "フ", "へ", "ホ"][ra.randrange(5)]
     reply += ["マ", "ミ", "ム", "メ", "モ"][ra.randrange(5)]
     reply += ["カ", "キ", "ク", "ケ", "コ"][ra.randrange(5)]
 
     return reply + "ー"
+
+def msg_slot_daikon():
+    reply = ""
+    reply += ["カラー", "ダイ"][ra.randrange(2)]
+    reply += ["コーン", "コン"][ra.randrange(2)]
+
+    return reply
+
+def msg_slot_zero():
+    reply = ""
+    reply += ["ぜろ", "いち"][ra.randrange(2)]
+    reply += ["ホモ", "レズ", "バイ", "ゲイ"][ra.randrange(4)]
+
+    return reply
+
+def msg_slot_aratan():
+    reply = ""
+    reply += ["あら"][ra.randrange(1)]
+    reply += ["たん", "たそ", "た", "くん", "ちゃん"][ra.randrange(5)]
+
+    return reply
+
+def msg_slot_unbobo():
+    reply = ""
+    reply += ["うん"][ra.randrange(1)]
+    reply += ["ば", "び", "ぶ", "べ", "ぼ"][ra.randrange(5)]
+    reply += ["ば", "び", "ぶ", "べ", "ぼ"][ra.randrange(5)]
+
+    return reply
 
 def msg_talk():
     pass
@@ -106,10 +135,21 @@ async def on_message(message):
                 await message.channel.send(msg_unko())
 
         if msg == '/slot':
-            msg_ = msg_slot()
+            r = ra.randrange(5)
+            if r == 0:
+                msg_ = msg_slot_hamako()
+            if r == 1:
+                msg_ = msg_slot_daikon()
+            if r == 2:
+                msg_ = msg_slot_zero()
+            if r == 3:
+                msg_ = msg_slot_aratan()
+            if r == 4:
+                msg_ = msg_slot_unbobo()
+            
             await message.channel.send(msg_)
 
-            if msg_ == "ハマコー":
+            if msg_ == "ハマコー" or msg_ == "ダイコン" or msg_ == "ぜろホモ" or msg_ == "あらたん" or msg_ == "うんぼぼ":
                 await message.channel.send(msg_unko())
 
         if "[" in msg:
