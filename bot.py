@@ -100,9 +100,9 @@ async def on_message(message):
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
 
-        if "💩" in msg:
+        if ":poop" in msg:
             reply = ""
-            reply += "ぶり" * [msg.count("💩")]
+            reply += "ぶり" * [msg.count(":poop")]
             reply += "っ"
             await message.channel.send(reply)
 
