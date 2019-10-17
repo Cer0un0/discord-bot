@@ -106,8 +106,11 @@ async def on_message(message):
                 await message.channel.send(msg_unko())
 
         if msg == '/slot':
-            msg_ = msg_omikuji()
-            await message.channel.send(msg_slot())
+            msg_ = msg_slot()
+            await message.channel.send(msg_)
+
+            if msg_ == "ハマコー":
+                await message.channel.send(msg_unko())
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
