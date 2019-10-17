@@ -91,7 +91,11 @@ async def on_message(message):
             await message.channel.send(msg_washlet())
 
         if msg == '/omikuji':
+            msg_ = msg_omikuji()
             await message.channel.send(msg_omikuji())
+
+            if msg_ == "大便":
+                await message.channel.send(msg_unko())
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
