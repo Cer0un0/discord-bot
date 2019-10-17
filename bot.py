@@ -87,11 +87,13 @@ async def on_message(message):
             await message.channel.send(msg_washlet())
 
         if "[" in msg:
+            print(msg)
+            print(msg.replace('[unko]', char_unko()))
             await message.channel.send(msg.replace('[unko]', char_unko()))
 
-        if ":poop:" in msg:
+        if "💩" in msg:
             reply = ""
-            reply += "ぶり" * [msg.count(":poop:")]
+            reply += "ぶり" * [msg.count("💩")]
             await message.channel.send(reply + "っ")
 
 # Botの起動とDiscordサーバーへの接続
