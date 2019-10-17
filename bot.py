@@ -52,9 +52,9 @@ def msg_omikuji():
 
 def msg_slot():
     reply = ""
-    reply = ["ハ", "ヒ", "フ", "へ", "ホ"][ra.randrange(5)]
-    reply = ["マ", "ミ", "ム", "メ", "モ"][ra.randrange(5)]
-    reply = ["カ", "キ", "ク", "ケ", "コ"][ra.randrange(5)]
+    reply += ["ハ", "ヒ", "フ", "へ", "ホ"][ra.randrange(5)]
+    reply += ["マ", "ミ", "ム", "メ", "モ"][ra.randrange(5)]
+    reply += ["カ", "キ", "ク", "ケ", "コ"][ra.randrange(5)]
 
     return reply + "ー"
 
