@@ -57,13 +57,16 @@ async def on_message(message):
         if msg == '/neko':
             await message.channel.send(msg_neko())
             continue
-        elif msg == '/unko':
+
+        if msg == '/unko':
             await message.channel.send(msg_unko())
             continue
-        elif "[" in msg:
+
+        if "[" in msg:
             await message.channel.send(msg.replace('[unko]', char_unko()))
             continue
-        else:
+
+        if "💩" in msg:
             reply = ""
             reply += "ぶり" * [msg.count("💩")]
             await message.channel.send(reply + "っ")
