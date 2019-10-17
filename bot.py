@@ -14,6 +14,15 @@ client = discord.Client()
 def msg_neko():
     return "にゃーん"
 
+def msg_kireji():
+    reply = ""
+    reply += "ン゛" * ra.randrange(10)
+    reply += "ッ" * ra.randrange(20)
+    reply += "！" * ra.randrange(30)
+    reply += ":rolling_eyes::anger:" * ra.randrange(30)
+
+    return reply
+
 def msg_unko():
     reply = ""
     s = ["ブリ", "モリ"][ra.randrange(2)]
@@ -61,8 +70,12 @@ async def on_message(message):
         if msg == '/unko':
             await message.channel.send(msg_unko())
             continue
+        if msg == '/kireji':
+            await message.channel.send(msg_unko())
+            continue
 
         if "[" in msg:
+            await message.channel.send('unkounko')
             await message.channel.send(msg.replace('[unko]', char_unko()))
             continue
 
