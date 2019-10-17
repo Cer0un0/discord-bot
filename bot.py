@@ -87,9 +87,7 @@ async def on_message(message):
             await message.channel.send(msg_washlet())
 
         if "[" in msg:
-            await message.channel.send(msg)
-            await message.channel.send(msg.replace('[unko]', char_unko()))
-            await message.channel.send(msg.replace('[unko]', char_unko()))
+            await message.channel.send(msg.replace('[unko]', msg_unko()))
 
         if "💩" in msg:
             reply = ""
