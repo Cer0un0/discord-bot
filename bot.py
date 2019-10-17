@@ -50,6 +50,14 @@ def msg_omikuji():
     reply = ["大", "中", "小", "末", "凶", "大凶"][ra.randrange(6)]
     return reply + "便"
 
+def msg_slot():
+    reply = ""
+    reply = ["ハ", "ヒ", "フ", "へ", "ホ"][ra.randrange(5)]
+    reply = ["マ", "ミ", "ム", "メ", "モ"][ra.randrange(5)]
+    reply = ["カ", "キ", "ク", "ケ", "コ"][ra.randrange(5)]
+
+    return reply + "ー"
+
 def msg_talk():
     pass
 
@@ -96,6 +104,10 @@ async def on_message(message):
 
             if msg_ == "大便":
                 await message.channel.send(msg_unko())
+
+        if msg == '/slot':
+            msg_ = msg_omikuji()
+            await message.channel.send(msg_slot())
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
