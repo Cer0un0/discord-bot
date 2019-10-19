@@ -157,7 +157,7 @@ async def on_message(message):
             str = ['お', 'ち', 'ん', 'ぽ']
             complete = 0
             cnt = 0
-            rnd = 0]
+            rnd = 0
             msg_ = ""
             while complete < 4:
                 cnt += 1
