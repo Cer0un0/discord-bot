@@ -153,7 +153,7 @@ async def on_message(message):
             if msg_ == "ハマコー" or msg_ == "ダイコン" or msg_ == "ぜろホモ" or msg_ == "あらたん" or msg_ == "うんぼぼ":
                 await message.channel.send(msg_unko())
 
-        if "/ochinpo" in msg:
+        if msg == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
             complete = 0
             cnt = 0
