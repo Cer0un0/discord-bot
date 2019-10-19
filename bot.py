@@ -163,8 +163,8 @@ async def on_message(message):
                 rnd = ra.randint(0, 3)
                 sys.stdout.write(str[rnd])
                 complete = complete+1 if rnd == complete else 0
-            print("おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！")
-            print(cnt, "回目で果てました...")
+            await message.channel.send("おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！")
+            await message.channel.send(cnt, "回目で果てました...")
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
