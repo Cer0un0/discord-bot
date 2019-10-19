@@ -6,7 +6,7 @@ import discord
 #import chatbot
 
 # 自分のBotのアクセストークンに置き換えてください.
-TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xah59w.A6HEp3MSk98xQFS-_SP6cMKCGPI'
+TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xasc2Q.UIdtWv7H3vmhsnTEJBRxaNWzLKQ'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -146,7 +146,7 @@ async def on_message(message):
                 msg_ = msg_slot_aratan()
             if r == 4:
                 msg_ = msg_slot_unbobo()
-            
+
             await message.channel.send(msg_)
 
             if msg_ == "ハマコー" or msg_ == "ダイコン" or msg_ == "ぜろホモ" or msg_ == "あらたん" or msg_ == "うんぼぼ":
