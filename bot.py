@@ -167,17 +167,17 @@ async def on_message(message):
             await message.channel.send(msg_)
             await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
-        if message.content.startswith('/ommc'):
-           channel = client.get_channel('nyr')
-
-           if client.is_voice_connected(channel.server):
-               voice = client.voice_client_in(channel.server)
-           else:
-               voice = await client.join_voice_channel(channel)
-
-            #mp3ファイルはこのプログラムと同じ階層の場所に入れること.
-            player = voice.create_ffmpeg_player('ommc.mp3')
-            player.start()
+        # if message.content.startswith('/ommc'):
+        #    channel = client.get_channel('nyr')
+        #
+        #    if client.is_voice_connected(channel.server):
+        #        voice = client.voice_client_in(channel.server)
+        #    else:
+        #        voice = await client.join_voice_channel(channel)
+        #
+        #     #mp3ファイルはこのプログラムと同じ階層の場所に入れること.
+        #     player = voice.create_ffmpeg_player('ommc.mp3')
+        #     player.start()
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
