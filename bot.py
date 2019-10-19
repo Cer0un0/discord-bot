@@ -164,7 +164,7 @@ async def on_message(message):
                 sys.stdout.write(str[rnd])
                 complete = complete+1 if rnd == complete else 0
             await message.channel.send("おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！")
-            await message.channel.send(cnt, "回目で果てました...")
+            await message.channel.send(f"{cnt}回目で果てました...")
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
