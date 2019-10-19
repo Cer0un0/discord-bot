@@ -1,6 +1,7 @@
 # インストールした discord.py を読み込む
 import random as ra
 import re
+import sys
 
 import discord
 #import chatbot
@@ -151,6 +152,19 @@ async def on_message(message):
 
             if msg_ == "ハマコー" or msg_ == "ダイコン" or msg_ == "ぜろホモ" or msg_ == "あらたん" or msg_ == "うんぼぼ":
                 await message.channel.send(msg_unko())
+
+        if "/ochinpo" in msg:
+            str = ['お', 'ち', 'ん', 'ぽ']
+            complete = 0
+            cnt = 0
+            rnd = 0
+            while complete < 4:
+                cnt += 1
+                rnd = ra.randint(0, 3)
+                sys.stdout.write(str[rnd])
+                complete = complete+1 if rnd == complete else 0
+            print("おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！")
+            print(cnt, "回目で果てました...")
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
