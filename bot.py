@@ -157,14 +157,15 @@ async def on_message(message):
             str = ['お', 'ち', 'ん', 'ぽ']
             complete = 0
             cnt = 0
-            rnd = 0
+            rnd = 0]
+            msg_ = ""
             while complete < 4:
                 cnt += 1
                 rnd = ra.randint(0, 3)
-                sys.stdout.write(str[rnd])
+                msg_ += str[rnd]
                 complete = complete+1 if rnd == complete else 0
-            await message.channel.send("おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！")
-            await message.channel.send(f"{cnt}回目で果てました...")
+            await message.channel.send(msg_)
+            await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
