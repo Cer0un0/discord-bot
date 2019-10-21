@@ -1,32 +1,60 @@
-# インストールした discord.py を読み込む
 import random as ra
 import re
 import sys
 
 import discord
 
-# 自分のBotのアクセストークンに置き換えてください.
+###
+# 定義
+###
+
+# BotのAccess Token
 TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa2-GA.5fmJoCILrpkylFoiCg4HmsNalj4'
 
+# 1回応答するだけの単語辞書
+dict_response = {
+    "/neko": "にゃーん"
+}
+# ランダムで繰り返す単語辞書
 dict_repetition = {
     "/unko": [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"],
     "/kireji": [["ぶち", "ブチ"], "ィ", "ッ", "！", "💉"],
     "/washlet": ["ン゛", "ッ", "！", "🙄💢"]
 }
 
+###
+# 以下処理
+###
+
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-def msg_neko():
-    return "にゃーん"
+def msg_response(qu):
+    """
+    クエリに対応する、1回応答するだけのメッセージ
+
+    ----------
+    qu: sting
+        メッセージ呼び出しコマンド（dict_response.key）
+    """
+
+    return dict_repetition[qu]
 
 #
 def msg_repetition(qu):
+    """
+    クエリに対応する、リスト内の単語をランダムで繰り返すメッセージ
+
+    ----------
+    qu: sting
+        メッセージ呼び出しコマンド（dict_repetition.key）
+    """
+
     reply = ""
     for rep in dict_repetition[qu]:
-        if type(rep) is str:
+        if type(rep) is str: # string
             reply += rep * ra.randrange(40)
-        else:
+        else: # list
             reply += rep[ra.randrange(len(rep))] * ra.randrange(60)
 
     return reply
@@ -72,16 +100,6 @@ def msg_slot_unbobo():
 
     return reply
 
-def msg_talk():
-    pass
-
-
-# 起動時に動作する処理
-@client.event
-async def on_ready():
-    # 起動したらターミナルにログイン通知が表示される
-    print('ログインしました')
-
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
@@ -98,10 +116,9 @@ async def on_message(message):
         await message.channel.send(reply)
         return
 
-    # オウム返し
     for qu in message.content.split():
-        if qu == '/neko':
-            await message.channel.send(msg_neko())
+        if qu in dict_response.keys():
+            await message.channel.send(msg_response(qu))
 
         if qu in dict_repetition.keys():
             await message.channel.send(msg_repetition(qu))
