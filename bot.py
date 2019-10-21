@@ -7,7 +7,7 @@ import discord
 #import chatbot
 
 # 自分のBotのアクセストークンに置き換えてください.
-TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xasc2Q.UIdtWv7H3vmhsnTEJBRxaNWzLKQ'
+TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa2-GA.5fmJoCILrpkylFoiCg4HmsNalj4'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
