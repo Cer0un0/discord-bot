@@ -144,7 +144,8 @@ def do_slot(message, qu):
 
     # スロット結果を投稿
     result = msg_slot(qu)
-    await message.channel.send(result)
+    # await message.channel.send(result)
+    return result
 
     # # 当たりの処理結果を投稿
     # if result in dict_slot["atari"].keys():
@@ -187,7 +188,7 @@ async def on_message(message):
 
         # スロット
         if qu == '/omikuji':
-            do_slot(message, qu)
+            await message.channel.send(do_slot(message, qu))
         #
         # if qu == '/mslot':
         #     do_slot(message, mslot_list[ra.choice(mslot_list)])
