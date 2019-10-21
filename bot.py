@@ -11,7 +11,7 @@ TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa2-GA.5fmJoCILrpkylFoiCg4HmsNalj4'
 dict_repetition = {
     "/unko": [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"],
     "/kireji": [["ぶち", "ブチ"], "ィ", "ッ", "！", "💉"],
-    "/washlet": ["ン゛", "ッ", "！", "🙄", "💢"]
+    "/washlet": ["ン゛", "ッ", "！", "🙄💢"]
 }
 
 # 接続に必要なオブジェクトを生成
@@ -20,6 +20,7 @@ client = discord.Client()
 def msg_neko():
     return "にゃーん"
 
+#
 def msg_repetition(qu):
     reply = ""
     for rep in dict_repetition[qu]:
@@ -99,6 +100,9 @@ async def on_message(message):
 
     # オウム返し
     for qu in message.content.split():
+        await message.channel.send(qu)
+        continue
+        # qu = qu.rstrip('\n')
         if qu == '/neko':
             await message.channel.send(msg_neko())
 
