@@ -166,14 +166,14 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    # if re.match('(\d+)d(\d+)', message.content):
-    #     n, me = map(int, message.content.split("d"))
-    #     reply = ""
-    #     for i in range(n):
-    #         reply += f"{ra.randrange(me)+1} "
-    #
-    #     await message.channel.send(reply)
-    #     return
+    if re.match('(\d+)d(\d+)', message.content):
+        n, me = map(int, message.content.split("d"))
+        reply = ""
+        for i in range(n):
+            reply += f"{ra.randrange(me)+1} "
+
+        await message.channel.send(reply)
+        return
 
     # 1行ずつ処理
     for qu in message.content.split():
@@ -218,8 +218,8 @@ async def on_message(message):
         #     player = voice.create_ffmpeg_player('ommc.mp3')
         #     player.start()
 
-        # if "[" in qu:
-        #     await message.channel.send(qu.replace('[unko]', msg_repetition("/unko")))
+        if "[" in qu:
+            await message.channel.send(qu.replace('[unko]', msg_repetition("/unko")))
 
 
         # if ":poop" in msg:
