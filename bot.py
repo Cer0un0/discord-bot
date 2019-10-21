@@ -101,7 +101,7 @@ async def on_message(message):
     # オウム返し
     for qu in message.content.split():
         await message.channel.send(message.content.split())
-        await message.channel.send(dict_repetition.keys())
+        await message.channel.send(qu in dict_repetition.keys())
         continue
 
         if qu == '/neko':
