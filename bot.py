@@ -15,7 +15,7 @@ import discord
 ###
 
 # BotのAccess Token
-TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa33vA.-jZh-ySY7u3e07udRLIXPY9B2WQ'
+TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa34lA.Et8qCwcgqhsPGIUryBck-Fj_d4Q'
 
 # 1回応答するだけの単語辞書
 dict_response = {
@@ -185,25 +185,25 @@ async def on_message(message):
             await message.channel.send(msg_repetition(qu))
 
         # スロット
-        if qu == '/omikuji':
-            do_slot(message, qu)
-
-        if qu == '/mslot':
-            do_slot(message, mslot_list[ra.choice(mslot_list)])
-
-        if qu == '/ochinpo':
-            str = ['お', 'ち', 'ん', 'ぽ']
-            complete = 0
-            cnt = 0
-            rnd = 0
-            msg_ = ""
-            while complete < 4:
-                cnt += 1
-                rnd = ra.randint(0, 3)
-                msg_ += str[rnd]
-                complete = complete+1 if rnd == complete else 0
-            await message.channel.send(msg_)
-            await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
+        # if qu == '/omikuji':
+        #     do_slot(message, qu)
+        #
+        # if qu == '/mslot':
+        #     do_slot(message, mslot_list[ra.choice(mslot_list)])
+        #
+        # if qu == '/ochinpo':
+        #     str = ['お', 'ち', 'ん', 'ぽ']
+        #     complete = 0
+        #     cnt = 0
+        #     rnd = 0
+        #     msg_ = ""
+        #     while complete < 4:
+        #         cnt += 1
+        #         rnd = ra.randint(0, 3)
+        #         msg_ += str[rnd]
+        #         complete = complete+1 if rnd == complete else 0
+        #     await message.channel.send(msg_)
+        #     await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
@@ -217,8 +217,8 @@ async def on_message(message):
         #     player = voice.create_ffmpeg_player('ommc.mp3')
         #     player.start()
 
-        if "[" in qu:
-            await message.channel.send(qu.replace('[unko]', msg_repetition("/unko")))
+        # if "[" in qu:
+        #     await message.channel.send(qu.replace('[unko]', msg_repetition("/unko")))
 
 
         # if ":poop" in msg:
