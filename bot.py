@@ -199,7 +199,9 @@ async def on_message(message):
             #             await message.channel.send(msg_response[qu_])
             #         if qu_ in dict_repetition: # 繰り返し応答の存在判定
             #             await message.channel.send(msg_repetition[qu_])
-        #
+
+
+        await message.channel.send(qu)
         if qu == '/slot':
             # await message.channel.send(msg_slot(ra.choice(dict_slot.keys())))
             await message.channel.send(ra.choice(dict_slot.keys()))
