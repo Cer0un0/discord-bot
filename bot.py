@@ -1,4 +1,5 @@
 # インストールした discord.py を読み込む
+# unbobo
 import random as ra
 import re
 import sys
