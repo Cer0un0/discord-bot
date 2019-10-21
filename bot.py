@@ -203,7 +203,8 @@ async def on_message(message):
 
         if qu == '/slot':
             # await message.channel.send(msg_slot(ra.choice(dict_slot.keys())))
-            await message.channel.send(ra.choice(dict_slot.keys()))
+            li_ = dict_slot.keys()
+            await message.channel.send(ra.choice(li_))
         #
         if qu == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
