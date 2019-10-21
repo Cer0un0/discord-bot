@@ -10,7 +10,6 @@ import sys
 
 import discord
 
-
 ###
 # 定義
 ###
@@ -47,7 +46,7 @@ dict_slot = {
     "/daikon"  : {
         "word"   : ["", ["ダイ", "カラー"], ["コン", "コーン"]],
         "atari"  : {
-            "ダイコン"   : ""
+            "ダイコン"   : "",
             "カラーコーン": ":colorcorn:"
         }
     },
@@ -220,6 +219,7 @@ async def on_message(message):
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
+
 
         # if ":poop" in msg:
         #     reply = ""
