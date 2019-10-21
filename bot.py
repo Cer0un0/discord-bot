@@ -16,7 +16,7 @@ import discord
 ###
 
 # BotのAccess Token
-TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa2-GA.5fmJoCILrpkylFoiCg4HmsNalj4'
+TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa3vmg.DVaqXoOmn0alz-lzUd0zH0EAYGA'
 
 # 1回応答するだけの単語辞書
 dict_response = {
