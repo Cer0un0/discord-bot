@@ -132,7 +132,7 @@ def msg_slot(qu):
     return reply + dict_slot[qu]["word"][0]
 
 
-def do_slot(qu):
+def do_slot(message, qu):
     """
     クエリに対応する、スロットを実行
 
@@ -186,10 +186,10 @@ async def on_message(message):
 
         # スロット
         if qu == '/omikuji':
-            do_slot(qu)
+            do_slot(message, qu)
 
         if qu == '/mslot':
-            do_slot(mslot_list[ra.choice(mslot_list)])
+            do_slot(message, mslot_list[ra.choice(mslot_list)])
 
         if qu == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
@@ -217,8 +217,8 @@ async def on_message(message):
         #     player = voice.create_ffmpeg_player('ommc.mp3')
         #     player.start()
 
-        if "[" in msg:
-            await message.channel.send(msg.replace('[unko]', msg_unko()))
+        if "[" in qu:
+            await message.channel.send(qu.replace('[unko]', msg_repetition("/unko")))
 
 
         # if ":poop" in msg:
