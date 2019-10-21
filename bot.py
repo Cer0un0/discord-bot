@@ -141,7 +141,8 @@ def do_slot(message):
     qu: sting
         メッセージ呼び出しコマンド（dict_slot.key）
     """
-    await message.channel.send("unbobo!")
+    # await message.channel.send("unbobo!")
+    pass
 
     # # 当たりの処理結果を投稿
     # if result in dict_slot["atari"].keys():
@@ -186,7 +187,6 @@ async def on_message(message):
         # await message.channel.send(qu)
         if qu in dict_slot.keys():
             await message.channel.send(msg_slot(qu))
-            do_slot(message)
 
             # # 当たりの処理結果を投稿
             # if result in dict_slot["atari"].keys():
@@ -203,19 +203,19 @@ async def on_message(message):
         if qu == '/slot':
             await message.channel.send(msg_slot(ra.choice(dict_slot.keys())))
         #
-        # if qu == '/ochinpo':
-        #     str = ['お', 'ち', 'ん', 'ぽ']
-        #     complete = 0
-        #     cnt = 0
-        #     rnd = 0
-        #     msg_ = ""
-        #     while complete < 4:
-        #         cnt += 1
-        #         rnd = ra.randint(0, 3)
-        #         msg_ += str[rnd]
-        #         complete = complete+1 if rnd == complete else 0
-        #     await message.channel.send(msg_)
-        #     await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
+        if qu == '/ochinpo':
+            str = ['お', 'ち', 'ん', 'ぽ']
+            complete = 0
+            cnt = 0
+            rnd = 0
+            msg_ = ""
+            while complete < 4:
+                cnt += 1
+                rnd = ra.randint(0, 3)
+                msg_ += str[rnd]
+                complete = complete+1 if rnd == complete else 0
+            await message.channel.send(msg_)
+            await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
