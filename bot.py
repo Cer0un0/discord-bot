@@ -36,48 +36,48 @@ dict_repetition = {
 #          value -> 当たったときの文
 #                   クエリが存在すれば実行
 #                   ""でクエリをランダムで実行
-# dict_slot = {
-#     "/aratan"  : {
-#         "word"   : ["", ["あら"], ["たん", "たそ", "くん", "ちゃん", "たそくんちゃん先輩"]],
-#         "atari"  : {
-#             "あらたん"   : ""
-#         }
-#     },
-#     "/daikon"  : {
-#         "word"   : ["", ["ダイ", "カラー"], ["コン", "コーン"]],
-#         "atari"  : {
-#             "ダイコン"   : "",
-#             "カラーコーン": ":colorcorn:"
-#         }
-#     },
-#     "/hamako"  : {
-#         "word"   : ["ー", ["ハ", "ヒ", "フ", "ヘ", "ホ"], ["マ", "ミ", "ム", "メ", "モ"], ["カ", "キ", "ク", "ケ", "コ"]],
-#         "atari"  : {
-#             "ハマコー"   : ""
-#         }
-#     },
-#     "/omikuji" : {
-#         "word"   : ["便", ["大", "中", "吉", "小", "末", "凶", "大凶"]],
-#         "atari"  : {
-#             "大便"      : "/unko",
-#             "小便"      : "/shikko"
-#         }
-#     },
-#     "/satori"  : {
-#         "word"   : ["", ["うん"], ["ば", "び", "ぶ", "べ", "ぼ"], ["ば", "び", "ぶ", "べ", "ぼ"]],
-#         "atari"  : {
-#             "うんぼぼ"   : "/unbobo"
-#         }
-#     },
-#     "/zero"  : {
-#         "word"   : ["", ["ぜろ", "いち"], ["ホモ", "レズ", "ゲイ", "バイ"]],
-#         "atari"  : {
-#             "ぜろホモ"   : ""
-#         }
-#     }
-# }
-#
-# mslot_list = ["/aratan", "/daikon", "/hamako", "/satori", "/zero"]
+dict_slot = {
+    "/aratan"  : {
+        "word"   : ["", ["あら"], ["たん", "たそ", "くん", "ちゃん", "たそくんちゃん先輩"]],
+        "atari"  : {
+            "あらたん"   : ""
+        }
+    },
+    "/daikon"  : {
+        "word"   : ["", ["ダイ", "カラー"], ["コン", "コーン"]],
+        "atari"  : {
+            "ダイコン"   : "",
+            "カラーコーン": ":colorcorn:"
+        }
+    },
+    "/hamako"  : {
+        "word"   : ["ー", ["ハ", "ヒ", "フ", "ヘ", "ホ"], ["マ", "ミ", "ム", "メ", "モ"], ["カ", "キ", "ク", "ケ", "コ"]],
+        "atari"  : {
+            "ハマコー"   : ""
+        }
+    },
+    "/omikuji" : {
+        "word"   : ["便", ["大", "中", "吉", "小", "末", "凶", "大凶"]],
+        "atari"  : {
+            "大便"      : "/unko",
+            "小便"      : "/shikko"
+        }
+    },
+    "/satori"  : {
+        "word"   : ["", ["うん"], ["ば", "び", "ぶ", "べ", "ぼ"], ["ば", "び", "ぶ", "べ", "ぼ"]],
+        "atari"  : {
+            "うんぼぼ"   : "/unbobo"
+        }
+    },
+    "/zero"  : {
+        "word"   : ["", ["ぜろ", "いち"], ["ホモ", "レズ", "ゲイ", "バイ"]],
+        "atari"  : {
+            "ぜろホモ"   : ""
+        }
+    }
+}
+
+mslot_list = ["/aratan", "/daikon", "/hamako", "/satori", "/zero"]
 
 ###
 # 以下処理
@@ -115,48 +115,48 @@ def msg_repetition(qu):
 
     return reply
 
-# def msg_slot(qu):
-#     """
-#     クエリに対応する、スロット結果のメッセージ
+def msg_slot(qu):
+    """
+    クエリに対応する、スロット結果のメッセージ
+
+    ----------
+    qu: sting
+        メッセージ呼び出しコマンド（dict_slot.key）
+    """
+
+    reply = ""
+    # dict_slotに基づいて単語生成
+    for li in dict_slot[qu]["word"][1:]:
+        reply += ra.choice(li)
+
+    # 末尾の単語を付ける
+    return reply + dict_slot[qu]["word"][0]
 #
-#     ----------
-#     qu: sting
-#         メッセージ呼び出しコマンド（dict_slot.key）
-#     """
 #
-#     reply = ""
-#     # dict_slotに基づいて単語生成
-#     for li in dict_slot[qu]["word"][1:]:
-#         reply += ra.choice(li)
-#
-#     # 末尾の単語を付ける
-#     return reply + dict_slot[qu]["word"][0]
-#
-#
-# def do_slot(message, qu):
-#     """
-#     クエリに対応する、スロットを実行
-#
-#     ----------
-#     qu: sting
-#         メッセージ呼び出しコマンド（dict_slot.key）
-#     """
-#
-#     # スロット結果を投稿
-#     result = msg_slot(qu)
-#     await message.channel.send(result)
-#
-#     # 当たりの処理結果を投稿
-#     if result in dict_slot["atari"].keys():
-#         qu_ = dict_slot["atari"][result]
-#         if qu_ == "": # ランダムでクエリを実行
-#             qu_ = ra.choice(dict_repetition.keys())
-#             await message.channel.send(msg_repetition[qu_])
-#         else:
-#             if qu_ in dict_response: # 1つだけ応答の存在判定
-#                 await message.channel.send(msg_response[qu_])
-#             if qu_ in dict_repetition: # 繰り返し応答の存在判定
-#                 await message.channel.send(msg_repetition[qu_])
+def do_slot(message, qu):
+    """
+    クエリに対応する、スロットを実行
+
+    ----------
+    qu: sting
+        メッセージ呼び出しコマンド（dict_slot.key）
+    """
+
+    # スロット結果を投稿
+    result = msg_slot(qu)
+    await message.channel.send(result)
+
+    # # 当たりの処理結果を投稿
+    # if result in dict_slot["atari"].keys():
+    #     qu_ = dict_slot["atari"][result]
+    #     if qu_ == "": # ランダムでクエリを実行
+    #         qu_ = ra.choice(dict_repetition.keys())
+    #         await message.channel.send(msg_repetition[qu_])
+    #     else:
+    #         if qu_ in dict_response: # 1つだけ応答の存在判定
+    #             await message.channel.send(msg_response[qu_])
+    #         if qu_ in dict_repetition: # 繰り返し応答の存在判定
+    #             await message.channel.send(msg_repetition[qu_])
 
 
 # メッセージ受信時に動作する処理
@@ -186,8 +186,8 @@ async def on_message(message):
             await message.channel.send(msg_repetition(qu))
 
         # スロット
-        # if qu == '/omikuji':
-        #     do_slot(message, qu)
+        if qu == '/omikuji':
+            do_slot(message, qu)
         #
         # if qu == '/mslot':
         #     do_slot(message, mslot_list[ra.choice(mslot_list)])
