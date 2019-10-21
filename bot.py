@@ -102,9 +102,7 @@ async def on_message(message):
         if qu == '/neko':
             await message.channel.send(msg_neko())
 
-        await message.channel.send(qu)
-        await message.channel.send(repeat_query.keys())
-        if qu in repeat_query.keys():
+        if qu in dict_repetition.keys():
             await message.channel.send(msg_repetition(qu))
 
         if qu == '/omikuji':
