@@ -201,7 +201,8 @@ async def on_message(message):
             #             await message.channel.send(msg_repetition[qu_])
         #
         if qu == '/slot':
-            await message.channel.send(msg_slot(ra.choice(dict_slot.keys())))
+            # await message.channel.send(msg_slot(ra.choice(dict_slot.keys())))
+            await message.channel.send(ra.choice(dict_slot.keys()))
         #
         if qu == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
