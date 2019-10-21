@@ -38,7 +38,7 @@ def msg_response(qu):
         メッセージ呼び出しコマンド（dict_response.key）
     """
 
-    return dict_repetition[qu]
+    return dict_response[qu]
 
 #
 def msg_repetition(qu):
