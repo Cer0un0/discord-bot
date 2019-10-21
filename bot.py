@@ -133,7 +133,7 @@ def msg_slot(qu):
     return reply + dict_slot[qu]["word"][0]
 #
 #
-def do_slot(qu):
+def do_slot(message):
     """
     クエリに対応する、スロットを実行
 
@@ -141,6 +141,7 @@ def do_slot(qu):
     qu: sting
         メッセージ呼び出しコマンド（dict_slot.key）
     """
+    await message.channel.send("unbobo!")
 
     # # 当たりの処理結果を投稿
     # if result in dict_slot["atari"].keys():
@@ -182,11 +183,24 @@ async def on_message(message):
             await message.channel.send(msg_repetition(qu))
 
         # スロット
-        if qu == '/omikuji':
+        if qu in dict_slot.keys():
             await message.channel.send(msg_slot(qu))
+            do_slot(message)
+
+            # # 当たりの処理結果を投稿
+            # if result in dict_slot["atari"].keys():
+            #     qu_ = dict_slot["atari"][result]
+            #     if qu_ == "": # ランダムでクエリを実行
+            #         qu_ = ra.choice(dict_repetition.keys())
+            #         await message.channel.send(msg_repetition[qu_])
+            #     else:
+            #         if qu_ in dict_response: # 1つだけ応答の存在判定
+            #             await message.channel.send(msg_response[qu_])
+            #         if qu_ in dict_repetition: # 繰り返し応答の存在判定
+            #             await message.channel.send(msg_repetition[qu_])
         #
-        if qu == '/mslot':
-            msg_slot(mslot_list[ra.choice(mslot_list)])
+        if qu == '/slot':
+            await message.channel.send(msg_slot(ra.choice(dict_slot.keys())))
         #
         # if qu == '/ochinpo':
         #     str = ['お', 'ち', 'ん', 'ぽ']
