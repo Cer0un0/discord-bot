@@ -141,7 +141,8 @@ def do_slot(message):
     qu: sting
         メッセージ呼び出しコマンド（dict_slot.key）
     """
-    await message.channel.send("unbobo!")
+    pass
+    # await message.channel.send("unbobo!")
 
     # # 当たりの処理結果を投稿
     # if result in dict_slot["atari"].keys():
@@ -183,9 +184,8 @@ async def on_message(message):
             await message.channel.send(msg_repetition(qu))
 
         # スロット
-        await message.channel.send(qu)
+        # await message.channel.send(qu)
         if qu in dict_slot.keys():
-
             await message.channel.send(msg_slot(qu))
             # do_slot(message)
 
