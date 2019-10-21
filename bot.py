@@ -1,14 +1,18 @@
 # インストールした discord.py を読み込む
-# unbobo
 import random as ra
 import re
 import sys
 
 import discord
-#import chatbot
 
 # 自分のBotのアクセストークンに置き換えてください.
 TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa2-GA.5fmJoCILrpkylFoiCg4HmsNalj4'
+
+dict_repetition = {
+    "/unko": [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"],
+    "/kireji": [["ぶち", "ブチ"], "ィ", "ッ", "！", "💉"],
+    "/washlet": ["ン゛", "ッ", "！", "🙄", "💢"]
+}
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -16,35 +20,13 @@ client = discord.Client()
 def msg_neko():
     return "にゃーん"
 
-def msg_kireji():
+def msg_repetition(qu):
     reply = ""
-    s = ["ブチ", "ぶち"][ra.randrange(2)]
-
-    reply += s * ra.randrange(50)
-    reply += "ィ" * ra.randrange(10)
-    reply += "ッ" * ra.randrange(20)
-    reply += "！" * ra.randrange(30)
-
-    return reply
-
-def msg_washlet():
-    reply = ""
-    reply += "ン゛" * ra.randrange(10)
-    reply += "ッ" * ra.randrange(20)
-    reply += "！" * ra.randrange(30)
-    reply += ":rolling_eyes::anger:" * ra.randrange(30)
-
-    return reply
-
-def msg_unko():
-    reply = ""
-    s = ["ブリ", "モリ"][ra.randrange(2)]
-
-    reply += s * ra.randrange(50)
-    reply += "ィ" * ra.randrange(10)
-    reply += "ッ" * ra.randrange(20)
-    reply += "！" * ra.randrange(30)
-    reply += "💩" * ra.randrange(30)
+    for rep in dict_repetition[qu]:
+        if type(rep) is str:
+            reply += rep * ra.randrange(40)
+        else:
+            reply += rep[ra.randrange(len(rep))] * ra.randrange(60)
 
     return reply
 
@@ -116,27 +98,21 @@ async def on_message(message):
         return
 
     # オウム返し
-    for msg in message.content.split():
-        if msg == '/neko':
+    for qu in message.content.split():
+        if qu == '/neko':
             await message.channel.send(msg_neko())
 
-        if msg == '/unko':
-            await message.channel.send(msg_unko())
+        if qu in repeat_query.keys():
+            await message.channel.send(msg_repetition(qu))
 
-        if msg == '/kireji':
-            await message.channel.send(msg_kireji())
-
-        if msg == '/washlet':
-            await message.channel.send(msg_washlet())
-
-        if msg == '/omikuji':
+        if qu == '/omikuji':
             msg_ = msg_omikuji()
             await message.channel.send(msg_)
 
             if msg_ == "大便":
                 await message.channel.send(msg_unko())
 
-        if msg == '/slot':
+        if qu == '/slot':
             r = ra.randrange(5)
             if r == 0:
                 msg_ = msg_slot_hamako()
@@ -154,7 +130,7 @@ async def on_message(message):
             if msg_ == "ハマコー" or msg_ == "ダイコン" or msg_ == "ぜろホモ" or msg_ == "あらたん" or msg_ == "うんぼぼ":
                 await message.channel.send(msg_unko())
 
-        if msg == '/ochinpo':
+        if qu == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
             complete = 0
             cnt = 0
@@ -183,11 +159,11 @@ async def on_message(message):
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_unko()))
 
-        if ":poop" in msg:
-            reply = ""
-            reply += "ぶり" * [msg.count(":poop")]
-            reply += "っ"
-            await message.channel.send(reply)
+        # if ":poop" in msg:
+        #     reply = ""
+        #     reply += "ぶり" * [msg.count(":poop")]
+        #     reply += "っ"
+        #     await message.channel.send(reply)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
