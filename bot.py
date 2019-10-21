@@ -100,9 +100,8 @@ async def on_message(message):
 
     # オウム返し
     for qu in message.content.split():
-        await message.channel.send(qu)
-        continue
-        # qu = qu.rstrip('\n')
+        qu = qu.replace('\n','')
+        
         if qu == '/neko':
             await message.channel.send(msg_neko())
 
