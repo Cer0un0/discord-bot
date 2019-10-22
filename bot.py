@@ -193,7 +193,7 @@ async def on_message(message):
         return
 
     await message.channel.send(message)
-    await message.channel.send(str(discord.Client.emojis[1]))
+    await message.channel.send(str(client.emojis[1]))
     # 1行ずつ処理
     for msg in message.content.split('\n'):
         # 1回だけの応答用
