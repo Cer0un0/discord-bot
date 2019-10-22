@@ -249,17 +249,15 @@ async def on_message(message):
                 cnt = 0
                 is_proc = True
                 reply = ""
-                target = ''.join(map(str,[i for i in range(nemoji + nmoji)]))
-                await message.channel.send(nmoji)
-                await message.channel.send(nemoji)
+                target = ''.join(map(str,[i for i in range(len(li_query))]))
+
                 while is_proc:
                     # おちんぽシコリすぎないようにする
                     if cnt > 3000:
                         break
 
-                    reply += str(ra.randrange(nemoji+nmoji))
+                    reply += str(ra.randrange(len(li_query)))
                     is_proc = (reply[-len(target):] != target)
-                    break
 
                     cnt += 1
 
