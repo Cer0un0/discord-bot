@@ -233,7 +233,7 @@ async def on_message(message):
                 else:
                     li_query.append(moji.pop(0))
 
-            # await message.channel.send(li_query)
+            await message.channel.send(li_query)
             # await message.channel.send(query)
             # await message.channel.send(moji)
             # await message.channel.send(emoji)
@@ -242,8 +242,6 @@ async def on_message(message):
             # query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1:]
             # await message.channel.send(f"Query: {query} Length: {len(query)}")
 
-            await message.channel.send(nemoji)
-            await message.channel.send(nmoji)
 
             if nemoji + nmoji > 5: # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
@@ -262,8 +260,8 @@ async def on_message(message):
 
                     cnt += 1
 
-                for i, q in enumerate(li_query):
-                    reply = reply.replace(str(i), q)
+                # for i, q in enumerate(li_query):
+                #     reply = reply.replace(str(i), q)
 
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
