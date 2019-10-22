@@ -232,6 +232,7 @@ async def on_message(message):
                     li_query.append(moji.pop(0))
 
             # await message.channel.send(f"Query: {query} Length: {len(query)}")
+            await message.channel.send(li_query)
 
             if len(li_query) > 5: # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
