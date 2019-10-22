@@ -202,7 +202,7 @@ async def on_message(message):
             await do_slot(qu, message)
 
         # ダイス
-        PATTERN = '(\d+)d(\d+)'
+        PATTERN = '.*?(\d+)d(\d+)'
         if re.match(PATTERN, qu):
             await message.channel.send(msg_dice(PATTERN, qu))
 
