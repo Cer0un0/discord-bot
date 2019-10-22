@@ -218,7 +218,7 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
-            query = re.sub(r'<:[0-9|a-z|_]+:[0-9]+>', "_", msg.split()[1:])
+            query = re.sub(r'<:[0-9|a-z|_]+:[0-9]+>', "_", msg.split())
             emoji = re.findall('<:[0-9|a-z|_]+:[0-9]+>', query)
             moji = re.split('<:[0-9|a-z|_]+:[0-9]+>', query)
             nemoji = len(emoji)
