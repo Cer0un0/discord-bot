@@ -151,7 +151,7 @@ def msg_dice(pattern, qu):
     # サイコロ2個以上なら合計を出力
     sum_ = "" if len(dice) == 1 else f"(sum: {sum(dice)}"
 
-    return f"{', '.join(map(str, dice))} {sum_})"
+    return f"{', '.join(map(str, dice))} {sum_}"
 #
 #
 async def do_slot(qu, message):
