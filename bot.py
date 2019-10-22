@@ -177,16 +177,16 @@ async def on_message(message):
     for qu in message.content.split():
         # 1回だけの応答用
         if qu in dict_response.keys():
-            await message.channel.send(msg_response(qu))
+            message.channel.send(msg_response(qu))
 
         # 繰り返しの単語用
         if qu in dict_repetition.keys():
-            await message.channel.send(msg_repetition(qu))
+            message.channel.send(msg_repetition(qu))
 
         # スロット
         # await message.channel.send(qu)
         if qu in dict_slot.keys():
-            await message.channel.send(msg_slot(qu))
+            message.channel.send(msg_slot(qu))
 
             # # 当たりの処理結果を投稿
             # if result in dict_slot["atari"].keys():
@@ -204,7 +204,7 @@ async def on_message(message):
         if qu == '/slot':
             # await message.channel.send(msg_slot(ra.choice(dict_slot.keys())))
             a = ra.choice(dict_slot.keys())
-            await message.channel.send(a)
+            message.channel.send(a)
         #
         if qu == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
