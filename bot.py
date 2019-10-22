@@ -19,8 +19,8 @@ TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa34lA.Et8qCwcgqhsPGIUryBck-Fj_d4Q'
 
 # 1回応答するだけの単語辞書
 dict_response = {
-    "/neko"      : "にゃーん",
-    "/colorcorn" : ":colorcorn:"
+    "/neko"      : "にゃーん"
+    # "/colorcorn" : ":colorcorn:"
 }
 # ランダムで繰り返す単語辞書
 dict_repetition = {
@@ -47,8 +47,8 @@ dict_slot = {
     "/daikon"  : {
         "word"   : ["", ["ダイ", "カラー"], ["コン", "コーン"]],
         "atari"  : {
-            "ダイコン"   : "",
-            "カラーコーン": "/colorcorn"
+            "ダイコン"   : ""
+            # "カラーコーン": "/colorcorn"
         }
     },
     "/hamako"  : {
@@ -134,7 +134,7 @@ def msg_slot(qu):
     return reply + dict_slot[qu]["word"][0]
 #
 #
-def do_slot(message):
+async def do_slot(qu, message):
     """
     クエリに対応する、スロットを実行
 
@@ -142,20 +142,25 @@ def do_slot(message):
     qu: sting
         メッセージ呼び出しコマンド（dict_slot.key）
     """
-    # await message.channel.send("unbobo!")
-    pass
+    if qu == '/slot':
+        qu = ra.choice(list(dict_slot.keys()))
 
-    # # 当たりの処理結果を投稿
-    # if result in dict_slot["atari"].keys():
-    #     qu_ = dict_slot["atari"][result]
-    #     if qu_ == "": # ランダムでクエリを実行
-    #         qu_ = ra.choice(dict_repetition.keys())
-    #         await message.channel.send(msg_repetition[qu_])
-    #     else:
-    #         if qu_ in dict_response: # 1つだけ応答の存在判定
-    #             await message.channel.send(msg_response[qu_])
-    #         if qu_ in dict_repetition: # 繰り返し応答の存在判定
-    #             await message.channel.send(msg_repetition[qu_])
+    # 結果の投稿
+    result = msg_slot(qu)
+    await message.channel.send(result)
+
+    # 当たりの処理結果を投稿
+    if result in dict_slot[qu]["atari"].keys():
+        qu_ = dict_slot[qu]["atari"][result]
+
+        if qu_ == "":  # ランダムでクエリを実行
+            qu_ = ra.choice(list(dict_repetition.keys()))
+            await message.channel.send(msg_repetition(qu_))
+        else:
+            if qu_ in dict_response:  # 1つだけ応答の存在判定
+                await message.channel.send(msg_response(qu_))
+            if qu_ in dict_repetition:  # 繰り返し応答の存在判定
+                await message.channel.send(msg_repetition(qu_))
 
 
 # メッセージ受信時に動作する処理
@@ -185,26 +190,27 @@ async def on_message(message):
             await message.channel.send(msg_repetition(qu))
 
         # スロット
-        # await message.channel.send(qu)
         if qu in dict_slot.keys() or qu == '/slot':
-            if qu == '/slot':
-                qu = ra.choice(list(dict_slot.keys()))
-
-            result = msg_slot(qu)
-            await message.channel.send(result)
-
-            # 当たりの処理結果を投稿
-            if result in dict_slot[qu]["atari"].keys():
-                qu_ = dict_slot[qu]["atari"][result]
-
-                if qu_ == "": # ランダムでクエリを実行
-                    qu_ = ra.choice(list(dict_repetition.keys()))
-                    await message.channel.send(msg_repetition(qu_))
-                else:
-                    if qu_ in dict_response: # 1つだけ応答の存在判定
-                        await message.channel.send(msg_response(qu_))
-                    if qu_ in dict_repetition: # 繰り返し応答の存在判定
-                        await message.channel.send(msg_repetition(qu_))
+            await do_slot(qu, message)
+            # if qu == '/slot':
+            #     qu = ra.choice(list(dict_slot.keys()))
+            #
+            # # 結果の投稿
+            # result = msg_slot(qu)
+            # await message.channel.send(result)
+            #
+            # # 当たりの処理結果を投稿
+            # if result in dict_slot[qu]["atari"].keys():
+            #     qu_ = dict_slot[qu]["atari"][result]
+            #
+            #     if qu_ == "": # ランダムでクエリを実行
+            #         qu_ = ra.choice(list(dict_repetition.keys()))
+            #         await message.channel.send(msg_repetition(qu_))
+            #     else:
+            #         if qu_ in dict_response: # 1つだけ応答の存在判定
+            #             await message.channel.send(msg_response(qu_))
+            #         if qu_ in dict_repetition: # 繰り返し応答の存在判定
+            #             await message.channel.send(msg_repetition(qu_))
         #
         if qu == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
