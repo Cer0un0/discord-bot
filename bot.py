@@ -197,9 +197,8 @@ async def on_message(message):
 
     # 1行ずつ処理
     for msg in message.content.split('\n'):
-        await message.channel.send(re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg))
-        await message.channel.send(re.split('<:[0-9|a-z|_]+:[0-9]+>', msg))
-        break
+        # await message.channel.send(re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg))
+        # await message.channel.send(re.split('<:[0-9|a-z|_]+:[0-9]+>', msg))
 
         # 1回だけの応答用
         if msg in dict_response.keys():
@@ -219,6 +218,11 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
+            emoji = re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg)
+            msg.replace(r'<:[0-9|a-z|_]+:[0-9]+>', "u")
+            await message.channel.send(msg)
+            break
+
             query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1]
             await message.channel.send(f"Query: {query} Length: {len(query)}")
 
