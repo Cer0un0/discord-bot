@@ -149,7 +149,7 @@ def msg_dice(qu, pattern):
 
     # re.split('\d+', s_nums)
 
-    return qu
+    return (n, me)
 #
 #
 async def do_slot(qu, message):
@@ -207,7 +207,6 @@ async def on_message(message):
         # ダイス
         PATTERN = '(\d+)d(\d+)'
         if re.match(PATTERN, qu):
-            await message.channel.send(f"{PATTERN}, {qu}")
             await message.channel.send(msg_dice(qu, PATTERN))
 
         # おちんぽプログラム
