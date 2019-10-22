@@ -206,8 +206,8 @@ async def on_message(message):
 
         # ダイス
         PATTERN = '(\d+)d(\d+)'
-        await message.channel.send(re.match(PATTERN, qu))
         if re.match(PATTERN, qu):
+            await message.channel.send(f"{PATTERN}, {qu}")
             await message.channel.send(msg_dice(qu, PATTERN))
 
         # おちんぽプログラム
