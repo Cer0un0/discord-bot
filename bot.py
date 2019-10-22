@@ -226,14 +226,9 @@ async def on_message(message):
             nemoji = len(emoji)
             nmoji = len(moji)
 
-            await message.channel.send(msg)
-            await message.channel.send(query)
-            await message.channel.send(emoji)
-            await message.channel.send(moji)
-            break
             li_query = []
             for q in list(query):
-                if q == '_':
+                if q == '-':
                     li_query.append(emoji.pop(0))
                 else:
                     li_query,append(moji.pop(0))
