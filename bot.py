@@ -185,12 +185,17 @@ async def on_message(message):
 
         # スロット
         # await message.channel.send(qu)
-        if qu in dict_slot.keys():
+        if qu in dict_slot.keys()\
+                or qu == '/slot':
+            if qu == '/slot':
+                qu = ra.choice(list(dict_slot.keys()))
+
             result = msg_slot(qu)
             await message.channel.send(result)
 
             # 当たりの処理結果を投稿
             if result in dict_slot["atari"].keys():
+                await message.channel.send(qu)
                 qu_ = dict_slot["atari"][result]
                 if qu_ == "": # ランダムでクエリを実行
                     qu_ = ra.choice(dict_repetition.keys())
@@ -200,11 +205,6 @@ async def on_message(message):
                         await message.channel.send(msg_response[qu_])
                     if qu_ in dict_repetition: # 繰り返し応答の存在判定
                         await message.channel.send(msg_repetition[qu_])
-
-
-        if qu == '/slot':
-            # await message.channel.send(msg_slot(ra.choice(dict_slot.keys())))
-            await message.channel.send(msg_slot(ra.choice(list(dict_slot.keys()))))
         #
         if qu == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
