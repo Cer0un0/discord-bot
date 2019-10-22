@@ -232,6 +232,9 @@ async def on_message(message):
                     li_query.append(emoji.pop(0))
                 else:
                     li_query.append(moji.pop(0))
+
+            await message.channel.send(li_query)
+            break
             # await message.channel.send(li_query)
             # await message.channel.send(query)
             # await message.channel.send(moji)
@@ -258,8 +261,6 @@ async def on_message(message):
 
                     cnt += 1
 
-                await message.channel.send(li_query)
-                break
                 for i, q in enumerate(li_query):
                     reply = reply.replace(str(i), q)
 
