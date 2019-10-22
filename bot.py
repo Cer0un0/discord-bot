@@ -142,8 +142,7 @@ def msg_dice(pattern, qu):
         ダイス結果メッセージ
     """
 
-    return re.match(pattern, qu).group(1)
-    n, me = map(int, re.match(pattern, qu).group(1))
+    n, me = map(int, re.match(pattern, qu).group())
     reply = ""
     for i in range(n):
         reply += f"{ra.randrange(me) + 1}"
