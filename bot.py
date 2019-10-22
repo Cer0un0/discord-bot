@@ -142,7 +142,8 @@ def msg_dice(pattern, qu):
         ダイス結果メッセージ
     """
 
-    reply, n, me, tmp = re.split('(\d+)d(\d+)', qu)
+    # resplit = re.split('(\d+)d(\d+)', qu)
+    reply, n, me, tmp = tuple(re.split('(\d+)d(\d+)', qu))
     dice = [ra.randrange(me) + 1 for i in range(n)]
     # reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
 
