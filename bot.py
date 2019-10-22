@@ -257,7 +257,7 @@ async def on_message(message):
                     if cnt > 3000:
                         break
 
-                    reply += ra.choice(list(target))
+                    reply += ra.choice(list(li_target))
                     is_proc = (reply[-(len(target)*5):] != target)
 
                     cnt += 1
