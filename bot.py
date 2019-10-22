@@ -249,7 +249,7 @@ async def on_message(message):
                 cnt = 0
                 is_proc = True
                 reply = ""
-                target = "_-.?*"
+                target = "_-.,*"
 
                 while is_proc:
                     # おちんぽシコリすぎないようにする
