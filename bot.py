@@ -222,7 +222,7 @@ async def on_message(message):
             PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'
             query = re.sub(PATTERN, "-", msg)
             emoji = re.findall(PATTERN, msg)
-            moji = re.split(PATTERN, msg)
+            moji = query.split("-")
             nemoji = len(emoji)
             nmoji = len(moji)
 
