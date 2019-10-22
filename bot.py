@@ -219,11 +219,15 @@ async def on_message(message):
             reply = ""
             while is_proc:
                 # おちんぽシコリすぎないようにする
-                if cnt > 50000:
+                if cnt > 114514:
                     break
 
                 reply += ra.choice(list(query))
                 is_proc = (reply[-len(query):] != query)
+
+                if cnt % 100 == 0:
+                    await message.channel.send(cnt)
+
 
                 cnt += 1
 
