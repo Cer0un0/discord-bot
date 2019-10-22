@@ -142,8 +142,7 @@ def msg_dice(pattern, qu):
         ダイス結果メッセージ
     """
 
-    return pattern
-    
+    return re.match(pattern, qu).group(1)
     n, me = map(int, re.match(pattern, qu).group(1))
     reply = ""
     for i in range(n):
