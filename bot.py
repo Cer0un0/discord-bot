@@ -133,7 +133,7 @@ def msg_slot(qu):
     # 末尾の単語を付ける
     return reply + dict_slot[qu]["word"][0]
 
-def msg_dice(pattern, qu):
+def msg_dice(msg):
     """
     ダイス
 
@@ -142,7 +142,7 @@ def msg_dice(pattern, qu):
         ダイス結果メッセージ
     """
 
-    resplit = re.split('(\d+)d(\d+)', qu)
+    resplit = re.split('(\d+)d(\d+)', msg)
     n = int(resplit[1])
     me = int(resplit[2])
 
@@ -193,37 +193,37 @@ async def on_message(message):
         return
 
     # 1行ずつ処理
-    for qu in message.content.split():
+    for msg in message.content.split():
         # 1回だけの応答用
-        if qu in dict_response.keys():
-            await message.channel.send(msg_response(qu))
+        if msg in dict_response.keys():
+            await message.channel.send(msg_response(msg))
 
         # 繰り返しの単語用
-        if qu in dict_repetition.keys():
-            await message.channel.send(msg_repetition(qu))
+        if msg in dict_repetition.keys():
+            await message.channel.send(msg_repetition(msg))
 
         # スロット
-        if qu in dict_slot.keys() or qu == '/slot':
-            await do_slot(qu, message)
+        if msg in dict_slot.keys() or msg == '/slot':
+            await do_slot(msg, message)
 
         # ダイス
-        PATTERN = '.*(\d+)d(\d+)'
-        if re.match(PATTERN, qu):
-            await message.channel.send(msg_dice(PATTERN, qu))
+        if re.match('.*(\d+)d(\d+)', msg):
+            await message.channel.send(msg_dice(msg))
 
         # おちんぽプログラム
-        if qu == '/ochinpo':
-            str = ['お', 'ち', 'ん', 'ぽ']
-            complete = 0
+        if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
+            query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1]
             cnt = 0
-            rnd = 0
-            msg_ = ""
-            while complete < 4:
+            is_proc = True
+            reply = ""
+            while is_proc:
+                if cnt > 1000000:
+                    break
                 cnt += 1
-                rnd = ra.randint(0, 3)
-                msg_ += str[rnd]
-                complete = complete+1 if rnd == complete else 0
-            await message.channel.send(msg_)
+                reply += ra.choice(list(query))
+                is_proc = (reply[-len(query):] != query)
+
+            await message.channel.send(reply)
             await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         # if message.content.startswith('/ommc'):
@@ -238,8 +238,8 @@ async def on_message(message):
         #     player = voice.create_ffmpeg_player('ommc.mp3')
         #     player.start()
 
-        if "[" in qu:
-            await message.channel.send(qu.replace('[unko]', msg_repetition("/unko")))
+        if "[" in msg:
+            await message.channel.send(msg.replace('[unko]', msg_repetition("/unko")))
 
 
         # if ":poop" in msg:
