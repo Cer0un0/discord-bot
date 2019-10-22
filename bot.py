@@ -132,6 +132,24 @@ def msg_slot(qu):
 
     # 末尾の単語を付ける
     return reply + dict_slot[qu]["word"][0]
+
+def msg_dice(qu, pattern):
+    """
+    ダイス
+
+    ----------
+    qu: sting
+        ダイス結果メッセージ
+    """
+
+    n, me = map(int, re.match(pattern, qu).group(1))
+    reply = ""
+    for i in range(n):
+        reply += f"{ra.randrange(me) + 1}"
+
+    # re.split('\d+', s_nums)
+
+    return reply
 #
 #
 async def do_slot(qu, message):
@@ -142,6 +160,8 @@ async def do_slot(qu, message):
     qu: sting
         メッセージ呼び出しコマンド（dict_slot.key）
     """
+
+    # '/slot'の場合、ランダムにクエリを選択
     if qu == '/slot':
         qu = ra.choice(list(dict_slot.keys()))
 
@@ -170,15 +190,6 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if re.match('(\d+)d(\d+)', message.content):
-        n, me = map(int, message.content.split("d"))
-        reply = ""
-        for i in range(n):
-            reply += f"{ra.randrange(me)+1} "
-
-        await message.channel.send(reply)
-        return
-
     # 1行ずつ処理
     for qu in message.content.split():
         # 1回だけの応答用
@@ -192,26 +203,13 @@ async def on_message(message):
         # スロット
         if qu in dict_slot.keys() or qu == '/slot':
             await do_slot(qu, message)
-            # if qu == '/slot':
-            #     qu = ra.choice(list(dict_slot.keys()))
-            #
-            # # 結果の投稿
-            # result = msg_slot(qu)
-            # await message.channel.send(result)
-            #
-            # # 当たりの処理結果を投稿
-            # if result in dict_slot[qu]["atari"].keys():
-            #     qu_ = dict_slot[qu]["atari"][result]
-            #
-            #     if qu_ == "": # ランダムでクエリを実行
-            #         qu_ = ra.choice(list(dict_repetition.keys()))
-            #         await message.channel.send(msg_repetition(qu_))
-            #     else:
-            #         if qu_ in dict_response: # 1つだけ応答の存在判定
-            #             await message.channel.send(msg_response(qu_))
-            #         if qu_ in dict_repetition: # 繰り返し応答の存在判定
-            #             await message.channel.send(msg_repetition(qu_))
-        #
+
+        # ダイス
+        PATTERN = '.*(\d+)d(\d+)'
+        if re.match(PATTERN, qu):
+            await message.channel.send(msg_dice(qu, 'PATTERN'))
+
+        # おちんぽプログラム
         if qu == '/ochinpo':
             str = ['お', 'ち', 'ん', 'ぽ']
             complete = 0
