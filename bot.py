@@ -146,7 +146,8 @@ def msg_dice(pattern, qu):
     dice = [ra.randrange(me) + 1 for i in range(n)]
     reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
 
-    return f"{reply}{', '.join(map(str, dice))} (sum: {sum(dice)})"
+    return re.split(pattern, qu)
+    # return f"{reply}{', '.join(map(str, dice))} (sum: {sum(dice)})"
 #
 #
 async def do_slot(qu, message):
@@ -202,7 +203,7 @@ async def on_message(message):
             await do_slot(qu, message)
 
         # ダイス
-        PATTERN = '.*?(\d+)d(\d+)'
+        PATTERN = '(\d+)d(\d+)'
         if re.match(PATTERN, qu):
             await message.channel.send(msg_dice(PATTERN, qu))
 
