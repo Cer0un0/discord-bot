@@ -149,7 +149,7 @@ def msg_dice(pattern, qu):
     # サイコロふる
     dice = [ra.randrange(me) + 1 for i in range(n)]
     # サイコロ2個以上なら合計を出力
-    sum_ = "" if len(dice) == 1 else f"(sum: {sum(dice)}"
+    sum_ = "" if len(dice) == 1 else f"(sum: {sum(dice)})"
 
     return f"{', '.join(map(str, dice))} {sum_}"
 #
