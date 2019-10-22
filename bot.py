@@ -133,7 +133,7 @@ def msg_slot(qu):
     # 末尾の単語を付ける
     return reply + dict_slot[qu]["word"][0]
 
-def msg_dice(qu, pattern):
+def msg_dice(pattern, qu):
     """
     ダイス
 
@@ -142,6 +142,8 @@ def msg_dice(qu, pattern):
         ダイス結果メッセージ
     """
 
+    return pattern
+    
     n, me = map(int, re.match(pattern, qu).group(1))
     reply = ""
     for i in range(n):
@@ -207,7 +209,7 @@ async def on_message(message):
         # ダイス
         PATTERN = '(\d+)d(\d+)'
         if re.match(PATTERN, qu):
-            await message.channel.send(msg_dice(qu, PATTERN))
+            await message.channel.send(msg_dice(PATTERN, qu))
 
         # おちんぽプログラム
         if qu == '/ochinpo':
