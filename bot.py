@@ -237,7 +237,7 @@ async def on_message(message):
             #await message.channel.send(query)
             # await message.channel.send(moji)
             # await message.channel.send(emoji)
-            break
+
 
             # query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1:]
             # await message.channel.send(f"Query: {query} Length: {len(query)}")
@@ -250,6 +250,7 @@ async def on_message(message):
                 is_proc = True
                 reply = ""
                 target = ''.join(map(str,[i for i in range(nemoji + nmoji)]))
+                break
                 while is_proc:
                     # おちんぽシコリすぎないようにする
                     if cnt > 3000:
