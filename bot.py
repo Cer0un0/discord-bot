@@ -223,6 +223,10 @@ async def on_message(message):
             moji = re.split('<:[0-9|a-z|_]+:[0-9]+>', query)
             nemoji = len(emoji)
             nmoji = len(moji)
+            await message.channel.send(query)
+            await message.channel.send(moji)
+            await message.channel.send(emoji)
+            break
 
             li_query = []
             for q in list(query):
