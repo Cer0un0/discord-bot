@@ -220,7 +220,7 @@ async def on_message(message):
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
             msg = ''.join(msg.split()[1:])
             PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'
-            query = re.sub(PATTERN, "-", msg)
+            query = "おちんぽ" if len(msg.split()) == 1 else re.sub(PATTERN, "-", msg)
             emoji = re.findall(PATTERN, msg)
             moji = query.split("-")[1:]
             nemoji = len(emoji)
@@ -232,16 +232,6 @@ async def on_message(message):
                     li_query.append(emoji.pop(0))
                 else:
                     li_query.append(q)
-
-            await message.channel.send(query)
-            await message.channel.send(li_query)
-            # await message.channel.send(moji)
-            # await message.channel.send(emoji)
-
-
-            # query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1:]
-            # await message.channel.send(f"Query: {query} Length: {len(query)}")
-
 
             if nemoji + nmoji > 5: # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
