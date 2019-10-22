@@ -197,7 +197,7 @@ async def on_message(message):
 
     # 1行ずつ処理
     for msg in message.content.split('\n'):
-        await message.channel.send(re.match(':(.+):(\d+)', msg))
+        await message.channel.send(re.match(':(.+):(\d+)', msg).group())
         # 1回だけの応答用
         if msg in dict_response.keys():
             await message.channel.send(msg_response(msg))
