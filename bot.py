@@ -213,7 +213,7 @@ async def on_message(message):
         # おちんぽプログラム
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
             query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1]
-            await message.channel.send(f"Query: {query}")
+            await message.channel.send(f"Query: {query} Length: {len(query)}")
 
             if len(query) > 5: # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
