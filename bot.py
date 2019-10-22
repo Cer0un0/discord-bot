@@ -190,12 +190,11 @@ async def on_message(message):
                 qu = ra.choice(list(dict_slot.keys()))
 
             result = msg_slot(qu)
-            # await message.channel.send(result)
+            await message.channel.send(result)
 
             # 当たりの処理結果を投稿
-            await message.channel.send(dict_slot["atari"].keys())
             if result in dict_slot["atari"].keys():
-                qu_ = dict_slot["atari"][result]
+                qu_ = dict_slot[qu]["atari"][result]
                 if qu_ == "": # ランダムでクエリを実行
                     qu_ = ra.choice(dict_repetition.keys())
                     await message.channel.send(msg_repetition[qu_])
