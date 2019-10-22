@@ -249,20 +249,20 @@ async def on_message(message):
                 cnt = 0
                 is_proc = True
                 reply = ""
-                target = ''.join(map(str,[i for i in range(len(li_query))]))
+                target = ["_", "-", ".", "?", "*"]
 
                 while is_proc:
                     # おちんぽシコリすぎないようにする
                     if cnt > 3000:
                         break
 
-                    reply += str(ra.randrange(len(li_query)))
+                    reply += ra.choice(target)
                     is_proc = (reply[-len(target):] != target)
 
                     cnt += 1
 
                 for i, q in enumerate(li_query):
-                    reply = reply.replace(str(i), q)
+                    reply = reply.replace(target[i], q)
 
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
