@@ -142,14 +142,16 @@ def msg_dice(pattern, qu):
         ダイス結果メッセージ
     """
 
-    # 文章, 個数, 目, 後ろの文章
     resplit = re.split('(\d+)d(\d+)', qu)
-    # reply, n, me, tmp = tuple(re.split('(\d+)d(\d+)', qu))
-    dice = [ra.randrange(int(resplit[2])) + 1 for i in range(int(resplit[1]))]
-    reply =  '' if resplit[0] == '' else f"{resplit[0]}: "
+    n = int(resplit[1])
+    me = int(resplit[2])
 
-    # return dice
-    return f"{reply}{', '.join(map(str, dice))} (sum: {sum(dice)})"
+    # サイコロふる
+    dice = [ra.randrange(me) + 1 for i in range(n)]
+    # サイコロ2個以上なら合計を出力
+    sum_ = "" if len(dice) == 1 else f"(sum: {sum(dice)}"
+
+    return f"{', '.join(map(str, dice))} {sum_})"
 #
 #
 async def do_slot(qu, message):
