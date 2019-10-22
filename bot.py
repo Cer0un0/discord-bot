@@ -229,6 +229,8 @@ async def on_message(message):
             li_query = []
             for q in list(query):
                 await message.channel.send(li_query)
+                await message.channel.send(emoji)
+                await message.channel.send(moji)
                 if q == '-':
                     li_query.append(emoji.pop(0))
                 else:
