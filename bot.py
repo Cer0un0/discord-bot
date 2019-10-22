@@ -249,7 +249,8 @@ async def on_message(message):
                 cnt = 0
                 is_proc = True
                 reply = ""
-                target = ",.-^+"
+                li_target = ["unbo1", "unbo2", "unbo3", "unbo4", "unbo5"]
+                target = "".join(li_target[:len(li_query)])
 
                 while is_proc:
                     # おちんぽシコリすぎないようにする
@@ -257,14 +258,14 @@ async def on_message(message):
                         break
 
                     reply += ra.choice(list(target))
-                    is_proc = (reply[-len(target):] != target)
+                    is_proc = (reply[-(len(target)*5):] != target)
 
                     cnt += 1
 
                 for i, q in enumerate(li_query):
-                    await message.channel.send(target[i])
+                    await message.channel.send(li_target[i])
                     await message.channel.send(q)
-                    reply = reply.replace(target[i], q)
+                    reply = reply.replace(li_target[i], q)
 
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
