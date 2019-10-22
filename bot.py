@@ -258,8 +258,8 @@ async def on_message(message):
                         break
 
                     reply += ra.choice(list(li_target))
-                    is_proc = (reply[-(len(target)*5):] != target)
-                    await message.channel.send(reply[-(len(target)*5):])
+                    is_proc = (reply[-(len(li_query)*5):] != target)
+                    await message.channel.send(reply[-(len(li_query)):])
 
                     cnt += 1
 
