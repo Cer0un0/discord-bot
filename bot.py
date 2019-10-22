@@ -19,7 +19,7 @@ TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa34lA.Et8qCwcgqhsPGIUryBck-Fj_d4Q'
 
 # 1回応答するだけの単語辞書
 dict_response = {
-    "/neko"      : "にゃーん"
+    "/neko"      : "にゃーん",
     "/colorcorn" : "colorcorn"
 }
 # ランダムで繰り返す単語辞書
