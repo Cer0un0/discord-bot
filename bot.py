@@ -144,9 +144,9 @@ def msg_dice(pattern, qu):
 
     n, me = map(int, re.match(pattern, qu).group().split("d"))
     dice = [ra.randrange(me) + 1 for i in range(n)]
-    reply =  re.split(pattern, qu)[0]
+    reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
 
-    return f"{reply}: {dice} ({sum(dice)})"
+    return f"{reply}: {', '.join(dice)} ({sum(dice)})"
     # return re.split(pattern, qu)
 #
 #
