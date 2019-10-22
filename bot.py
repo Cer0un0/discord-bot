@@ -185,13 +185,12 @@ async def on_message(message):
 
         # スロット
         # await message.channel.send(qu)
-        if qu in dict_slot.keys()\
-                or qu == '/slot':
+        if qu in dict_slot.keys() or qu == '/slot':
             if qu == '/slot':
                 qu = ra.choice(list(dict_slot.keys()))
 
             result = msg_slot(qu)
-            await message.channel.send(result)
+            # await message.channel.send(result)
 
             # 当たりの処理結果を投稿
             await message.channel.send(dict_slot["atari"].keys())
