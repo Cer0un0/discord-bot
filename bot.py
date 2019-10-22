@@ -259,12 +259,10 @@ async def on_message(message):
 
                     reply += ra.choice(list(li_target))
                     is_proc = (reply[-(len(li_query)*5):] != target)
-                    await message.channel.send(reply[-(len(li_query)*5):])
 
                     cnt += 1
 
                 for i, q in enumerate(li_query):
-                    await message.channel.send(reply)
                     reply = reply.replace(li_target[i], q)
 
                 await message.channel.send(reply)
