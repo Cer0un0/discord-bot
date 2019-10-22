@@ -146,7 +146,8 @@ def msg_dice(pattern, qu):
     dice = [ra.randrange(me) + 1 for i in range(n)]
     reply =  re.split(pattern, qu)[0]
 
-    return f"{reply}: {', '.join(dice)} ({sum(dice)})"
+    # return f"{reply}: {', '.join(dice)} ({sum(dice)})"
+    return dice
 #
 #
 async def do_slot(qu, message):
