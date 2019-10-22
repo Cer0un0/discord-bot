@@ -219,7 +219,7 @@ async def on_message(message):
         # おちんぽプログラム
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
             emoji = re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg)
-            msg.replace(r'<:[0-9|a-z|_]+:[0-9]+>', "u")
+            msg = re.sub(r'<:[0-9|a-z|_]+:[0-9]+>', "u", msg)
             await message.channel.send(msg)
             break
 
