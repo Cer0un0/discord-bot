@@ -149,7 +149,7 @@ def msg_dice(qu, pattern):
 
     # re.split('\d+', s_nums)
 
-    return reply
+    return qu
 #
 #
 async def do_slot(qu, message):
