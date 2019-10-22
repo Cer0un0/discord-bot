@@ -197,7 +197,7 @@ async def on_message(message):
 
     # 1行ずつ処理
     for msg in message.content.split('\n'):
-        await message.channel.send(re.findall('((.*)<(.+):(\d+)>(.*))', msg))
+        await message.channel.send(re.findall('(.*)(<)(.+)(:)(\d+)(>)(.*)', msg))
         break
 
         # 1回だけの応答用
