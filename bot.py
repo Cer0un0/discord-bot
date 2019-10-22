@@ -225,6 +225,8 @@ async def on_message(message):
             nemoji = len(emoji)
             nmoji = len(moji)
 
+            await message.channel.send(emoji)
+            break
             li_query = []
             for q in list(query):
                 if q == '_':
