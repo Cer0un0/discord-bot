@@ -218,14 +218,15 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
-            query = re.sub(r'<:[0-9|a-z|_]+:[0-9]+>', "_", msg.split())
+            query = re.sub(r'<:[0-9|a-z|_]+:[0-9]+>', "_", msg.split()[1])
             emoji = re.findall('<:[0-9|a-z|_]+:[0-9]+>', query)
             moji = re.split('<:[0-9|a-z|_]+:[0-9]+>', query)
             nemoji = len(emoji)
             nmoji = len(moji)
+            await message.channel.send(msg)
             await message.channel.send(query)
-            await message.channel.send(moji)
-            await message.channel.send(emoji)
+            # await message.channel.send(moji)
+            # await message.channel.send(emoji)
             break
 
             li_query = []
