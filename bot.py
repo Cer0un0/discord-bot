@@ -19,7 +19,8 @@ TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa34lA.Et8qCwcgqhsPGIUryBck-Fj_d4Q'
 
 # 1回応答するだけの単語辞書
 dict_response = {
-    "/neko"    : "にゃーん"
+    "/neko"      : "にゃーん"
+    "/colorcorn" : "colorcorn"
 }
 # ランダムで繰り返す単語辞書
 dict_repetition = {
@@ -47,7 +48,7 @@ dict_slot = {
         "word"   : ["", ["ダイ", "カラー"], ["コン", "コーン"]],
         "atari"  : {
             "ダイコン"   : "",
-            "カラーコーン": ":colorcorn:"
+            "カラーコーン": "/colorcorn"
         }
     },
     "/hamako"  : {
@@ -196,7 +197,7 @@ async def on_message(message):
             if result in dict_slot["atari"].keys():
                 qu_ = dict_slot[qu]["atari"][result]
                 if qu_ == "": # ランダムでクエリを実行
-                    qu_ = ra.choice(dict_repetition.keys())
+                    qu_ = ra.choice(list(dict_repetition.keys()))
                     await message.channel.send(msg_repetition[qu_])
                 else:
                     if qu_ in dict_response: # 1つだけ応答の存在判定
