@@ -196,6 +196,7 @@ async def on_message(message):
             # 当たりの処理結果を投稿
             if result in dict_slot["atari"].keys():
                 qu_ = dict_slot[qu]["atari"][result]
+                await message.channel.send(qu_)
                 if qu_ == "": # ランダムでクエリを実行
                     qu_ = ra.choice(list(dict_repetition.keys()))
                     await message.channel.send(msg_repetition[qu_])
