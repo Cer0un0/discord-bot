@@ -147,7 +147,7 @@ def msg_dice(pattern, qu):
     reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
 
     # return f"{reply}: {', '.join(dice)} ({sum(dice)})"
-    return ', '.join(dice)
+    return ' '.join(dice)
 #
 #
 async def do_slot(qu, message):
