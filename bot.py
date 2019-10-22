@@ -193,7 +193,7 @@ async def on_message(message):
         return
 
     # 1行ずつ処理
-    for msg in message.content.split():
+    for msg in message.content.split('\n'):
         # 1回だけの応答用
         if msg in dict_response.keys():
             await message.channel.send(msg_response(msg))
