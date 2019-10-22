@@ -214,21 +214,24 @@ async def on_message(message):
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
             query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1]
 
-            cnt = 0
-            is_proc = True
-            reply = ""
-            while is_proc:
-                # おちんぽシコリすぎないようにする
-                if cnt > 3000:
-                    break
+            if len(query) >= 5:
+                await message.channel.send("おちんぽおっきすぎだよぉ...")
+            else:
+                cnt = 0
+                is_proc = True
+                reply = ""
+                while is_proc:
+                    # おちんぽシコリすぎないようにする
+                    if cnt > 3000:
+                        break
 
-                reply += ra.choice(list(query))
-                is_proc = (reply[-len(query):] != query)
+                    reply += ra.choice(list(query))
+                    is_proc = (reply[-len(query):] != query)
 
-                cnt += 1
+                    cnt += 1
 
-            await message.channel.send(reply)
-            await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
+                await message.channel.send(reply)
+                await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
