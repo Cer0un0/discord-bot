@@ -192,10 +192,12 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    await message.channel.send(message.content)
-    await message.channel.send(str(client.emojis[0]))
+    # await message.channel.send(message.content)
+    # await message.channel.send(str(client.emojis[0]))
+
     # 1行ずつ処理
     for msg in message.content.split('\n'):
+        await message.channel.send(re.match(':(.+):(\d+)', msg))
         # 1回だけの応答用
         if msg in dict_response.keys():
             await message.channel.send(msg_response(msg))
