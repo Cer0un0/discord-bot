@@ -212,8 +212,8 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
-            query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1]
-            await message.channel.send(query)
+            query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[2]
+            await message.channel.send(msg.split())
 
             cnt = 0
             is_proc = True
