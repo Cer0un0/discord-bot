@@ -142,11 +142,11 @@ def msg_dice(pattern, qu):
         ダイス結果メッセージ
     """
 
-    n, me = map(int, re.match(pattern, qu).group().split("d"))
+    reply, n, me, tmp = re.split('(\d+)d(\d+)', qu)
     dice = [ra.randrange(me) + 1 for i in range(n)]
-    reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
+    # reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
 
-    return (re.match(pattern, qu).group())
+    return reply
     # return f"{reply}{', '.join(map(str, dice))} (sum: {sum(dice)})"
 #
 #
