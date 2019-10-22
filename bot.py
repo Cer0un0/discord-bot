@@ -142,12 +142,13 @@ def msg_dice(pattern, qu):
         ダイス結果メッセージ
     """
 
-    # resplit = re.split('(\d+)d(\d+)', qu)
+    # 文章, 個数, 目, 後ろの文章
+    resplit = re.split('(\d+)d(\d+)', qu)
     # reply, n, me, tmp = tuple(re.split('(\d+)d(\d+)', qu))
-    # dice = [ra.randrange(me) + 1 for i in range(n)]
-    # reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
+    dice = [ra.randrange(int(resplit[2])) + 1 for i in range(int(resplit[1]))]
+    reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
 
-    return tuple(re.split('(\d+)d(\d+)', qu))
+    return dice
     # return f"{reply}{', '.join(map(str, dice))} (sum: {sum(dice)})"
 #
 #
