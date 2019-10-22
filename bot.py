@@ -220,9 +220,11 @@ async def on_message(message):
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
             msg = ''.join(msg.split()[1:])
             PATTERN = r'<:[0-9|a-z|_]+:[0-9]+>'
-            query = "おちんぽ" if len(msg.split()) == 1 else re.sub(PATTERN, "-", msg)
+            query = re.sub(PATTERN, "-", msg)
             emoji = re.findall(PATTERN, msg)
             moji = re.split(PATTERN, msg)
+            nemoji = len(emoji)
+            nmoji = len(moji)
 
             li_query = []
             for q in list(query):
@@ -230,26 +232,32 @@ async def on_message(message):
                     li_query.append(emoji.pop(0))
                 else:
                     li_query.append(moji.pop(0))
-
-            # await message.channel.send(f"Query: {query} Length: {len(query)}")
             await message.channel.send(li_query)
+            await message.channel.send(query)
+            await message.channel.send(moji)
+            await message.channel.send(emoji)
+            break
 
-            if len(li_query) > 5: # おちんぽおっきいときは処理してあげない
+            query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1:]
+            await message.channel.send(f"Query: {query} Length: {len(query)}")
+
+            if nemoji + nmoji > 5: # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
             else:# おちんぽちっちゃいときは処理
                 cnt = 0
                 is_proc = True
                 reply = ""
-                target = ''.join(map(str,[i for i in range(len(li_query))]))
+                target = ''.join(map(str,[i for i in range(nemoji + nmoji)]))
                 while is_proc:
                     # おちんぽシコリすぎないようにする
                     if cnt > 3000:
                         break
 
-                    reply += str(ra.randrange(len(li_query)))
+                    reply += str(ra.randrange(nemoji+nmoji))
                     is_proc = (reply[-len(target):] != target)
 
                     cnt += 1
+
 
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
