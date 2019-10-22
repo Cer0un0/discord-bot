@@ -234,10 +234,10 @@ async def on_message(message):
                     li_query.append(moji.pop(0))
 
             await message.channel.send(li_query)
-            # await message.channel.send(query)
+            #await message.channel.send(query)
             # await message.channel.send(moji)
             # await message.channel.send(emoji)
-            # break
+            break
 
             # query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1:]
             # await message.channel.send(f"Query: {query} Length: {len(query)}")
