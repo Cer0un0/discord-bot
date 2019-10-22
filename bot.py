@@ -143,13 +143,10 @@ def msg_dice(pattern, qu):
     """
 
     n, me = map(int, re.match(pattern, qu).group().split("d"))
-    reply = ""
-    for i in range(n):
-        reply += f"{ra.randrange(me) + 1}"
+    dice = [ra.randrange(me) + 1 for i in range(n)]
+    reply =  re.split(pattern, qu)[0]
 
-    # re.split('\d+', s_nums)
-
-    return (n, me)
+    return f"{reply}: {', '.join(dice)} ({sum(dice)})"
 #
 #
 async def do_slot(qu, message):
