@@ -258,9 +258,8 @@ async def on_message(message):
 
                     cnt += 1
 
-
+                await message.channel.send(li_query)
                 for i, q in enumerate(li_query):
-                    await message.channel.send(str(i))
                     reply = reply.replace(str(i), q)
 
                 await message.channel.send(reply)
