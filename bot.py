@@ -146,10 +146,10 @@ def msg_dice(pattern, qu):
     resplit = re.split('(\d+)d(\d+)', qu)
     # reply, n, me, tmp = tuple(re.split('(\d+)d(\d+)', qu))
     dice = [ra.randrange(int(resplit[2])) + 1 for i in range(int(resplit[1]))]
-    reply =  '' if re.split(pattern, qu)[0] == '' else f"{re.split(pattern, qu)[0]}: "
+    reply =  '' if resplit[0] == '' else f"{resplit[0]}: "
 
-    return dice
-    # return f"{reply}{', '.join(map(str, dice))} (sum: {sum(dice)})"
+    # return dice
+    return f"{reply}{', '.join(map(str, dice))} (sum: {sum(dice)})"
 #
 #
 async def do_slot(qu, message):
