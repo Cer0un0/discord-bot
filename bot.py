@@ -222,22 +222,18 @@ async def on_message(message):
             PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'
             query = re.sub(PATTERN, "-", msg)
             emoji = re.findall(PATTERN, msg)
-            moji = query.split("-")
+            moji = query.split("-")[1]
             nemoji = len(emoji)
             nmoji = len(moji)
 
             li_query = []
             for q in list(query):
-                await message.channel.send(li_query)
-                await message.channel.send(emoji)
-                await message.channel.send(moji)
                 if q == '-':
                     li_query.append(emoji.pop(0))
                 else:
                     li_query.append(moji.pop(0))
 
             await message.channel.send(li_query)
-            await message.channel.send(moji)
             break
             # await message.channel.send(li_query)
             # await message.channel.send(query)
