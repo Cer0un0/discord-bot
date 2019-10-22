@@ -218,29 +218,32 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
-            emoji = re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg)
-            msg = re.sub(r'<:[0-9|a-z|_]+:[0-9]+>', "u", msg)
+            msg = re.sub(r'<:[0-9|a-z|_]+:[0-9]+>', "_", msg.split()[1])
+            nemoji = len(re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg))
+            nmoji = len(re.split('<:[0-9|a-z|_]+:[0-9]+>', msg))
             await message.channel.send(msg)
             break
 
             query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1]
             await message.channel.send(f"Query: {query} Length: {len(query)}")
 
-            if len(query) > 5: # おちんぽおっきいときは処理してあげない
+            if nemoji + nmoji > 5: # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
             else:# おちんぽちっちゃいときは処理
                 cnt = 0
                 is_proc = True
                 reply = ""
+                target = ''.join(map(str,[i for i in range(nemoji + nmoji)]))
                 while is_proc:
                     # おちんぽシコリすぎないようにする
                     if cnt > 3000:
                         break
 
-                    reply += ra.choice(list(query))
-                    is_proc = (reply[-len(query):] != query)
+                    reply += str(ra.randrange(nemoji+nmoji))
+                    is_proc = (reply[-len(target):] != target)
 
                     cnt += 1
+
 
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
