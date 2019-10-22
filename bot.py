@@ -213,15 +213,20 @@ async def on_message(message):
         # おちんぽプログラム
         if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
             query = "おちんぽ" if len(msg.split()) == 1 else msg.split()[1]
+            await message.channel.send(query)
+
             cnt = 0
             is_proc = True
             reply = ""
             while is_proc:
+                # おちんぽシコリすぎないようにする
                 if cnt > 1000000:
                     break
-                cnt += 1
+
                 reply += ra.choice(list(query))
                 is_proc = (reply[-len(query):] != query)
+
+                cnt += 1
 
             await message.channel.send(reply)
             await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
