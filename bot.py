@@ -197,8 +197,8 @@ async def on_message(message):
 
     # 1行ずつ処理
     for msg in message.content.split('\n'):
-        await message.channel.send(re.split('(.*<.+:\d+>.*)', msg))
-        await message.channel.send(re.findall('(.*<.+:\d+>.*)', msg)[0])
+        await message.channel.send(re.split('<.+:\d+>', msg))
+        await message.channel.send(re.findall('(<.+:\d+>)', msg)[0])
         break
 
         # 1回だけの応答用
