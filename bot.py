@@ -233,7 +233,7 @@ async def on_message(message):
                 else:
                     li_query.append(q)
 
-            if nemoji + nmoji > 4: # おちんぽおっきいときは処理してあげない
+            if len(li_query) > 4: # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
             else:# おちんぽちっちゃいときは処理
                 cnt = 0
