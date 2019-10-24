@@ -238,22 +238,29 @@ async def on_message(message):
             else:# おちんぽちっちゃいときは処理
                 cnt = 0
                 is_proc = True
-                reply = ""
                 li_target = ["unbo1", "unbo2", "unbo3", "unbo4", "unbo5"][:len(li_query)]
+                li_reply = []
                 target = "".join(li_target)
 
                 while is_proc:
                     # おちんぽシコリすぎないようにする
-                    if cnt > 3000:
+                    if cnt > 114514:
                         break
 
-                    reply += ra.choice(list(li_target))
-                    is_proc = (reply[-(len(li_query)*5):] != target)
+                    li_reply.append(ra.choice(list(li_target)))
+                    is_proc = ''.join(li_reply[-len(li_query):]) != target
 
                     cnt += 1
 
-                for i, q in enumerate(li_query):
-                    reply = reply.replace(li_target[i], q)
+                reply = ""
+                for i, r in enumerate(li_reply):
+                    reply = li_query[li_reply.index(r)]
+
+                    if i+1 % 50 == 0:
+                        await message.channel.send(reply)
+                        reply = ""
+
+
 
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
