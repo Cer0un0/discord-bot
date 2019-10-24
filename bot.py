@@ -188,105 +188,105 @@ async def do_slot(qu, message):
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
-    try:
-        # メッセージ送信者がBotだった場合は無視する
-        if message.author.bot:
-            return
+    # メッセージ送信者がBotだった場合は無視する
+    if message.author.bot:
+        return
 
-        # await message.channel.send(message.content)
-        # await message.channel.send(str(client.emojis[0]))
+    # await message.channel.send(message.content)
+    # await message.channel.send(str(client.emojis[0]))
 
-        # 1行ずつ処理
-        for msg in message.content.split('\n'):
-            # await message.channel.send(re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg))
-            # await message.channel.send(re.split('<:[0-9|a-z|_]+:[0-9]+>', msg))
+    # 1行ずつ処理
+    for msg in message.content.split('\n'):
+        # await message.channel.send(re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg))
+        # await message.channel.send(re.split('<:[0-9|a-z|_]+:[0-9]+>', msg))
 
-            # 1回だけの応答用
-            if msg in dict_response.keys():
-                await message.channel.send(msg_response(msg))
+        # 1回だけの応答用
+        if msg in dict_response.keys():
+            await message.channel.send(msg_response(msg))
 
-            # 繰り返しの単語用
-            if msg in dict_repetition.keys():
-                await message.channel.send(msg_repetition(msg))
+        # 繰り返しの単語用
+        if msg in dict_repetition.keys():
+            await message.channel.send(msg_repetition(msg))
 
-            # スロット
-            if msg in dict_slot.keys() or msg == '/slot':
-                await do_slot(msg, message)
+        # スロット
+        if msg in dict_slot.keys() or msg == '/slot':
+            await do_slot(msg, message)
 
-            # ダイス
-            if re.match('.*(\d+)d(\d+)', msg):
-                await message.channel.send(msg_dice(msg))
+        # ダイス
+        if re.match('.*(\d+)d(\d+)', msg):
+            await message.channel.send(msg_dice(msg))
 
-            # おちんぽプログラム
-            if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
-                msg = ''.join(msg.split()[1:])
-                PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'
-                query = "おちんぽ" if len(msg.split()) == 0 else re.sub(PATTERN, "-", msg)
-                emoji = re.findall(PATTERN, msg)
-                moji = query.split("-")[1:]
-                nemoji = len(emoji)
-                nmoji = len(moji)
+        # おちんぽプログラム
+        if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
+            msg = ''.join(msg.split()[1:])
+            PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'
+            query = "おちんぽ" if len(msg.split()) == 0 else re.sub(PATTERN, "-", msg)
+            emoji = re.findall(PATTERN, msg)
+            moji = query.split("-")[1:]
+            nemoji = len(emoji)
+            nmoji = len(moji)
 
-                li_query = []
-                for q in list(query):
-                    if q == '-':
-                        li_query.append(emoji.pop(0))
-                    else:
-                        li_query.append(q)
+            li_query = []
+            for q in list(query):
+                if q == '-':
+                    li_query.append(emoji.pop(0))
+                else:
+                    li_query.append(q)
 
-                if nemoji + nmoji > 4: # おちんぽおっきいときは処理してあげない
-                    await message.channel.send("おちんぽおっきすぎだよぉ...")
-                else:# おちんぽちっちゃいときは処理
-                    cnt = 0
-                    is_proc = True
-                    li_target = ["unbo1", "unbo2", "unbo3", "unbo4", "unbo5"][:len(li_query)]
-                    li_reply = []
-                    target = "".join(li_target)
+            if nemoji + nmoji > 4: # おちんぽおっきいときは処理してあげない
+                await message.channel.send("おちんぽおっきすぎだよぉ...")
+            else:# おちんぽちっちゃいときは処理
+                cnt = 0
+                is_proc = True
+                li_target = ["unbo1", "unbo2", "unbo3", "unbo4", "unbo5"][:len(li_query)]
+                li_reply = []
+                target = "".join(li_target)
 
-                    while is_proc:
-                        # おちんぽシコリすぎないようにする
-                        if cnt > 114514:
-                            break
+                while is_proc:
+                    # おちんぽシコリすぎないようにする
+                    if cnt > 114514:
+                        break
 
-                        li_reply.append(ra.choice(list(li_target)))
-                        is_proc = ''.join(li_reply[-len(li_query):]) != target
+                    li_reply.append(ra.choice(list(li_target)))
+                    is_proc = ''.join(li_reply[-len(li_query):]) != target
 
-                        cnt += 1
+                    cnt += 1
 
-                    reply = ""
-                    for i, r in enumerate(li_reply):
-                        reply += li_query[li_reply.index(r)]
-
-                        if (i+1) % 50 == 0:
-                            await message.channel.send(reply)
-                            reply = ""
-
-
-
+                reply = ""
+                for i, r in enumerate(li_reply):
+                    reply += li_query[li_reply.index(r)]
                     await message.channel.send(reply)
-                    await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
-            # if message.content.startswith('/ommc'):
-            #    channel = client.get_channel('nyr')
-            #
-            #    if client.is_voice_connected(channel.server):
-            #        voice = client.voice_client_in(channel.server)
-            #    else:
-            #        voice = await client.join_voice_channel(channel)
-            #
-            #     #mp3ファイルはこのプログラムと同じ階層の場所に入れること.
-            #     player = voice.create_ffmpeg_player('ommc.mp3')
-            #     player.start()
+                    if (i+1) % 50 == 0:
+                        await message.channel.send(reply)
+                        reply = ""
 
-            if "[" in msg:
-                await message.channel.send(msg.replace('[unko]', msg_repetition("/unko")))
-            # if ":poop" in msg:
-            #     reply = ""
-            #     reply += "ぶり" * [msg.count(":poop")]
-            #     reply += "っ"
-            #     await message.channel.send(reply)
-    except:
-        await message.channel.send("便秘なう")
+
+
+                await message.channel.send(reply)
+                await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
+
+        # if message.content.startswith('/ommc'):
+        #    channel = client.get_channel('nyr')
+        #
+        #    if client.is_voice_connected(channel.server):
+        #        voice = client.voice_client_in(channel.server)
+        #    else:
+        #        voice = await client.join_voice_channel(channel)
+        #
+        #     #mp3ファイルはこのプログラムと同じ階層の場所に入れること.
+        #     player = voice.create_ffmpeg_player('ommc.mp3')
+        #     player.start()
+
+        if "[" in msg:
+            await message.channel.send(msg.replace('[unko]', msg_repetition("/unko")))
+
+
+        # if ":poop" in msg:
+        #     reply = ""
+        #     reply += "ぶり" * [msg.count(":poop")]
+        #     reply += "っ"
+        #     await message.channel.send(reply)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
