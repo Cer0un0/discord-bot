@@ -255,6 +255,7 @@ async def on_message(message):
                 reply = ""
                 for i, r in enumerate(li_reply):
                     reply += li_query[li_reply.index(r)]
+                    await message.channel.send((i+1) % 50)
 
                     if (i+1) % 50 == 0:
                         await message.channel.send(reply)
