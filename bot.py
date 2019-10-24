@@ -281,8 +281,6 @@ async def on_message(message):
 
             if "[" in msg:
                 await message.channel.send(msg.replace('[unko]', msg_repetition("/unko")))
-
-
             # if ":poop" in msg:
             #     reply = ""
             #     reply += "ぶり" * [msg.count(":poop")]
