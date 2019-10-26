@@ -230,15 +230,14 @@ async def on_message(message):
             # ターゲットの文字列リスト（カスタム絵文字＋文字）
             li_target = [emoji.pop(0) if q == '-' else q for q in list(target)]
 
-            # ちっちゃいおちんぽだけ処理
-            if len(li_target) > 4:
+            if len(li_target) > 4:  # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
-            else:
+            else:  # おちんぽちっちゃいときは処理
                 li_reply = [] # ランダム文字リスト
                 li_dumy_target = [f"unbo{i}" for i in range(len(li_target))] # あとで置換される文字リスト
 
                 len_ = len(li_dumy_target)
-                str_target = "".join(li_dumy_target)
+                target = "".join(li_dumy_target)
 
                 cnt = 0
                 is_proc = True
@@ -248,12 +247,10 @@ async def on_message(message):
                         break
 
                     li_reply.append(ra.choice(len_))
-                    # ケツの文字がターゲットwordと一致していたらループbooleanをFalseに
-                    is_proc = ''.join(li_reply[-len_:]) != str_target
+                    is_proc = ''.join(li_reply[-len_:]) != target
 
                     cnt += 1
 
-                # 実際の文字に置換
                 reply = ""
                 for i, r in enumerate(li_reply):
                     reply += li_target[li_dumy_target.index(r)]
@@ -261,8 +258,9 @@ async def on_message(message):
                     if (i+1) % 50 == 0:
                         await message.channel.send(reply)
                         reply = ""
-                await message.channel.send(reply)
-                await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
+                else:
+                    await message.channel.send(reply)
+                    await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
