@@ -233,21 +233,19 @@ async def on_message(message):
             if len(li_target) > 4:  # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
             else:  # おちんぽちっちゃいときは処理
-                li_reply = [] # ランダム文字リスト
-                li_dumy_target = [f"unbo{i}" for i in range(len(li_target))] # あとで置換される文字リスト
-
-                len_ = len(li_dumy_target)
-                target = "".join(li_dumy_target)
-
                 cnt = 0
                 is_proc = True
+                li_dumy_target = [f"unbo{i}" for i in range(len(li_target))]
+                li_reply = []
+                target = "".join(li_dumy_target)
+
                 while is_proc:
                     # おちんぽシコリすぎないようにする
                     if cnt > 114514:
                         break
 
-                    li_reply.append(ra.choice(len_))
-                    is_proc = ''.join(li_reply[-len_:]) != target
+                    li_reply.append(ra.choice(list(li_dumy_target)))
+                    is_proc = ''.join(li_reply[-len(li_target):]) != target
 
                     cnt += 1
 
@@ -258,9 +256,8 @@ async def on_message(message):
                     if (i+1) % 50 == 0:
                         await message.channel.send(reply)
                         reply = ""
-                else:
-                    await message.channel.send(reply)
-                    await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
+                await message.channel.send(reply)
+                await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
