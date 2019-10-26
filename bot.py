@@ -155,8 +155,8 @@ def msg_dice(msg):
     sum_ = "" if len(dice) == 1 else f"(sum: {sum(dice)})"
 
     return f"{', '.join(map(str, dice))} {sum_}"
-#
-#
+
+
 async def do_slot(qu, message):
     """
     クエリに対応する、スロットを実行
@@ -236,7 +236,6 @@ async def on_message(message):
                 cnt = 0
                 is_proc = True
                 li_dumy_target = [f"unbo{i}" for i in range(len(li_target))]
-                # li_dumy_target = ["unbo1", "unbo2", "unbo3", "unbo4", "unbo5"][:len(li_target)]
                 li_reply = []
                 target = "".join(li_dumy_target)
 
