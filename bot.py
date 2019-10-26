@@ -236,16 +236,16 @@ async def on_message(message):
                 cnt = 0
                 is_proc = True
                 li_dumy_target = [f"unbo{i}" for i in range(len(li_target))]
+                len_ = len(li_dumy_target)
                 li_reply = []
                 target = "".join(li_dumy_target)
 
-                while is_proc:
+                while ''.join(li_reply[-len_:]) != target:
                     # おちんぽシコリすぎないようにする
                     if cnt > 114514:
                         break
 
-                    li_reply.append(ra.choice(list(li_dumy_target)))
-                    is_proc = ''.join(li_reply[-len(li_target):]) != target
+                    li_reply.append(ra.choice(len_))
 
                     cnt += 1
 
