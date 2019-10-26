@@ -19,14 +19,14 @@ TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa34lA.Et8qCwcgqhsPGIUryBck-Fj_d4Q'
 
 # 1回応答するだけの単語辞書
 dict_response = {
-    "/neko"      : "にゃーん"
-    # "/colorcorn" : ":colorcorn:"
+    "/neko": "にゃーん",
+    "/unbobo": "うんぼぼうんぼぼウッホッホ！！！！💩💩💩",
+    "/colorcorn" : "<:colorcorn:627504593344921629>"
 }
 # ランダムで繰り返す単語辞書
 dict_repetition = {
     "/kireji"  : [["ぶち", "ブチ"], "ィ", "ッ", "！", "💉"],
     "/shikko"  : [["ちょろ", "チョロ"], "💦"],
-    "/unbobo"  : [["うんぼぼうんぼぼウッホッホ！！！！"], "💩"],
     "/unko"    : [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"],
     "/washlet" : [["ン゛"], "ッ", "！", "🙄💢"]
 }
@@ -38,47 +38,46 @@ dict_repetition = {
 #                   クエリが存在すれば実行
 #                   ""でクエリをランダムで実行
 dict_slot = {
-    "/aratan"  : {
-        "word"   : ["", ["あら"], ["たん", "たそ", "くん", "ちゃん", "たそくんちゃん先輩"]],
-        "atari"  : {
-            "あらたん"   : ""
+    "/aratan": {
+        "word": ["", ["あら"], ["たん", "たそ", "くん", "ちゃん", "たそくんちゃん先輩"]],
+        "atari": {
+            "あらたん": ""
         }
     },
     "/daikon"  : {
-        "word"   : ["", ["ダイ", "カラー"], ["コン", "コーン"]],
-        "atari"  : {
-            "ダイコン"   : ""
-            # "カラーコーン": "/colorcorn"
+        "word": ["", ["ダイ", "カラー"], ["コン", "コーン"]],
+        "atari": {
+            "ダイコン": "",
+            "カラーコーン": "/colorcorn"
         }
     },
-    "/hamako"  : {
-        "word"   : ["ー", ["ハ", "ヒ", "フ", "ヘ", "ホ"], ["マ", "ミ", "ム", "メ", "モ"], ["カ", "キ", "ク", "ケ", "コ"]],
-        "atari"  : {
-            "ハマコー"   : ""
+    "/hamako": {
+        "word": ["ー", ["ハ", "ヒ", "フ", "ヘ", "ホ"], ["マ", "ミ", "ム", "メ", "モ"], ["カ", "キ", "ク", "ケ", "コ"]],
+        "atari": {
+            "ハマコー": ""
         }
     },
     "/omikuji" : {
-        "word"   : ["便", ["大", "中", "吉", "小", "末", "凶", "大凶"]],
-        "atari"  : {
-            "大便"      : "/unko",
-            "小便"      : "/shikko"
+        "word": ["便", ["大", "中", "吉", "小", "末", "凶", "大凶"]],
+        "atari": {
+            "大便": "/unko",
+            "小便": "/shikko"
         }
     },
-    "/satori"  : {
-        "word"   : ["", ["うん"], ["ば", "び", "ぶ", "べ", "ぼ"], ["ば", "び", "ぶ", "べ", "ぼ"]],
-        "atari"  : {
-            "うんぼぼ"   : "/unbobo"
+    "/satori": {
+        "word": ["", ["うん"], ["ば", "び", "ぶ", "べ", "ぼ"], ["ば", "び", "ぶ", "べ", "ぼ"]],
+        "atari": {
+            "うんぼぼ": "/unbobo"
         }
     },
-    "/zero"  : {
-        "word"   : ["", ["ぜろ", "いち"], ["ホモ", "レズ", "ゲイ", "バイ"]],
-        "atari"  : {
-            "ぜろホモ"   : ""
+    "/zero": {
+        "word": ["", ["ぜろ", "いち"], ["ホモ", "レズ", "ゲイ", "バイ"]],
+        "atari": {
+            "ぜろホモ": ""
         }
     }
 }
 
-mslot_list = ["/aratan", "/daikon", "/hamako", "/satori", "/zero"]
 
 ###
 # 以下処理
@@ -86,6 +85,7 @@ mslot_list = ["/aratan", "/daikon", "/hamako", "/satori", "/zero"]
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
+
 
 def msg_response(qu):
     """
@@ -97,6 +97,7 @@ def msg_response(qu):
     """
 
     return dict_response[qu]
+
 
 def msg_repetition(qu):
     """
@@ -116,6 +117,7 @@ def msg_repetition(qu):
 
     return reply
 
+
 def msg_slot(qu):
     """
     クエリに対応する、スロット結果のメッセージ
@@ -132,6 +134,7 @@ def msg_slot(qu):
 
     # 末尾の単語を付ける
     return reply + dict_slot[qu]["word"][0]
+
 
 def msg_dice(msg):
     """
@@ -197,9 +200,6 @@ async def on_message(message):
 
     # 1行ずつ処理
     for msg in message.content.split('\n'):
-        # await message.channel.send(re.findall('<:[0-9|a-z|_]+:[0-9]+>', msg))
-        # await message.channel.send(re.split('<:[0-9|a-z|_]+:[0-9]+>', msg))
-
         # 1回だけの応答用
         if msg in dict_response.keys():
             await message.channel.send(msg_response(msg))
@@ -217,51 +217,46 @@ async def on_message(message):
             await message.channel.send(msg_dice(msg))
 
         # おちんぽプログラム
-        if '/ochinpo' in msg: # おちんぽが入っているとき( ◜◡＾)っ✂╰⋃╯
-            msg = ''.join(msg.split()[1:])
-            PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'
-            query = "おちんぽ" if len(msg.split()) == 0 else re.sub(PATTERN, "-", msg)
-            emoji = re.findall(PATTERN, msg)
-            # moji = query.split("-")[1:]
+        if '/ochinpo' in msg: # ochinpoが入っているとき( ◜◡＾)っ✂╰⋃╯
+            arg_ = ''.join(msg.split()[1:]) # 引数
+            PATTERN = '<:[0-9|a-z|_]+:[0-9]+>' # カスタム絵文字の正規表現
 
-            li_query = [emoji.pop(0) if q == '-' else q for q in list(query)]
+            # 引数が指定されていれば、カスタム絵文字を痴漢して文字リストを作成
+            # 引数が指定されていなければ、"おちんぽ"を入れる
+            target = "おちんぽ" if len(arg_.split()) == 0 else re.sub(PATTERN, "-", arg_)
+            # カスタム絵文字リスト
+            emoji = re.findall(PATTERN, arg_)
 
-            # for q in list(query):
-            #     if q == '-':
-            #         li_query.append(emoji.pop(0))
-            #     else:
-            #         li_query.append(q)
+            # ターゲットの文字列リスト（カスタム絵文字＋文字）
+            li_target = [emoji.pop(0) if q == '-' else q for q in list(target)]
 
-            if len(li_query) > 4: # おちんぽおっきいときは処理してあげない
+            if len(li_target) > 4:  # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
-            else:# おちんぽちっちゃいときは処理
+            else:  # おちんぽちっちゃいときは処理
                 cnt = 0
                 is_proc = True
-                li_target = ["unbo1", "unbo2", "unbo3", "unbo4", "unbo5"][:len(li_query)]
+                li_dumy_target = [f"unbo{i}" for i in range(len(li_target))]
+                # li_dumy_target = ["unbo1", "unbo2", "unbo3", "unbo4", "unbo5"][:len(li_target)]
                 li_reply = []
-                target = "".join(li_target)
+                target = "".join(li_dumy_target)
 
                 while is_proc:
                     # おちんぽシコリすぎないようにする
                     if cnt > 114514:
                         break
 
-                    li_reply.append(ra.choice(list(li_target)))
-                    is_proc = ''.join(li_reply[-len(li_query):]) != target
+                    li_reply.append(ra.choice(list(li_dumy_target)))
+                    is_proc = ''.join(li_reply[-len(li_target):]) != target
 
                     cnt += 1
 
                 reply = ""
                 for i, r in enumerate(li_reply):
-                    reply += li_query[li_target.index(r)]
-                    # await message.channel.send(li_query.index(r))
+                    reply += li_target[li_dumy_target.index(r)]
 
                     if (i+1) % 50 == 0:
                         await message.channel.send(reply)
                         reply = ""
-
-
-
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
