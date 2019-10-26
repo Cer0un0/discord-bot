@@ -238,7 +238,7 @@ async def on_message(message):
                 li_dumy_target = [f"unbo{i}" for i in range(len(li_target))] # あとで置換される文字リスト
 
                 len_ = len(li_dumy_target)
-                str_target: str = "".join(li_dumy_target)
+                str_target = "".join(li_dumy_target)
 
                 cnt = 0
                 is_proc = True
@@ -252,19 +252,17 @@ async def on_message(message):
                     is_proc = ''.join(li_reply[-len_:]) != str_target
 
                     cnt += 1
-                else:
-                    # 実際の文字に置換
-                    reply = ""
-                    for i, r in enumerate(li_reply):
-                        reply += li_target[li_dumy_target.index(r)]
 
-                        # 50文字ごとに出力
-                        if (i+1) % 50 == 0:
-                            await message.channel.send(reply)
-                            reply = ""
-                    else:
+                # 実際の文字に置換
+                reply = ""
+                for i, r in enumerate(li_reply):
+                    reply += li_target[li_dumy_target.index(r)]
+
+                    if (i+1) % 50 == 0:
                         await message.channel.send(reply)
-                        await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
+                        reply = ""
+                await message.channel.send(reply)
+                await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
