@@ -222,16 +222,15 @@ async def on_message(message):
             PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'
             query = "おちんぽ" if len(msg.split()) == 0 else re.sub(PATTERN, "-", msg)
             emoji = re.findall(PATTERN, msg)
-            moji = query.split("-")[1:]
-            nemoji = len(emoji)
-            nmoji = len(moji)
+            # moji = query.split("-")[1:]
 
-            li_query = []
-            for q in list(query):
-                if q == '-':
-                    li_query.append(emoji.pop(0))
-                else:
-                    li_query.append(q)
+            li_query = [emoji.pop(0) if q == '-' else q for q in list(query)]
+
+            # for q in list(query):
+            #     if q == '-':
+            #         li_query.append(emoji.pop(0))
+            #     else:
+            #         li_query.append(q)
 
             if len(li_query) > 4: # おちんぽおっきいときは処理してあげない
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
