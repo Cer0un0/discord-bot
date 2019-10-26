@@ -229,13 +229,15 @@ async def on_message(message):
 
             # ターゲットの文字列リスト（カスタム絵文字＋文字）
             li_target = [emoji.pop(0) if q == '-' else q for q in list(target)]
+            len_t = len(li_target)
 
-            if len(li_target) > 4:  # おちんぽおっきいときは処理してあげない
+            # ちっちゃいおちんぽだけ処理
+            if len_t> 4:
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
-            else:  # おちんぽちっちゃいときは処理
+            else:
                 cnt = 0
                 is_proc = True
-                li_dumy_target = [f"unbo{i}" for i in range(len(li_target))]
+                li_dumy_target = [f"unbo{i}" for i in range(len_t)]
                 li_reply = []
                 target = "".join(li_dumy_target)
 
@@ -245,7 +247,7 @@ async def on_message(message):
                         break
 
                     li_reply.append(ra.choice(list(li_dumy_target)))
-                    is_proc = ''.join(li_reply[-len(li_target):]) != target
+                    is_proc = ''.join(li_reply[-len_t:]) != target
 
                     cnt += 1
 
