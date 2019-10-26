@@ -238,7 +238,7 @@ async def on_message(message):
                 li_dumy_target = [f"unbo{i}" for i in range(len(li_target))] # あとで置換される文字リスト
 
                 len_ = len(li_dumy_target)
-                str_target = "".join(li_dumy_target)
+                str_target: str = "".join(li_dumy_target)
 
                 cnt = 0
                 is_proc = True
