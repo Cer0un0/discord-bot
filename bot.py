@@ -293,11 +293,13 @@ async def on_message(message):
             await message.channel.send('VirtualContest' in msg.split()[-1])
 
             if 'VirtualContest' in msg.split()[-1]:
-                await message.channel.send(msg.split()[1])
                 get_url_info = requests.get(msg.split()[1])
                 bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
-                await message.channel.send(bs4Obj.select('small'))
-                await message.channel.send(bs4Obj.select('small')[0].text)
+                line = bs4Obj.select('small')[0].text
+
+                PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'  # カスタム絵文字の正規表現
+                times = re.findall(PATTERN, line)
+                await message.channel.send(times)
                 break
 
                 csv = readCsv()
