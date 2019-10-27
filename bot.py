@@ -294,7 +294,7 @@ async def on_message(message):
             if msg.split()[-1] == '#atcoderVirtualContest':
                 get_url_info = requests.get(msg.split()[1])
                 bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
-                message.channel.send(bs4Obj.select('small')[0].text)
+                await message.channel.send(bs4Obj.select('small')[0].text)
                 break
 
                 csv = readCsv()
