@@ -188,6 +188,31 @@ async def do_slot(qu, message):
                 await message.channel.send(msg_repetition(qu_))
 
 
+import csv
+import os
+
+
+def readCsv(fname='test.csv'):
+    if not os.path.exists(fname):
+        return None
+    readList = []
+    with open(fname, 'r') as f:
+        reader = csv.reader(f)
+        for rows in reader:
+            l = []
+            for row in rows:
+                l.append(row)
+                # print(row)
+            readList.append(l)
+    return readList
+
+
+def writeCsv(data, fname='test.csv'):
+    with open(fname, 'w') as f:
+        writer = csv.writer(f, lineterminator='\n')
+        writer.writerows(data)
+
+
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
@@ -218,35 +243,36 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # ochinpoが入っているとき( ◜◡＾)っ✂╰⋃╯
-            arg_ = ''.join(msg.split()[1:]) # 引数
-            PATTERN = '<:[0-9|a-z|_]+:[0-9]+>' # カスタム絵文字の正規表現
+            arg_ = ''.join(msg.split()[1:])  # 引数
+            PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'  # カスタム絵文字の正規表現
 
-            # 引数が指定されていれば、カスタム絵文字を痴漢して文字リストを作成
+            # 引数が指定されていれば、ターゲット文字列のカスタム絵文字を置換した文字列を作成
             # 引数が指定されていなければ、"おちんぽ"を入れる
             target = "おちんぽ" if len(arg_.split()) == 0 else re.sub(PATTERN, "-", arg_)
             # カスタム絵文字リスト
             emoji = re.findall(PATTERN, arg_)
 
-            # ターゲットの文字列リスト（カスタム絵文字＋文字）
+            # ターゲット文字列リスト（カスタム絵文字＋文字）
             li_target = [emoji.pop(0) if q == '-' else q for q in list(target)]
             len_t = len(li_target)
 
             # ちっちゃいおちんぽだけ処理
-            if len_t> 4:
+            if len_t > 4:
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
             else:
+                li_dumy_target = [f"unbo{i}" for i in range(len_t)]  # おちんぽプログラムで使う文字列リスト
+                target = "".join(li_dumy_target)  # おちんぽプログラムで使う文字列
+                li_reply = [] # 出力結果リスト
+
                 cnt = 0
                 is_proc = True
-                li_dumy_target = [f"unbo{i}" for i in range(len_t)]
-                li_reply = []
-                target = "".join(li_dumy_target)
-
                 while is_proc:
                     # おちんぽシコリすぎないようにする
                     if cnt > 114514:
                         break
 
                     li_reply.append(ra.choice(list(li_dumy_target)))
+                    # ケツがターゲット文字列（ダミー）なら処理終了
                     is_proc = ''.join(li_reply[-len_t:]) != target
 
                     cnt += 1
@@ -260,6 +286,21 @@ async def on_message(message):
                         reply = ""
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
+
+        if '/regist' in msg:
+            readData = readCsv()
+            if readData is None:
+                readData = [[1, 2, 3], [4, 5, 6]]
+            else:
+                print(readData)
+                readData[0][0] = str(int(readData[0][0]) + 1)
+            writeCsv(readData)
+            text = ''
+            for datas in readData:
+                for data in datas:
+                    text += str(data)
+
+            await message.channel.send(text)
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
