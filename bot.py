@@ -304,7 +304,7 @@ async def on_message(message):
             PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
             t_start, t_end = tuple(re.findall(PATTERN, line))
 
-            await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title[0]}**\n{t_start}〜{t_end}\n{link}")
+            await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title[0]}**：{t_start}〜{t_end}\n{link}")
 
         if len(msg.split()) == 3:
             if 'VirtualContest' in msg.split()[-1]:
