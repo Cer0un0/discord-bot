@@ -299,7 +299,7 @@ async def on_message(message):
             get_url_info = requests.get(link)
             bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
 
-            title = re.findall(pattern, bs4Obj.h1.get_text().lstrip())
+            title = re.findall('.+杯', bs4Obj.h1.get_text().lstrip())
             await message.channel.send(title)
 
             line = bs4Obj.select('small')[0].text
