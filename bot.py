@@ -8,7 +8,9 @@ import random as ra
 import re
 import sys
 
+import bs4
 import discord
+import requests
 
 ###
 # 定義
@@ -192,7 +194,7 @@ import csv
 import os
 
 
-def readCsv(fname='test.csv'):
+def readCsv(fname='VirtualContest.csv'):
     if not os.path.exists(fname):
         return None
     readList = []
@@ -207,7 +209,7 @@ def readCsv(fname='test.csv'):
     return readList
 
 
-def writeCsv(data, fname='test.csv'):
+def writeCsv(data, fname='VirtualContest.csv'):
     with open(fname, 'w') as f:
         writer = csv.writer(f, lineterminator='\n')
         writer.writerows(data)
@@ -287,10 +289,12 @@ async def on_message(message):
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
-        if '/regist' in msg:
-            readData = readCsv()
-            if readData is None:
-                readData = [[1, 2, 3], [4, 5, 6]]
+
+        if msg.split() == 3:
+            if msg[-1] == '#atcoderVirtualContest':
+            csv = readCsv()
+            if csv is None:
+                readData = [[]]
             else:
                 print(readData)
                 readData[0][0] = str(int(readData[0][0]) + 1)
