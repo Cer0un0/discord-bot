@@ -315,7 +315,7 @@ async def on_message(message):
 
             ra_ = ra.randrange(len(li_merit) // 2)
             reply = li_merit[ra_ * 2 + 1].text
-            await message.channel.send(f"{ra_}：{reply}")
+            await message.channel.send(f"{(ra_+1)}：{reply}")
 
         # if len(msg.split()) == 3:
         #     if 'VirtualContest' in msg.split()[-1]:
