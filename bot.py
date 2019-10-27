@@ -290,7 +290,7 @@ async def on_message(message):
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         if len(msg.split()) == 3:
-            await message.channel.send(msg.split()[-1])
+            await message.channel.send(mmsg.split()[-1] == '#atcoderVirtualContest')
             if msg.split()[-1] == '#atcoderVirtualContest':
                 await message.channel.send(msg.split()[1])
                 get_url_info = requests.get(msg.split()[1])
