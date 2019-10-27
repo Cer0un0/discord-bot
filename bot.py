@@ -194,14 +194,15 @@ async def do_slot(qu, message):
                 await message.channel.send(msg_repetition(qu_))
 
 
-async def do_ochinpo(arg_):
+async def do_ochinpo(msg):
     """
-    おちんぽプログラムを実行
+    クエリに対応する、スロットを実行
 
     ----------
     qu: sting
-        ターゲット文字列
+        メッセージ呼び出しコマンド（dict_slot.key）
     """
+    arg_ = ''.join(msg.split()[1:])  # 引数
     PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'  # カスタム絵文字の正規表現
 
     # 引数が指定されていれば、ターゲット文字列のカスタム絵文字を置換した文字列を作成
@@ -300,8 +301,8 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # ochinpoが入っているとき( ◜◡＾)っ✂╰⋃╯
-            await message.channel.send(''.join(msg.split()[1:]))
-            do_ochinpo(''.join(msg.split()[1:]))
+            await do_ochinpo(msg)
+
 
         # バーチャルコンテスト通知
         if 'https://not-522.appspot.com' in msg:
