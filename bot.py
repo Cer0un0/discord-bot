@@ -217,8 +217,8 @@ def writeCsv(data, fname='VirtualContest.csv'):
         writer.writerows(data)
 
 
-# csv = readCsv()
-# current_vc = csv[-1]
+csv = readCsv()
+current_vc = csv[-1]
 
 # メッセージ受信時に動作する処理
 @client.event
