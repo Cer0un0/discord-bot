@@ -220,7 +220,7 @@ def writeCsv(data, fname='VirtualContest.csv'):
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
-    await message.channel.send(current_vc)
+    # await message.channel.send(current_vc)
 
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
@@ -338,19 +338,19 @@ async def on_message(message):
         #     reply += "っ"
         #     await message.channel.send(reply)
 
-# # 60秒に一回ループ
-# @tasks.loop(seconds=5)
-# async def loop():
-#     csv = readCsv()
-#     current_vc = csv[-1]
-#
-#     await message.channel.send(current_vc)
-#
-#     # 現在の時刻
-#     now = dt.now().strftime('%H:%M')
-#     if now == '07:00':
-#         channel = client.get_channel(CHANNEL_ID)
-#         await channel.send('おはよう')
+# 60秒に一回ループ
+@tasks.loop(seconds=5)
+async def loop():
+    csv = readCsv()
+    current_vc = csv[-1]
+
+    await message.channel.send(current_vc)
+
+    # 現在の時刻
+    now = dt.now().strftime('%H:%M')
+    if now == '07:00':
+        channel = client.get_channel(CHANNEL_ID)
+        await channel.send('おはよう')
 
 #ループ処理実行
 loop.start()
