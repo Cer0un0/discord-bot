@@ -4,12 +4,14 @@
 ###
 # ライブラリ
 ###
+import os
 import random as ra
 import re
 import sys
 from datetime import datetime as dt
 
 import bs4
+import csv
 import discord
 import requests
 from discord.ext import tasks
@@ -192,8 +194,57 @@ async def do_slot(qu, message):
                 await message.channel.send(msg_repetition(qu_))
 
 
-import csv
-import os
+async def do_ochinpo(arg_):
+    """
+    おちんぽプログラムを実行
+
+    ----------
+    qu: sting
+        ターゲット文字列
+    """
+    PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'  # カスタム絵文字の正規表現
+
+    # 引数が指定されていれば、ターゲット文字列のカスタム絵文字を置換した文字列を作成
+    # 引数が指定されていなければ、"おちんぽ"を入れる
+    target = "おちんぽ" if len(arg_.split()) == 0 else re.sub(PATTERN, "-", arg_)
+    # カスタム絵文字リスト
+    emoji = re.findall(PATTERN, arg_)
+
+    # ターゲット文字列リスト（カスタム絵文字＋文字）
+    li_target = [emoji.pop(0) if q == '-' else q for q in list(target)]
+    len_t = len(li_target)
+
+    # ちっちゃいおちんぽだけ処理
+    if len_t > 4:
+        await message.channel.send("おちんぽおっきすぎだよぉ...")
+    else:
+        li_dumy_target = [f"unbo{i}" for i in range(len_t)]  # おちんぽプログラムで使う文字列リスト
+        target = "".join(li_dumy_target)  # おちんぽプログラムで使う文字列
+        li_reply = [] # 出力結果リスト
+
+        cnt = 0
+        is_proc = True
+        while is_proc:
+            # おちんぽシコリすぎないようにする
+            if cnt > 114514:
+                break
+
+            li_reply.append(ra.choice(list(li_dumy_target)))
+            # ケツがターゲット文字列（ダミー）なら処理終了
+            is_proc = ''.join(li_reply[-len_t:]) != target
+
+            cnt += 1
+
+        reply = ""
+        for i, r in enumerate(li_reply):
+            reply += li_target[li_dumy_target.index(r)]
+
+            if (i+1) % 50 == 0:
+                await message.channel.send(reply)
+                reply = ""
+
+        await message.channel.send(reply)
+        await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
 
 def readCsv(fname='VirtualContest.csv'):
@@ -249,85 +300,45 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # ochinpoが入っているとき( ◜◡＾)っ✂╰⋃╯
-            arg_ = ''.join(msg.split()[1:])  # 引数
-            PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'  # カスタム絵文字の正規表現
+            do_ochinpo(''.join(msg.split()[1:]))
 
-            # 引数が指定されていれば、ターゲット文字列のカスタム絵文字を置換した文字列を作成
-            # 引数が指定されていなければ、"おちんぽ"を入れる
-            target = "おちんぽ" if len(arg_.split()) == 0 else re.sub(PATTERN, "-", arg_)
-            # カスタム絵文字リスト
-            emoji = re.findall(PATTERN, arg_)
-
-            # ターゲット文字列リスト（カスタム絵文字＋文字）
-            li_target = [emoji.pop(0) if q == '-' else q for q in list(target)]
-            len_t = len(li_target)
-
-            # ちっちゃいおちんぽだけ処理
-            if len_t > 4:
-                await message.channel.send("おちんぽおっきすぎだよぉ...")
-            else:
-                li_dumy_target = [f"unbo{i}" for i in range(len_t)]  # おちんぽプログラムで使う文字列リスト
-                target = "".join(li_dumy_target)  # おちんぽプログラムで使う文字列
-                li_reply = [] # 出力結果リスト
-
-                cnt = 0
-                is_proc = True
-                while is_proc:
-                    # おちんぽシコリすぎないようにする
-                    if cnt > 114514:
-                        break
-
-                    li_reply.append(ra.choice(list(li_dumy_target)))
-                    # ケツがターゲット文字列（ダミー）なら処理終了
-                    is_proc = ''.join(li_reply[-len_t:]) != target
-
-                    cnt += 1
-
-                reply = ""
-                for i, r in enumerate(li_reply):
-                    reply += li_target[li_dumy_target.index(r)]
-
-                    if (i+1) % 50 == 0:
-                        await message.channel.send(reply)
-                        reply = ""
-                await message.channel.send(reply)
-                await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
-        #https://not-522.appspot.com/contest/4627197597843456
+        # バーチャルコンテスト通知
         if 'https://not-522.appspot.com' in msg:
             link = msg
             get_url_info = requests.get(link)
-            bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
+            bs = bs4.BeautifulSoup(get_url_info.text, 'lxml')
 
-            title = re.findall('.+杯', bs4Obj.h1.get_text().lstrip())
-
-            line = bs4Obj.select('small')[0].text
+            # タイトル
+            title = re.findall('.+杯', bs.h1.get_text().lstrip())
+            # 開始時間取得
+            line = bs.select('small')[0].text
             PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
             t_start, t_end = tuple(re.findall(PATTERN, line))
 
             await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title[0]}**：{t_start}〜{t_end}\n{link}")
 
-        if len(msg.split()) == 3:
-            if 'VirtualContest' in msg.split()[-1]:
-                title, link, _ = tuple(msg.split())
-
-                get_url_info = requests.get(link)
-                bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
-                line = bs4Obj.select('small')[0].text
-
-                PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
-                t_start, t_end = tuple(re.findall(PATTERN, line))
-
-                csv = readCsv()
-
-                if csv is None:
-                    csv = [["", "", "2000-01-01 00:00:00", "9999-12-31 00:00:00"]]
-                else:
-                    csv.append([title, link, t_start, t_end])
-
-                writeCsv(csv)
-
-                csv = readCsv()
-                await message.channel.send(csv)
+        # if len(msg.split()) == 3:
+        #     if 'VirtualContest' in msg.split()[-1]:
+        #         title, link, _ = tuple(msg.split())
+        #
+        #         get_url_info = requests.get(link)
+        #         bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
+        #         line = bs4Obj.select('small')[0].text
+        #
+        #         PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
+        #         t_start, t_end = tuple(re.findall(PATTERN, line))
+        #
+        #         csv = readCsv()
+        #
+        #         if csv is None:
+        #             csv = [["", "", "2000-01-01 00:00:00", "9999-12-31 00:00:00"]]
+        #         else:
+        #             csv.append([title, link, t_start, t_end])
+        #
+        #         writeCsv(csv)
+        #
+        #         csv = readCsv()
+        #         await message.channel.send(csv)
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
