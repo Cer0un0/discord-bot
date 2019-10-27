@@ -194,60 +194,6 @@ async def do_slot(qu, message):
                 await message.channel.send(msg_repetition(qu_))
 
 
-async def do_ochinpo(msg):
-    """
-    クエリに対応する、スロットを実行
-
-    ----------
-    qu: sting
-        メッセージ呼び出しコマンド（dict_slot.key）
-    """
-    arg_ = ''.join(msg.split()[1:])  # 引数
-    PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'  # カスタム絵文字の正規表現
-
-    # 引数が指定されていれば、ターゲット文字列のカスタム絵文字を置換した文字列を作成
-    # 引数が指定されていなければ、"おちんぽ"を入れる
-    target = "おちんぽ" if len(arg_.split()) == 0 else re.sub(PATTERN, "-", arg_)
-    # カスタム絵文字リスト
-    emoji = re.findall(PATTERN, arg_)
-
-    # ターゲット文字列リスト（カスタム絵文字＋文字）
-    li_target = [emoji.pop(0) if q == '-' else q for q in list(target)]
-    len_t = len(li_target)
-
-    # ちっちゃいおちんぽだけ処理
-    if len_t > 4:
-        await message.channel.send("おちんぽおっきすぎだよぉ...")
-    else:
-        li_dumy_target = [f"unbo{i}" for i in range(len_t)]  # おちんぽプログラムで使う文字列リスト
-        target = "".join(li_dumy_target)  # おちんぽプログラムで使う文字列
-        li_reply = [] # 出力結果リスト
-
-        cnt = 0
-        is_proc = True
-        while is_proc:
-            # おちんぽシコリすぎないようにする
-            if cnt > 114514:
-                break
-
-            li_reply.append(ra.choice(list(li_dumy_target)))
-            # ケツがターゲット文字列（ダミー）なら処理終了
-            is_proc = ''.join(li_reply[-len_t:]) != target
-
-            cnt += 1
-
-        reply = ""
-        for i, r in enumerate(li_reply):
-            reply += li_target[li_dumy_target.index(r)]
-
-            if (i+1) % 50 == 0:
-                await message.channel.send(reply)
-                reply = ""
-
-        await message.channel.send(reply)
-        await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
-
-
 def readCsv(fname='VirtualContest.csv'):
     if not os.path.exists(fname):
         return None
@@ -301,8 +247,50 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # ochinpoが入っているとき( ◜◡＾)っ✂╰⋃╯
-            await do_ochinpo(msg)
+            arg_ = ''.join(msg.split()[1:])  # 引数
+            PATTERN = '<:[0-9|a-z|_]+:[0-9]+>'  # カスタム絵文字の正規表現
 
+            # 引数が指定されていれば、ターゲット文字列のカスタム絵文字を置換した文字列を作成
+            # 引数が指定されていなければ、"おちんぽ"を入れる
+            target = "おちんぽ" if len(arg_.split()) == 0 else re.sub(PATTERN, "-", arg_)
+            # カスタム絵文字リスト
+            emoji = re.findall(PATTERN, arg_)
+
+            # ターゲット文字列リスト（カスタム絵文字＋文字）
+            li_target = [emoji.pop(0) if q == '-' else q for q in list(target)]
+            len_t = len(li_target)
+
+            # ちっちゃいおちんぽだけ処理
+            if len_t > 4:
+                await message.channel.send("おちんぽおっきすぎだよぉ...")
+            else:
+                li_dumy_target = [f"unbo{i}" for i in range(len_t)]  # おちんぽプログラムで使う文字列リスト
+                target = "".join(li_dumy_target)  # おちんぽプログラムで使う文字列
+                li_reply = [] # 出力結果リスト
+
+                cnt = 0
+                is_proc = True
+                while is_proc:
+                    # おちんぽシコリすぎないようにする
+                    if cnt > 114514:
+                        break
+
+                    li_reply.append(ra.choice(list(li_dumy_target)))
+                    # ケツがターゲット文字列（ダミー）なら処理終了
+                    is_proc = ''.join(li_reply[-len_t:]) != target
+
+                    cnt += 1
+
+                reply = ""
+                for i, r in enumerate(li_reply):
+                    reply += li_target[li_dumy_target.index(r)]
+
+                    if (i+1) % 50 == 0:
+                        await message.channel.send(reply)
+                        reply = ""
+
+                await message.channel.send(reply)
+                await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         # バーチャルコンテスト通知
         if 'https://not-522.appspot.com' in msg:
