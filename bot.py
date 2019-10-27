@@ -300,6 +300,7 @@ async def on_message(message):
 
         # おちんぽプログラム
         if '/ochinpo' in msg: # ochinpoが入っているとき( ◜◡＾)っ✂╰⋃╯
+            await message.channel.send(''.join(msg.split()[1:]))
             do_ochinpo(''.join(msg.split()[1:]))
 
         # バーチャルコンテスト通知
