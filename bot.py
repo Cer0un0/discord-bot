@@ -290,31 +290,28 @@ async def on_message(message):
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
         if len(msg.split()) == 3:
-            await message.channel.send('VirtualContest' in msg.split()[-1])
-
             if 'VirtualContest' in msg.split()[-1]:
-                get_url_info = requests.get(msg.split()[1])
+                title, link, _ = tuple(msg.split())
+
+                get_url_info = requests.get(link)
                 bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
                 line = bs4Obj.select('small')[0].text
 
-                PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'  # カスタム絵文字の正規表現
-                times = re.findall(PATTERN, line)
-                await message.channel.send(times)
-                break
+                PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
+                t_start, t_end = tuple(re.findall(PATTERN, line))
 
                 csv = readCsv()
-                if csv is None:
-                    csv = [["", "", 0000, 0000]]
-                else:
-                    print(csv)
-                    csv[0][0] = str(int(csv[0][0]) + 1)
-                writeCsv(csv)
-                text = ''
-                for datas in csv:
-                    for data in datas:
-                        text += str(data)
 
-                await message.channel.send(text)
+                if csv is None:
+                    csv = [["", "", "2000-01-01 00:00:00", "9999-12-31 00:00:00"]]
+                else:
+                    csv.append([title, link, t_start, t_end])
+
+                writeCsv(csv)
+
+                csv = readCsv()
+                for c in csv:
+                    await message.channel.send(c)
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
