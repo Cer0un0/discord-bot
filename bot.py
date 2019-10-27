@@ -12,6 +12,7 @@ from datetime import datetime as dt
 import bs4
 import discord
 import requests
+from discord.ext import tasks
 
 ###
 # 定義
@@ -223,6 +224,7 @@ current_vc = csv[-1]
 @client.event
 async def on_message(message):
     await message.channel.send(current_vc)
+
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
@@ -340,9 +342,13 @@ async def on_message(message):
 @tasks.loop(seconds=60)
 async def loop():
     # 現在の時刻
-    now = datetime.now().strftime('%H:%M')
+    now = dt.now().strftime('%H:%M')
     if now == '07:00':
         channel = client.get_channel(CHANNEL_ID)
         await channel.send('おはよう')
+
+#ループ処理実行
+loop.start()
+
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
