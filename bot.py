@@ -7,6 +7,7 @@
 import random as ra
 import re
 import sys
+from datetime import datetime as dt
 
 import bs4
 import discord
@@ -215,9 +216,13 @@ def writeCsv(data, fname='VirtualContest.csv'):
         writer.writerows(data)
 
 
+csv = readCsv()
+current_vc = csv[-1]
+
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
+    await message.channel.send(current_vc)
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
@@ -309,10 +314,6 @@ async def on_message(message):
 
                 writeCsv(csv)
 
-                csv = readCsv()
-                for c in csv:
-                    await message.channel.send(c)
-
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
         #
@@ -335,5 +336,13 @@ async def on_message(message):
         #     reply += "っ"
         #     await message.channel.send(reply)
 
+# 60秒に一回ループ
+@tasks.loop(seconds=60)
+async def loop():
+    # 現在の時刻
+    now = datetime.now().strftime('%H:%M')
+    if now == '07:00':
+        channel = client.get_channel(CHANNEL_ID)
+        await channel.send('おはよう')
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
