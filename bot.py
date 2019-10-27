@@ -293,20 +293,19 @@ async def on_message(message):
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
         #https://not-522.appspot.com/contest/4627197597843456
-        await message.channel.send('https://not-522.appspot.com' in msg)
         if 'https://not-522.appspot.com' in msg:
             link = msg
+            await message.channel.send(link)
             get_url_info = requests.get(link)
             bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
 
             title = re.findall(pattern, bs4Obj.h1.get_text().lstrip())
+            await message.channel.send(title)
 
             line = bs4Obj.select('small')[0].text
             PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
             t_start, t_end = tuple(re.findall(PATTERN, line))
 
-            await message.channel.send(link)
-            await message.channel.send(title)
             await message.channel.send(t_start)
             await message.channel.send(t_end)
 
