@@ -289,9 +289,11 @@ async def on_message(message):
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
+        await message.channel.send(len(msg.split()))
         if msg.split() == 3:
+            await message.channel.send(msg.split()[-1])
             if msg.split()[-1] == '#atcoderVirtualContest':
-                await message.channel.send("💩")
+
                 get_url_info = requests.get(msg.split()[1])
                 bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
                 await message.channel.send(bs4Obj.select('small'))
