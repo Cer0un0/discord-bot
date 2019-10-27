@@ -293,6 +293,7 @@ async def on_message(message):
                 await message.channel.send(reply)
                 await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
         #https://not-522.appspot.com/contest/4627197597843456
+        await message.channel.send('https://not-522.appspot.com' in msg)
         if 'https://not-522.appspot.com' in msg:
             link = msg
             get_url_info = requests.get(link)
@@ -304,7 +305,10 @@ async def on_message(message):
             PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
             t_start, t_end = tuple(re.findall(PATTERN, line))
 
-            await message.channel.send([link, title, t_start, t_end])
+            await message.channel.send(link)
+            await message.channel.send(title)
+            await message.channel.send(t_start)
+            await message.channel.send(t_end)
 
         if len(msg.split()) == 3:
             if 'VirtualContest' in msg.split()[-1]:
