@@ -292,19 +292,19 @@ async def on_message(message):
 
         if msg.split() == 3:
             if msg[-1] == '#atcoderVirtualContest':
-            csv = readCsv()
-            if csv is None:
-                readData = [[]]
-            else:
-                print(readData)
-                readData[0][0] = str(int(readData[0][0]) + 1)
-            writeCsv(readData)
-            text = ''
-            for datas in readData:
-                for data in datas:
-                    text += str(data)
+                csv = readCsv()
+                if csv is None:
+                    csv = [["", "", 0000, 0000]]
+                else:
+                    print(csv)
+                    csv[0][0] = str(int(csv[0][0]) + 1)
+                writeCsv(csv)
+                text = ''
+                for datas in csv:
+                    for data in datas:
+                        text += str(data)
 
-            await message.channel.send(text)
+                await message.channel.send(text)
 
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
