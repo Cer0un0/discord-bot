@@ -313,7 +313,7 @@ async def on_message(message):
             bs = bs4.BeautifulSoup(get_url_info.text, 'lxml')
             li_merit = bs.findAll("ul")[9].findAll("span")
 
-            ra_ = ra.randrange(len(li_merit)/2)
+            ra_ = ra.randrange(len(li_merit) // 2)
             reply = li_merit[ra_ * 2 + 1].text
             await message.channel.send(f"{ra_}：{reply}")
 
