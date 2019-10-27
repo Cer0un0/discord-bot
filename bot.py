@@ -309,6 +309,12 @@ async def on_message(message):
             await message.channel.send(t_start)
             await message.channel.send(t_end)
 
+            await message.channel.send(
+                f"💩バーチャルコンテスト開催のお知らせ💩\n
+                {t_start}〜{t_end}\n
+                {title}\n
+                {link}")
+
         if len(msg.split()) == 3:
             if 'VirtualContest' in msg.split()[-1]:
                 title, link, _ = tuple(msg.split())
