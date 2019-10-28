@@ -319,7 +319,12 @@ async def on_message(message):
 
             with open("bb.txt") as f:
                 l = f.readlines()
-                await message.channel.send(l[ra_])
+                n, merit, comment = l[ra_].split()
+
+                await message.channel.send(f"{n}：{merit}")
+
+                if comment is not "":
+                    await message.channel.send(f"（ダ）：{comment}")
 
         # if len(msg.split()) == 3:
         #     if 'VirtualContest' in msg.split()[-1]:
