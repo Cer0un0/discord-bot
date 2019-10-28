@@ -317,6 +317,10 @@ async def on_message(message):
             reply = li_merit[ra_ * 2 + 1].text
             await message.channel.send(f"{(ra_+1)}：{reply}")
 
+        if msg == '/test':
+            with open("tokuji.txt") as f:
+                await message.channel.send(f)
+
         # if len(msg.split()) == 3:
         #     if 'VirtualContest' in msg.split()[-1]:
         #         title, link, _ = tuple(msg.split())
