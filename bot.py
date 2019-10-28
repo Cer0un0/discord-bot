@@ -319,7 +319,7 @@ async def on_message(message):
 
             with open("bb.txt") as f:
                 l = f.readlines()
-                n, merit, comment = l[ra_].split()
+                n, merit, comment = l[ra_].split(", ")
 
                 await message.channel.send(f"{n}：{merit}")
 
