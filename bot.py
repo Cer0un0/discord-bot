@@ -321,7 +321,7 @@ async def on_message(message):
                 l = f.readlines()
                 sp = l[ra_].split(", ")
 
-                await message.channel.send(f"{sp[0]}：{sp[1]}")
+                await message.channel.send(f"{sp[0]}：{sp[1][:-2]}")
 
                 if sp[2] is not "\n":
                     await message.channel.send(f"（ダ）：{sp[2]}")
