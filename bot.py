@@ -319,8 +319,7 @@ async def on_message(message):
 
             with open("bb.txt") as f:
                 l = f.readlines()
-
-            await message.channel.send(l[ra_])
+                await message.channel.send(l[ra_])
 
         # if len(msg.split()) == 3:
         #     if 'VirtualContest' in msg.split()[-1]:
