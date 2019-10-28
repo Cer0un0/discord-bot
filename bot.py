@@ -308,18 +308,19 @@ async def on_message(message):
             await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title[0]}**：{t_start}〜{t_end}\n{link}")
 
         if msg == '/bbslot':
-            link = "https://boisb.com/recruit/"
-            get_url_info = requests.get(link)
-            bs = bs4.BeautifulSoup(get_url_info.text, 'lxml')
-            li_merit = bs.findAll("ul")[9].findAll("span")
+            # link = "https://boisb.com/recruit/"
+            # get_url_info = requests.get(link)
+            # bs = bs4.BeautifulSoup(get_url_info.text, 'lxml')
+            # li_merit = bs.findAll("ul")[9].findAll("span")
+            #
+            ra_ = ra.randrange(83)
+            # reply = li_merit[ra_ * 2 + 1].text
+            # await message.channel.send(f"{(ra_+1)}：{reply}")
 
-            ra_ = ra.randrange(len(li_merit) // 2)
-            reply = li_merit[ra_ * 2 + 1].text
-            await message.channel.send(f"{(ra_+1)}：{reply}")
+            with open("bb.txt") as f:
+                l = f.readlines()
 
-        if msg == '/test':
-            with open("tokuji.txt") as f:
-                await message.channel.send(f)
+            await message.channel.send(l[ra_])
 
         # if len(msg.split()) == 3:
         #     if 'VirtualContest' in msg.split()[-1]:
