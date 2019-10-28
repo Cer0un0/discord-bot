@@ -321,10 +321,11 @@ async def on_message(message):
                 l = f.readlines()
                 sp = l[ra_].split(", ")
 
-                await message.channel.send(f"{sp[0]}：{sp[1]}")
+                # await message.channel.send(f"{sp[0]}：{sp[1]}")
+                await message.channel.send(sp)
 
-                if len(sp) == 3:
-                    await message.channel.send(f"（ダ）：{sp[2]}")
+                # if len(sp) == 3:
+                    # await message.channel.send(f"（ダ）：{sp[2]}")
 
         # if len(msg.split()) == 3:
         #     if 'VirtualContest' in msg.split()[-1]:
