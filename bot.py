@@ -355,8 +355,8 @@ async def on_ready():
 
 async def greeting_gm():
     channel = client.get_channel(632106376427995137)
-    await client.send_message(channel, 'おはよう')
-    await asyncio.sleep(10)
+    await channel.send('おはよう')
+    await asyncio.sleep(2)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
