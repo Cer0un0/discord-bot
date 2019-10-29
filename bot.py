@@ -348,7 +348,7 @@ async def on_message(message):
 # 60秒に一回ループ
 @tasks.loop(seconds=5)
 async def loop():
-    channel = client.get_channel(632106376427995137)
+    channel = client.get_channel("632106376427995137")
     await channel.send('時間だよ')
 
 #ループ処理実行
