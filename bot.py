@@ -8,7 +8,9 @@ import os
 import random as ra
 import re
 import sys
+import time
 from datetime import datetime as dt
+from time import sleep
 
 import bs4
 import csv
@@ -345,14 +347,13 @@ async def on_message(message):
         #     await message.channel.send(reply)
 
 
-# 60秒に一回ループ
-@tasks.loop(seconds=5)
-async def loop():
-    channel = client.get_channel("632106376427995137")
-    await channel.send('時間だよ')
-
-#ループ処理実行
-loop.start()
+@client.event
+async def on_ready():
+    while True:
+        # if time.strftime('%H:%M:%S', time.localtime()) == '21:00:00':
+        channel = client.get_channel('632106376427995137')
+        await client.send_message(channel, '勝手に喋るよ')
+        sleep(5)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
