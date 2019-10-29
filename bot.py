@@ -351,9 +351,9 @@ async def on_message(message):
 @client.event
 async def on_ready():
     while True:
-        # if time.strftime('%H:%M:%S',time.localtime())=='21:00:00':
+        # if time.strftime('%H:%M:%S', time.localtime()) == '21:00:00':
         channel = client.get_channel(632106376427995137)
-        await channel.send('おはよう')
+        await channel.send(time.localtime())
         await asyncio.sleep(5)
 
 # @client.event
