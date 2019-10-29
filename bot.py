@@ -350,13 +350,21 @@ async def on_message(message):
 
 @client.event
 async def on_ready():
-    asyncio.ensure_future(greeting_gm())
+    while True:
+        # if time.strftime('%H:%M:%S',time.localtime())=='21:00:00':
+        channel = client.get_channel(632106376427995137)
+        await channel.send('おはよう')
+        sleep(5)
 
-
-async def greeting_gm():
-    channel = client.get_channel(632106376427995137)
-    await channel.send('おはよう')
-    await asyncio.sleep(2)
+# @client.event
+# async def on_ready():
+#     asyncio.ensure_future(greeting_gm())
+#
+#
+# async def greeting_gm():
+#     channel = client.get_channel(632106376427995137)
+#     await channel.send('おはよう')
+#     await asyncio.sleep(2)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
