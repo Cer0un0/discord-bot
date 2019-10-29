@@ -299,13 +299,13 @@ async def on_message(message):
             bs = bs4.BeautifulSoup(get_url_info.text, 'lxml')
 
             # タイトル
-            title = re.findall('.+杯', bs.h1.get_text().lstrip())
+            title = bs.h1.get_text().lstrip().split()[0]
             # 開始時間取得
             line = bs.select('small')[0].text
             PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
             t_start, t_end = tuple(re.findall(PATTERN, line))
 
-            await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title[0]}**：{t_start}〜{t_end}\n{link}")
+            await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title}**：{t_start}〜{t_end}\n{link}")
 
         if msg == '/bbslot':
             ra_ = ra.randrange(83)
