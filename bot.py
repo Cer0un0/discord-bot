@@ -316,7 +316,7 @@ async def on_message(message):
                 # number, merit, comment
                 sp = l[ra_].split(", ")
 
-                s = sp[1].rstrip(',')
+                s = sp[1].rstrip(', \n')
                 await message.channel.send(f"{sp[0]}：{s}")
 
                 if sp[2] is not "\n":
