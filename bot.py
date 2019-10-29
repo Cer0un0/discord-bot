@@ -308,20 +308,15 @@ async def on_message(message):
             await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title[0]}**：{t_start}〜{t_end}\n{link}")
 
         if msg == '/bbslot':
-            # link = "https://boisb.com/recruit/"
-            # get_url_info = requests.get(link)
-            # bs = bs4.BeautifulSoup(get_url_info.text, 'lxml')
-            # li_merit = bs.findAll("ul")[9].findAll("span")
-            #
             ra_ = ra.randrange(83)
-            # reply = li_merit[ra_ * 2 + 1].text
-            # await message.channel.send(f"{(ra_+1)}：{reply}")
 
             with open("bb.txt") as f:
                 l = f.readlines()
+
+                # number, merit, comment
                 sp = l[ra_].split(", ")
 
-                await message.channel.send(f"{sp[0]}：{sp[1][:-2]}")
+                await message.channel.send(f"{sp[0]}：{sp[1].rsplit()")
 
                 if sp[2] is not "\n":
                     await message.channel.send(f"（ダ）：{sp[2]}")
@@ -371,22 +366,6 @@ async def on_message(message):
         #     reply += "っ"
         #     await message.channel.send(reply)
 
-# 60秒に一回ループ
-@tasks.loop(seconds=5)
-async def loop():
-    csv = readCsv()
-    current_vc = csv[-1]
-
-    await message.channel.send(current_vc)
-
-    # 現在の時刻
-    now = dt.now().strftime('%H:%M')
-    if now == '07:00':
-        channel = client.get_channel(CHANNEL_ID)
-        await channel.send('おはよう')
-
-#ループ処理実行
-loop.start()
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
