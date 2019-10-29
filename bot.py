@@ -322,29 +322,6 @@ async def on_message(message):
                 if sp[2] is not "\n":
                     await message.channel.send(f"（ダ）：{sp[2]}")
 
-        # if len(msg.split()) == 3:
-        #     if 'VirtualContest' in msg.split()[-1]:
-        #         title, link, _ = tuple(msg.split())
-        #
-        #         get_url_info = requests.get(link)
-        #         bs4Obj = bs4.BeautifulSoup(get_url_info.text, 'lxml')
-        #         line = bs4Obj.select('small')[0].text
-        #
-        #         PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
-        #         t_start, t_end = tuple(re.findall(PATTERN, line))
-        #
-        #         csv = readCsv()
-        #
-        #         if csv is None:
-        #             csv = [["", "", "2000-01-01 00:00:00", "9999-12-31 00:00:00"]]
-        #         else:
-        #             csv.append([title, link, t_start, t_end])
-        #
-        #         writeCsv(csv)
-        #
-        #         csv = readCsv()
-        #         await message.channel.send(csv)
-
         # if message.content.startswith('/ommc'):
         #    channel = client.get_channel('nyr')
         #
@@ -367,6 +344,15 @@ async def on_message(message):
         #     reply += "っ"
         #     await message.channel.send(reply)
 
+
+# 60秒に一回ループ
+@tasks.loop(seconds=5)
+async def loop():
+    channel = client.get_channel(632106376427995137)
+    await channel.send('時間だよ')
+
+#ループ処理実行
+loop.start()
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
