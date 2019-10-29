@@ -351,10 +351,11 @@ async def on_message(message):
 @client.event
 async def on_ready():
     while True:
-        # if time.strftime('%H:%M:%S', time.localtime()) == '21:00:00':
-        channel = client.get_channel(632106376427995137)
-        await channel.send(time.localtime())
-        await asyncio.sleep(5)
+        if time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()) == "2019/10/30 21:50:00":
+            # channel = client.get_channel(632106376427995137) # 開発室
+            channel = client.get_channel(615869415103266817)
+            await channel.send("【ABCコン】本日午後22時からです。https://not-522.appspot.com/contest/5937364687912960")
+        await asyncio.sleep(60)
 
 # @client.event
 # async def on_ready():
