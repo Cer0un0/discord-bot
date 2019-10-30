@@ -355,10 +355,10 @@ async def on_ready():
         channel = client.get_channel(632106376427995137) # 開発室
         #     channel = client.get_channel(615869415103266817) # AtCoder
         #     await channel.send("【新うんぼぼ杯】始まりましたhttps://not-522.appspot.com/contest/5937364687912960")
-        dt_now_jst = datetime.now(timezone(timedelta(hours=+9), 'JST'))
-        # await channel.send(time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()))
+        time_ = datetime.now(timezone(timedelta(hours=+9), 'JST'))
+        await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
         # await channel.send(time.strftime("%Y/%m/%d %H:%M:%S", dt_now_jst))
-        await channel.send(dt_now_jst)
+        # await channel.send(dt_now_jst)
         await asyncio.sleep(5)
 
 # @client.event
