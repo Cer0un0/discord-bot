@@ -351,11 +351,12 @@ async def on_message(message):
 @client.event
 async def on_ready():
     while True:
-        if time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()) == "2019/10/30 19:20:00":
-            # channel = client.get_channel(632106376427995137) # 開発室
-            channel = client.get_channel(615869415103266817) # AtCoder
-            await channel.send("【新うんぼぼ杯】本日午後19時30分からです。https://not-522.appspot.com/contest/5937364687912960")
-        await asyncio.sleep(60)
+        # if time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()) == "2019/10/30 19:20:00":
+        channel = client.get_channel(632106376427995137) # 開発室
+        #     channel = client.get_channel(615869415103266817) # AtCoder
+        #     await channel.send("【新うんぼぼ杯】本日午後19時30分からです。https://not-522.appspot.com/contest/5937364687912960")
+        await channel.send(time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()))
+        await asyncio.sleep(5)
 
 # @client.event
 # async def on_ready():
