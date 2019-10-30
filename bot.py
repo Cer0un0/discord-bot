@@ -10,7 +10,7 @@ import random as ra
 import re
 import sys
 import time
-from datetime import datetime as dt
+from datetime import datetime, timedelta, timezone
 from time import sleep
 
 import bs4
@@ -355,7 +355,7 @@ async def on_ready():
         channel = client.get_channel(632106376427995137) # 開発室
         #     channel = client.get_channel(615869415103266817) # AtCoder
         #     await channel.send("【新うんぼぼ杯】始まりましたhttps://not-522.appspot.com/contest/5937364687912960")
-        dt_now_jst = dt.now()
+        dt_now_jst = timezone(timedelta(hours=+9), 'JST')
         # await channel.send(time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()))
         # await channel.send(time.strftime("%Y/%m/%d %H:%M:%S", dt_now_jst))
         await channel.send(dt_now_jst)
