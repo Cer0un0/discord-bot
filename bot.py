@@ -356,7 +356,7 @@ async def on_ready():
             channel = client.get_channel(615869415103266817) # AtCoder
             # await channel.send("【新うんぼぼ杯】始まりましたhttps://not-522.appspot.com/contest/5937364687912960")
             await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
-            await asyncio.sleep(5)
+            await asyncio.sleep(60)
 
 # @client.event
 # async def on_ready():
