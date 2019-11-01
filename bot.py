@@ -120,9 +120,9 @@ def msg_repetition(qu):
     reply = ""
     for rep in dict_repetition[qu]:
         if type(rep) is str: # string
-            reply += rep * ra.randrange(40)
+            reply += rep * ra.randrange(120)
         else: # list
-            reply += ra.choice(rep) * ra.randrange(180)
+            reply += ra.choice(rep) * ra.randrange(60)
 
     return reply
 
