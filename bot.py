@@ -348,25 +348,18 @@ async def on_message(message):
         #     await message.channel.send(reply)
 
 
-# @client.event
-# async def on_ready():
-#     while True:
-#         if datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime("%Y/%m/%d %H:%M:%S") == "2019/10/30 19:30:00":
-#             #   channel = client.get_channel(632106376427995137) # 開発室
-#             channel = client.get_channel(615869415103266817) # AtCoder
-#             # await channel.send("【新うんぼぼ杯】始まりましたhttps://not-522.appspot.com/contest/5937364687912960")
-#             await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
-#             await asyncio.sleep(60)
+@client.event
+async def on_ready():
+    # channel = client.get_channel(615869415103266817)  # AtCoder
+    channel = client.get_channel(632106376427995137) # 開発室
 
-# @client.event
-# async def on_ready():
-#     asyncio.ensure_future(greeting_gm())
-#
-#
-# async def greeting_gm():
-#     channel = client.get_channel(632106376427995137)
-#     await channel.send('おはよう')
-#     await asyncio.sleep(2)
+    while True:
+
+        if datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime("%Y/%m/%d %H:%M:%S") == "2019/11/01 21:50:00":
+            await channel.send("【ペイペイドーム】始まりました https://not-522.appspot.com/contest/5073793531772928")
+        await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
+        await asyncio.sleep(60)
+
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
