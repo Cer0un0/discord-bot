@@ -30,6 +30,7 @@ TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa34lA.Et8qCwcgqhsPGIUryBck-Fj_d4Q'
 dict_response = {
     "/neko": "にゃーん",
     "/unbobo": "うんぼぼうんぼぼウッホッホ！！！！💩💩💩",
+    "/unpopo": "うーくん...あなたのことが好きです...。",
     "/colorcorn" : "<:colorcorn:627504593344921629>"
 }
 # ランダムで繰り返す単語辞書
