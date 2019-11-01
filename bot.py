@@ -122,7 +122,7 @@ def msg_repetition(qu):
         if type(rep) is str: # string
             reply += rep * ra.randrange(40)
         else: # list
-            reply += ra.choice(rep) * ra.randrange(60)
+            reply += ra.choice(rep) * ra.randrange(180)
 
     return reply
 
