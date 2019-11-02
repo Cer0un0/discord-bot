@@ -29,7 +29,7 @@ TOKEN = os.environ["TOKEN"]
 # 1回応答するだけの単語辞書
 dict_response = {
     "/neko": "にゃーん",
-    "/unbobo": "うんぼぼうんぼぼウッホッホ！！！！💩💩💩",
+    "/unbobo": "うんぼぼうんぼぼウッホッホ！！！！💩💩💩💩",
     "/unpopo": "うーくん...あなたのことが好きです...。",
     "/colorcorn" : "<:colorcorn:627504593344921629>"
 }
