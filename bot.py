@@ -126,7 +126,7 @@ def msg_repetition(qu):
             reply += ra.choice(rep) * ra.randrange(60)
 
     if qu == "/washlet":
-        reply = "んっ...♥"
+        reply = "んっ...♥" if ra.randrange(100) > 90 else reply
 
 
     return reply
