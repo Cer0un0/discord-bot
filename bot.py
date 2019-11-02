@@ -29,7 +29,7 @@ TOKEN = os.environ["TOKEN"]
 # 1回応答するだけの単語辞書
 dict_response = {
     "/neko": "にゃーん",
-    "/unbobo": "うんぼぼうんぼぼウッホッホ！！！！💩💩💩💩💩",
+    "/unbobo": "うんぼぼうんぼぼウッホッホ！！！！💩💩💩💩💩💩",
     "/unpopo": "うーくん...あなたのことが好きです...。",
     "/colorcorn" : "<:colorcorn:627504593344921629>"
 }
@@ -121,9 +121,13 @@ def msg_repetition(qu):
     reply = ""
     for rep in dict_repetition[qu]:
         if type(rep) is str: # string
-            reply += rep * ra.randrange(120)
+            reply += rep * ra.randrange(40)
         else: # list
             reply += ra.choice(rep) * ra.randrange(60)
+
+    if qu == "/washlet":
+        reply = "んっ...♥"
+
 
     return reply
 
@@ -268,7 +272,7 @@ async def on_message(message):
             if len_t > 4:
                 await message.channel.send("おちんぽおっきすぎだよぉ...")
             else:
-                li_dumy_target = [f"unbo{i}" for i in range(len_t)]  # おちんぽプログラムで使う文字列リスト
+                li_dumy_target = [f"unbobo{i}" for i in range(len_t)]  # おちんぽプログラムで使う文字列リスト
                 target = "".join(li_dumy_target)  # おちんぽプログラムで使う文字列
                 li_reply = [] # 出力結果リスト
 
@@ -279,7 +283,7 @@ async def on_message(message):
                     if cnt > 114514:
                         break
 
-                    li_reply.append(ra.choice(list(li_dumy_target)))
+                    li_reply.append(ra.choice(li_dumy_target))
                     # ケツがターゲット文字列（ダミー）なら処理終了
                     is_proc = ''.join(li_reply[-len_t:]) != target
 
