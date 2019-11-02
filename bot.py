@@ -24,7 +24,7 @@ from discord.ext import tasks
 ###
 
 # BotのAccess Token
-TOKEN = 'NjMyMTAzODA2OTg5MTA3MjAx.Xa34lA.Et8qCwcgqhsPGIUryBck-Fj_d4Q'
+TOKEN = os.environ["TOKEN"]
 
 # 1回応答するだけの単語辞書
 dict_response = {
@@ -355,7 +355,6 @@ async def on_ready():
     channel = client.get_channel(632106376427995137) # 開発室
 
     while True:
-
         if datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime("%Y/%m/%d %H:%M:%S") == "2019/11/01 21:50:00":
             await channel.send("【ペイペイドーム】始まりました https://not-522.appspot.com/contest/5073793531772928")
         await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
