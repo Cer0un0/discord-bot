@@ -363,7 +363,7 @@ async def on_ready():
 
         # if datetime.now(time_.strftime("%Y/%m/%d %H:%M:%S") == "2019/11/01 21:50:00":
         #     await channel.send("【ペイペイドーム】始まりました https://not-522.appspot.com/contest/5073793531772928")
-        await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
+        await channel.send(time_)
         await asyncio.sleep(5)
 
 
