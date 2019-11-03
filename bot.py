@@ -359,8 +359,8 @@ async def on_ready():
     channel = client.get_channel(632106376427995137) # 開発室
 
     while True:
-        if datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime("%Y/%m/%d %H:%M:%S") == "2019/11/01 21:50:00":
-            await channel.send("【ペイペイドーム】始まりました https://not-522.appspot.com/contest/5073793531772928")
+        # if datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime("%Y/%m/%d %H:%M:%S") == "2019/11/01 21:50:00":
+        #     await channel.send("【ペイペイドーム】始まりました https://not-522.appspot.com/contest/5073793531772928")
         await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
         await asyncio.sleep(5)
 
