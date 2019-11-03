@@ -321,6 +321,7 @@ async def on_message(message):
             lines.insert(0, f"{title}, {t_start}, {t_end}, {link}")
 
             await message.channel.send(lines)
+            # unbobo
 
             with open("vc_alert.txt", mode='w') as f:
                 f.writelines(lines)
