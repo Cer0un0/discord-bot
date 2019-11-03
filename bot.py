@@ -366,16 +366,20 @@ async def on_message(message):
 
 @client.event
 async def on_ready():
-    # channel = client.get_channel(615869415103266817)  # AtCoder
-    channel = client.get_channel(632106376427995137) # 開発室
+    channel = client.get_channel(615869415103266817)  # AtCoder
+    # channel = client.get_channel(632106376427995137) # 開発室
 
     while True:
         time_ = datetime.now(timezone(timedelta(hours=+9), 'JST'))
 
-        if time_.strftime("%Y/%m/%d %H:%M") == "2019/11/03 21:54":
-            await channel.send("【ペイペイドーム】始まりました https://not-522.appspot.com/contest/5073793531772928")
-        await channel.send(time_.strftime("%Y/%m/%d %H:%M"))
-        await asyncio.sleep(5)
+        if time_.strftime("%Y/%m/%d %H:%M") == "2019/11/03 22:20":
+            await channel.send("【ぜーくん杯】まもなく開始です\nhttps://not-522.appspot.com/contest/6302209677459456")
+
+        if time_.strftime("%Y/%m/%d %H:%M") == "2019/11/03 22:30":
+            await channel.send("【ぜーくん杯】始まりました\nhttps://not-522.appspot.com/contest/6302209677459456")
+
+        # await channel.send(time_.strftime("%Y/%m/%d %H:%M"))
+        await asyncio.sleep(60)
 
 
 # Botの起動とDiscordサーバーへの接続
