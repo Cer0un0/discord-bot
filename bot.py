@@ -362,7 +362,10 @@ async def on_ready():
         if datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime("%Y/%m/%d %H:%M:%S") == "2019/11/01 21:50:00":
             await channel.send("【ペイペイドーム】始まりました https://not-522.appspot.com/contest/5073793531772928")
         await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
-        await asyncio.sleep(60)
+
+    await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
+
+    await asyncio.sleep(10)
 
 
 # Botの起動とDiscordサーバーへの接続
