@@ -318,9 +318,9 @@ async def on_message(message):
             with open("vc_alert.txt") as f:
                 lines = [s.strip() for s in f.readlines()]
 
-            lines.insert(f"{title}, {t_start}, {t_end}, {link}")
-
             await message.channel.send(lines)
+
+            lines.insert(f"{title}, {t_start}, {t_end}, {link}")
 
             with open("vc_alert.txt", mode='w') as f:
                 f.writelines(lines)
