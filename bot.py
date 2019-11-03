@@ -361,7 +361,7 @@ async def on_ready():
     while True:
         # if datetime.now(timezone(timedelta(hours=+9), 'JST')).strftime("%Y/%m/%d %H:%M:%S") == "2019/11/01 21:50:00":
         #     await channel.send("【ペイペイドーム】始まりました https://not-522.appspot.com/contest/5073793531772928")
-        await channel.send(time_.strftime("%Y/%m/%d %H:%M:%S"))
+        await channel.send("unbobo")
         await asyncio.sleep(5)
 
 
