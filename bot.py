@@ -375,11 +375,14 @@ async def on_ready():
         if time_.strftime("%Y/%m/%d %H:%M") == "2019/11/03 22:20":
             await channel.send("【ぜーくん杯】まもなく開始です\nhttps://not-522.appspot.com/contest/6302209677459456")
 
-        if time_.strftime("%Y/%m/%d %H:%M") == "2019/11/03 22:30":
+        if time_.strftime("%Y/%m/%d %H:%M:%S") == "2019/11/03 22:30:00":
             await channel.send("【ぜーくん杯】始まりました\nhttps://not-522.appspot.com/contest/6302209677459456")
 
         # await channel.send(time_.strftime("%Y/%m/%d %H:%M"))
-        await asyncio.sleep(60)
+        if time_.strftime("%Y/%m/%d %H:%M") == "2019/11/03 22:29":
+            await asyncio.sleep(1)
+        else:
+            await asyncio.sleep(30)
 
 
 # Botの起動とDiscordサーバーへの接続
