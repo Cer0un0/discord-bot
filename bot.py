@@ -315,6 +315,16 @@ async def on_message(message):
 
             await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title}**：{t_start}〜{t_end}\n{link}")
 
+            with open("vc_alert.txt") as f:
+                lines = [s.strip() for s in f.readlines()]
+
+            lines.insert(f"{title}, {t_start}, {t_end}, {link}")
+
+            await message.channel.send(lines)
+
+            with open("vc_alert.txt", mode='w') as f:
+                f.writelines(lines)
+
         if msg == '/bbslot':
             ra_ = ra.randrange(83)
 
