@@ -18,6 +18,7 @@ import csv
 import discord
 import requests
 from discord.ext import tasks
+from discord.ext import commands
 
 ###
 # 定義
@@ -26,20 +27,6 @@ from discord.ext import tasks
 # BotのAccess Token
 TOKEN = os.environ["TOKEN"]
 
-# 1回応答するだけの単語辞書
-dict_response = {
-    "/neko": "にゃーん",
-    "/unbobo": "うんぼぼうんぼぼウッホッホ！！！！💩💩💩💩💩💩",
-    "/unpopo": "うーくん...あなたのことが好きです...。",
-    "/colorcorn" : "<:colorcorn:627504593344921629>"
-}
-# ランダムで繰り返す単語辞書
-dict_repetition = {
-    "/kireji"  : [["ぶち", "ブチ"], "ィ", "ッ", "！", "💉"],
-    "/shikko"  : [["ちょろ", "チョロ"], "💦"],
-    "/unko"    : [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"],
-    "/washlet" : [["ン゛"], "ッ", "！", "🙄💢"]
-}
 # スロットの単語辞書
 #   word: どれか1要素が選ばれる
 #           0番目は末尾に付ける単語
@@ -47,14 +34,15 @@ dict_repetition = {
 #          value -> 当たったときの文
 #                   クエリが存在すれば実行
 #                   ""でクエリをランダムで実行
-dict_slot = {
+dict_command = {
     "/aratan": {
         "word": ["", ["あら"], ["たん", "たそ", "くん", "ちゃん", "たそくんちゃん先輩"]],
         "atari": {
             "あらたん": ""
         }
     },
-    "/daikon"  : {
+    "/colorcorn": "<:colorcorn:627504593344921629>",
+    "/daikon": {
         "word": ["", ["ダイ", "カラー"], ["コン", "コーン"]],
         "atari": {
             "ダイコン": "",
@@ -67,6 +55,8 @@ dict_slot = {
             "ハマコー": ""
         }
     },
+    "/kireji": [["ぶち", "ブチ"], "ィ", "ッ", "！", "💉"],
+    "/neko": "にゃーん",
     "/omikuji" : {
         "word": ["便", ["大", "中", "吉", "小", "末", "凶", "大凶"]],
         "atari": {
@@ -80,6 +70,11 @@ dict_slot = {
             "うんぼぼ": "/unbobo"
         }
     },
+    "/shikko": [["ちょろ", "チョロ"], "💦"],
+    "/unbobo": "うんぼぼうんぼぼウッホッホ！！！！💩💩💩💩💩💩",
+    "/unko": [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"],
+    "/unpopo": "うーくん...あなたのことが好きです...。",
+    "/washlet": [["ン゛"], "ッ", "！", "🙄💢"],
     "/zero": {
         "word": ["", ["ぜろ", "いち"], ["ホモ", "レズ", "ゲイ", "バイ"]],
         "atari": {
@@ -120,14 +115,13 @@ def msg_repetition(qu):
 
     reply = ""
     for rep in dict_repetition[qu]:
-        if type(rep) is str: # string
+        if type(rep) is str:  # string
             reply += rep * ra.randrange(40)
-        else: # list
+        else:  # list
             reply += ra.choice(rep) * ra.randrange(60)
 
     if qu == "/washlet":
         reply = "んっ...♥" if ra.randrange(100) > 20 else reply
-
 
     return reply
 
@@ -201,39 +195,19 @@ async def do_slot(qu, message):
             if qu_ in dict_repetition:  # 繰り返し応答の存在判定
                 await message.channel.send(msg_repetition(qu_))
 
+@commands.command()
+async def test(ctx):
+    await message.channel.send("unbobo")
 
-def readCsv(fname='VirtualContest.csv'):
-    if not os.path.exists(fname):
-        return None
-    readList = []
-    with open(fname, 'r') as f:
-        reader = csv.reader(f)
-        for rows in reader:
-            l = []
-            for row in rows:
-                l.append(row)
-                # print(row)
-            readList.append(l)
-    return readList
-
-
-def writeCsv(data, fname='VirtualContest.csv'):
-    with open(fname, 'w') as f:
-        writer = csv.writer(f, lineterminator='\n')
-        writer.writerows(data)
+bot.add_command(test)
 
 
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
-    # await message.channel.send(current_vc)
-
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
-
-    # await message.channel.send(message.content)
-    # await message.channel.send(str(client.emojis[0]))
 
     # 1行ずつ処理
     for msg in message.content.split('\n'):
@@ -355,13 +329,6 @@ async def on_message(message):
 
         if "[" in msg:
             await message.channel.send(msg.replace('[unko]', msg_repetition("/unko")))
-
-
-        # if ":poop" in msg:
-        #     reply = ""
-        #     reply += "ぶり" * [msg.count(":poop")]
-        #     reply += "っ"
-        #     await message.channel.send(reply)
 
 
 @client.event
