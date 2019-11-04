@@ -196,7 +196,7 @@ async def do_slot(qu, message):
                 await message.channel.send(msg_repetition(qu_))
 
 
-bot = commands.Bot(command_prefix='/')
+bot = commands.Bot(command_prefix='$')
 @bot.command()
 async def test(ctx, arg):
     await ctx.send(arg)
