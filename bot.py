@@ -195,11 +195,11 @@ async def do_slot(qu, message):
             if qu_ in dict_repetition:  # 繰り返し応答の存在判定
                 await message.channel.send(msg_repetition(qu_))
 
-@commands.command()
-async def test(ctx):
-    await message.channel.send("unbobo")
-
-bot.add_command(test)
+# @commands.command()
+# async def test(ctx):
+#     await message.channel.send("unbobo")
+#
+# bot.add_command(test)
 
 
 # メッセージ受信時に動作する処理
