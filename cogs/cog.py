@@ -179,14 +179,14 @@ class Cog(commands.Cog):
             if "[" in msg:
                 replace = ""
                 li = [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"]
-                
+
                 for rep in li_:
                     if type(rep) is str:  # string
                         replace += rep * ra.randrange(40)
                     else:  # list
                         replace += ra.choice(rep) * ra.randrange(60)
 
-                await message.channel.send(msg.replace('[unko]', replace)
+                await message.channel.send(msg.replace('[unko]', replace))
 
 
 
