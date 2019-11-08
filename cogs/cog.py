@@ -55,6 +55,13 @@ class Cog(commands.Cog):
     async def unpopo(self, ctx):
         await self.reply_mono(ctx, "うーくん...あなたのことが好きです...。")
 
+    @commands.command()
+    async def hkonro(self, ctx):
+        reply = "ｴ"
+        reply += "ﾁ" * ra.randrange(100)
+        await ctx.send(f"エッチコンロ点火！{reply}勃ッ！！！！！！！！！！！！！！🔥")
+
+
     # reply_buriburi
     @commands.command()
     async def kireji(self, ctx):
