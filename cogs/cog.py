@@ -41,22 +41,27 @@ class Cog(commands.Cog):
     # reply_mono
     @commands.command()
     async def colorcorn(self, ctx):
+        """カラーコーンを放流する"""
         await self.reply_mono(ctx, "<:colorcorn:627504593344921629>")
 
     @commands.command()
     async def neko(self, ctx):
+        """社会性フィルターを通して社会の不条理を嘆く"""
         await self.reply_mono(ctx, "にゃーん")
 
     @commands.command()
     async def unbobo(self, ctx):
+        """うんぼぼ一族とコミュニケーションを取る"""
         await self.reply_mono(ctx, "うんぼぼうんぼぼウッホッホ！！！！💩💩💩💩💩💩")
 
     @commands.command()
     async def unpopo(self, ctx):
+        """凛子の告白を思い返す"""
         await self.reply_mono(ctx, "うーくん...あなたのことが好きです...。")
 
     @commands.command()
     async def hkonro(self, ctx):
+        """エッチコンロの火を灯す"""
         reply = "ｴ"
         reply += "ﾁ" * ra.randrange(100)
         await ctx.send(f"エッチコンロ点火！{reply}勃ッ！！！！！！！！！！！！！！🔥")
@@ -65,31 +70,69 @@ class Cog(commands.Cog):
     # reply_buriburi
     @commands.command()
     async def kireji(self, ctx):
+        """切れ痔の人の気持ちを知る"""
         await self.reply_buriburi(ctx, [["ぶち", "ブチ"], "ィ", "ッ", "！", "💉"])
 
     @commands.command()
     async def shikko(self, ctx):
+        """漏らす"""
         await self.reply_buriburi(ctx, [["ちょろ", "チョロ"], "💦"])
 
     @commands.command()
     async def unko(self, ctx):
+        """漏らす"""
         await self.reply_buriburi(ctx, [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"])
 
     @commands.command()
     async def washlet(self, ctx):
-        if ra.randrange(100) > 30:
+        """ウォシュレットを使う(33%の確率で前の人の水圧設定が激流葬)"""
+        if ra.randrange(100) > 33:
             await ctx.send("んっ...♥")
         else:
             await self.reply_buriburi(ctx, [["ン゛"], "ッ", "！", "🙄💢"])
 
-    # reply_slot
-    @commands.command()
-    async def aratan(self, ctx):
-        await self.reply_buriburi(ctx, ["", ["あら"], ["たん", "たそ", "くん", "ちゃん", "たそくんちゃん先輩"]])
+    # TODO: reply_slot
+    # @commands.command()
+    # async def aratan(self, ctx):
+    #     """あらたんスロット(20%)"""
+    #     await self.reply_buriburi(ctx, ["", ["あら"], ["たん", "たそ", "くん", "ちゃん", "たそくんちゃん先輩"]])
 
     @commands.command()
     async def omikuji(self, ctx):
+        """今日のウン勢"""
         await self.reply_slot(ctx, ["便", ["大", "中", "吉", "小", "末", "凶", "大凶"]], "大便")
+
+    @commands.command()
+    async def help(self, ctx):
+        embed = discord.Embed(title="単一応答系", description="", color=0x8b4513)
+        embed.add_field(name="/colorcorn", value="カラーコーンを放流する", inline=False)
+        embed.add_field(name="/help", value="これ", inline=False)
+        embed.add_field(name="/hkonro", value="エッチコンロの火を灯す", inline=False)
+        embed.add_field(name="/neko", value="社会性フィルターを通して社会の不条理を嘆く", inline=False)
+        embed.add_field(name="/unbobo", value="うんぼぼ一族とコミュニケーションを取る", inline=False)
+        embed.add_field(name="/unpopo", value="凛子の告白を思い返す", inline=False)
+        await ctx.send(embed=embed)
+
+        embed = discord.Embed(title="ぶりつき系", description="", color=0x8b4513)
+        embed.add_field(name="/kireji", value="切れ痔の気持ちになれ", inline=False)
+        embed.add_field(name="/shikko", value="漏らす", inline=False)
+        embed.add_field(name="/unko", value="漏らす", inline=False)
+        embed.add_field(name="/washlet", value="ウォシュレットを使う(33%の確率で前に使った人の水圧設定がアホ)", inline=False)
+        await ctx.send(embed=embed)
+
+        embed = discord.Embed(title="スロット系", description="", color=0x8b4513)
+        embed.add_field(name="/ochinpo [引数(max:4)]", value="公開オナニー", inline=False)
+        embed.add_field(name="/omikuji", value="今日のウン勢", inline=False)
+        await ctx.send(embed=embed)
+
+        embed = discord.Embed(title="文章埋め込み系", description="", color=0x8b4513)
+        embed.add_field(name="\d+d\d+", value="賽は投げられた", inline=False)
+        embed.add_field(name="[unko]", value="話してる途中で漏らぶりぶりぶりぶりぶりぶりぶり💩💩💩💩💩", inline=False)
+        await ctx.send(embed=embed)
+
+        embed = discord.Embed(title="常駐系", description="", color=0x8b4513)
+        embed.add_field(name="(atcoder vcのリンク)", value="バチャコンの告知", inline=False)
+        await ctx.send(embed=embed)
 
 
     @commands.Cog.listener()

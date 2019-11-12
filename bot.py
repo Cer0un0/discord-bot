@@ -16,6 +16,7 @@ class Bot(commands.Bot):
     # MyBotのコンストラクタ。
     def __init__(self, command_prefix):
         super().__init__(command_prefix)
+        self.remove_command('help')
 
         # INITIAL_COGSに格納されている名前から、コグを読み込む。
         for cog in INITIAL_EXTENSIONS:
