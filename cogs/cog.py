@@ -36,7 +36,7 @@ class Cog(commands.Cog):
         await ctx.send(reply + li_[0])
 
         if reply + li_[0] == bingo:
-            await self.reply_buriburi(ctx, [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"])
+            await self.reply_buriburi(ctx, [["ぶり", "ぼと", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"])
 
     # reply_mono
     @commands.command()
@@ -85,7 +85,7 @@ class Cog(commands.Cog):
 
     @commands.command()
     async def washlet(self, ctx):
-        """ウォシュレットを使う(33%の確率で前の人の水圧設定が激流葬)"""
+        """ウォシュレットを使う(33%の確率で前に使った人の水圧設定がアホ)"""
         if ra.randrange(100) > 33:
             await ctx.send("んっ...♥")
         else:
@@ -101,6 +101,22 @@ class Cog(commands.Cog):
     async def omikuji(self, ctx):
         """今日のウン勢"""
         await self.reply_slot(ctx, ["便", ["大", "中", "吉", "小", "末", "凶", "大凶"]], "大便")
+
+    @commands.command()
+    async def lpgacha(self, ctx):
+        link = "https://loveplus-every.boom-app.wiki"
+
+        # カードリストの中からランダムに選ぶ
+        bs = bs4.BeautifulSoup(requests.get(f"{link}/entry/card-list").text, 'lxml')
+        rows = bs.findAll("table")[ra.randrange(1, 10)].findAll("tr")
+        card_id = rows[ra.randrange(1, len(rows))].td.a.get("href")
+
+        # カードのページから画像のURLを取得
+        bs2 = bs4.BeautifulSoup(requests.get(f"{link}{card_id}").text, 'lxml')
+        name, type_, rare, _, _ = [tr.td.string for tr in bs2.findAll("table")[0].findAll("tr")]
+        imglink = bs2.find("div", class_="imgList1").div.div.get("data-url")
+
+        await ctx.send(f"[{type_}] {name} {rare}\n{imglink}")
 
     @commands.command()
     async def help(self, ctx):
@@ -213,7 +229,7 @@ class Cog(commands.Cog):
                 PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
                 t_start, t_end = tuple(re.findall(PATTERN, line))
 
-                await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title}**：{t_start}〜{t_end}\n{link}")
+                await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title}**：{t_start[:-3]}〜{t_end[:-3]}")
 
                 with open("vc_alert.txt") as f:
                     lines = [s.strip() for s in f.readlines()]
