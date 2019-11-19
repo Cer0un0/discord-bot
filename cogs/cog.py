@@ -137,7 +137,7 @@ class Cog(commands.Cog):
         await ctx.send(embed=embed)
 
         embed = discord.Embed(title="スロット系", description="", color=0x8b4513)
-        embed.add_field(name="/lpslot", value="カノジョの画像でシコる", inline=False)
+        embed.add_field(name="/lpgacha", value="カノジョの画像でシコる", inline=False)
         embed.add_field(name="/ochinpo [引数(max:4)]", value="公開オナニー", inline=False)
         embed.add_field(name="/omikuji", value="今日のウン勢", inline=False)
         await ctx.send(embed=embed)
