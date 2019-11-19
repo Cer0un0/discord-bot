@@ -11,6 +11,7 @@ class Cog(commands.Cog):
     # TestCogクラスのコンストラクタ。Botを受取り、インスタンス変数として保持。
     def __init__(self, bot):
         self.bot = bot
+        self.last_account = "human"
 
     # コマンドの作成。コマンドはcommandデコレータで必ず修飾する。
 
@@ -37,6 +38,21 @@ class Cog(commands.Cog):
 
         if reply + li_[0] == bingo:
             await self.reply_buriburi(ctx, [["ぶり", "ぼと", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"])
+
+    async def _lpgacha(self, ctx):
+        link = "https://loveplus-every.boom-app.wiki"
+
+        # カードリストの中からランダムに選ぶ
+        bs = bs4.BeautifulSoup(requests.get(f"{link}/entry/card-list").text, 'lxml')
+        rows = bs.findAll("table")[ra.randrange(1, 10)].findAll("tr")
+        card_id = rows[ra.randrange(1, len(rows))].td.a.get("href")
+
+        # カードのページから画像のURLを取得
+        bs2 = bs4.BeautifulSoup(requests.get(f"{link}{card_id}").text, 'lxml')
+        name, type_, rare, _, _ = [tr.td.string for tr in bs2.findAll("table")[0].findAll("tr")]
+        imglink = bs2.find("div", class_="imgList1").div.div.get("data-url")
+
+        await ctx.send(f"[{type_}] {name} {rare}\n{imglink}")
 
     # reply_mono
     @commands.command()
@@ -104,19 +120,7 @@ class Cog(commands.Cog):
 
     @commands.command()
     async def lpgacha(self, ctx):
-        link = "https://loveplus-every.boom-app.wiki"
-
-        # カードリストの中からランダムに選ぶ
-        bs = bs4.BeautifulSoup(requests.get(f"{link}/entry/card-list").text, 'lxml')
-        rows = bs.findAll("table")[ra.randrange(1, 10)].findAll("tr")
-        card_id = rows[ra.randrange(1, len(rows))].td.a.get("href")
-
-        # カードのページから画像のURLを取得
-        bs2 = bs4.BeautifulSoup(requests.get(f"{link}{card_id}").text, 'lxml')
-        name, type_, rare, _, _ = [tr.td.string for tr in bs2.findAll("table")[0].findAll("tr")]
-        imglink = bs2.find("div", class_="imgList1").div.div.get("data-url")
-
-        await ctx.send(f"[{type_}] {name} {rare}\n{imglink}")
+        await self._lpgacha(ctx)
 
     @commands.command()
     async def help(self, ctx):
@@ -148,13 +152,17 @@ class Cog(commands.Cog):
         await ctx.send(embed=embed)
 
         embed = discord.Embed(title="常駐系", description="", color=0x8b4513)
-        embed.add_field(name="(atcoder vcのリンク)", value="バチャコンの告知", inline=False)
+        embed.add_field(name="atcoder vcのリンク", value="バチャコンの告知", inline=False)
+        embed.add_field(name="[凛子|寧々|愛花]", value="lpgacha (\"！\"でエスケープ)", inline=False)
         await ctx.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
+            self.last_account = "bot"
             return
+        else:
+            self.last_account = "human"
 
         for msg in message.content.split('\n'):
             if re.match('.*(\d+)d(\d+)', msg):
@@ -242,6 +250,7 @@ class Cog(commands.Cog):
                 with open("vc_alert.txt", mode='w') as f:
                     f.writelines(lines)
 
+            # 話してる途中でうんこ漏らす
             if "[" in msg:
                 replace = ""
                 li_= [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"]
@@ -253,6 +262,24 @@ class Cog(commands.Cog):
                         replace += ra.choice(rep) * ra.randrange(60)
 
                 await message.channel.send(msg.replace('[unko]', replace))
+
+            if "凛子" in msg:
+                if "！" in msg:
+                    pass
+                else:
+                    await self._lpgacha(message.channel)
+
+            if "寧々" in msg:
+                if "！" in msg:
+                    pass
+                else:
+                    await self._lpgacha(message.channel)
+
+            if "愛花" in msg:
+                if "！" in msg:
+                    pass
+                else:
+                    await self._lpgacha(message.channel)
 
 
 
