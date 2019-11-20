@@ -3,8 +3,7 @@ import discord
 from discord.ext import commands
 
 # BotのAccess Token
-# TOKEN = os.environ["TOKEN"]
-TOKEN = "NjMyMTAzODA2OTg5MTA3MjAx.XcrPYQ.HcFzpPk2zxL7oGqbRRN3Af0n0NA"
+TOKEN = os.environ["TOKEN"]
 
 # 読み込むコグの名前を格納しておく。
 INITIAL_EXTENSIONS = [
