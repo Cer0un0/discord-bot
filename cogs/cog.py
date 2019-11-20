@@ -263,23 +263,22 @@ class Cog(commands.Cog):
 
                 await message.channel.send(msg.replace('[unko]', replace))
 
-            if "凛子" in msg:
-                if "！" in msg:
-                    pass
-                else:
+            # 呼びかけてlpgacha引く
+            if any(map(msg.__contains__, ("凛子", "寧々", "愛花"))):
+                if "！" not in msg:
                     await self._lpgacha(message.channel)
 
-            if "寧々" in msg:
-                if "！" in msg:
-                    pass
-                else:
-                    await self._lpgacha(message.channel)
-
-            if "愛花" in msg:
-                if "！" in msg:
-                    pass
-                else:
-                    await self._lpgacha(message.channel)
+            # if "寧々" in msg:
+            #     if "！" in msg:
+            #         pass
+            #     else:
+            #         await self._lpgacha(message.channel)
+            #
+            # if "愛花" in msg:
+            #     if "！" in msg:
+            #         pass
+            #     else:
+            #         await self._lpgacha(message.channel)
 
 
 

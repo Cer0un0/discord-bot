@@ -4,6 +4,7 @@ from discord.ext import commands
 
 # BotのAccess Token
 TOKEN = os.environ["TOKEN"]
+
 # 読み込むコグの名前を格納しておく。
 INITIAL_EXTENSIONS = [
     'cogs.cog'
