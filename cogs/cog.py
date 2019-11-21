@@ -7,7 +7,6 @@ from discord.ext import commands
 
 
 class Cog(commands.Cog):
-
     # TestCogクラスのコンストラクタ。Botを受取り、インスタンス変数として保持。
     def __init__(self, bot):
         self.bot = bot
@@ -263,43 +262,10 @@ class Cog(commands.Cog):
 
                 await message.channel.send(msg.replace('[unko]', replace))
 
-            if "凛子" in msg:
-                if "！" in msg:
-                    pass
-                else:
+            # 呼びかけてlpgacha引く
+            if any(map(msg.__contains__, ("凛子", "寧々", "愛花"))):
+                if "！" not in msg:
                     await self._lpgacha(message.channel)
-
-            if "寧々" in msg:
-                if "！" in msg:
-                    pass
-                else:
-                    await self._lpgacha(message.channel)
-
-            if "愛花" in msg:
-                if "！" in msg:
-                    pass
-                else:
-                    await self._lpgacha(message.channel)
-
-
-
-    # @commands.group()
-    # async def role(self, ctx):
-    #     # サブコマンドが指定されていない場合、メッセージを送信する。
-    #     if ctx.invoked_subcommand is None:
-    #         await ctx.send('このコマンドにはサブコマンドが必要です。')
-    #
-    # # roleコマンドのサブコマンド
-    # # 指定したユーザーに指定した役職を付与する。
-    # @role.command()
-    # async def add(self, ctx, member: discord.Member, role: discord.Role):
-    #     await member.add_roles(role)
-    #
-    # # roleコマンドのサブコマンド
-    # # 指定したユーザーから指定した役職を剥奪する。
-    # @role.command()
-    # async def remove(self, ctx, member: discord.Member, role: discord.Role):
-    #     await member.remove_roles(role)
 
 
 # Bot本体側からコグを読み込む際に呼び出される関数。
