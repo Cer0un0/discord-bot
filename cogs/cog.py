@@ -20,13 +20,13 @@ class Cog(commands.Cog):
     async def reply_mono(self, ctx, s):
         await ctx.send(s)
 
-    async def reply_buriburi(self, ctx, li_):
+    async def reply_buriburi(self, ctx, li_, max_buriburi=40, max_unchi=60):
         reply = ""
         for rep in li_:
             if type(rep) is str:  # string
-                reply += rep * ra.randrange(40)
+                reply += rep * ra.randrange(1, max_buriburi)
             else:  # list
-                reply += ra.choice(rep) * ra.randrange(60)
+                reply += ra.choice(rep) * ra.randrange(1, max_unchi)
 
         await ctx.send(reply)
 
@@ -78,10 +78,10 @@ class Cog(commands.Cog):
         await self.reply_mono(ctx, "うーくん...あなたのことが好きです...。")
 
     @commands.command()
-    async def hkonro(self, ctx):
+    async def hkonro(self, ctx, max_chi=100):
         """エッチコンロの火を灯す"""
         reply = "ｴ"
-        reply += "ﾁ" * ra.randrange(100)
+        reply += "ﾁ" * ra.randrange(1, max_chi)
         await ctx.send(f"エッチコンロ点火！{reply}勃ッ！！！！！！！！！！！！！！🔥")
 
 
