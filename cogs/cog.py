@@ -1,9 +1,12 @@
+import re
+import random as ra
+
 import bs4
 import discord
-import random as ra
-import re
+import gspread
 import requests
 from discord.ext import commands
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 class Cog(commands.Cog):
@@ -121,6 +124,21 @@ class Cog(commands.Cog):
     async def lpgacha(self, ctx):
         await self._lpgacha(ctx)
 
+    async def insert_vcdata(self, vcdata):
+        title, t_start, t_end, link = vcdata
+
+        scope = ['https://spreadsheets.google.com/feeds',
+                 'https://www.googleapis.com/auth/drive']
+
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('gspread.json', scope)
+        gc = gspread.authorize(credentials)
+        wks = gc.open('DiscordBot').worksheet('virtual-contest')
+
+        wks.update_acell('A1', title)
+        wks.update_acell('B1', t_start[:-3])
+        wks.update_acell('C1', t_end[:-3])
+        wks.update_acell('D1', link)
+
     @commands.command()
     async def help(self, ctx):
         embed = discord.Embed(title="単一応答系", description="", color=0x8b4513)
@@ -223,36 +241,30 @@ class Cog(commands.Cog):
                     await message.channel.send(reply)
                     await message.channel.send(f"おぉぉおﾞおﾞ～っ！！イグゥウ！！イッグゥウウ！！{cnt}回目で果てました...")
 
-            # バーチャルコンテスト通知
+            # alert Virtual Contest
             if 'https://not-522.appspot.com' in msg:
+                # get VC information from link
                 link = msg
                 get_url_info = requests.get(link)
                 bs = bs4.BeautifulSoup(get_url_info.text, 'lxml')
 
-                # タイトル
+                # title
                 title = bs.h1.get_text().lstrip().split()[0]
-                # 開始時間取得
+                # start time, end time
                 line = bs.select('small')[0].text
                 PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
                 t_start, t_end = tuple(re.findall(PATTERN, line))
 
+                # post
                 await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title}**：{t_start[:-3]}〜{t_end[:-3]}")
 
-                with open("vc_alert.txt") as f:
-                    lines = [s.strip() for s in f.readlines()]
-
-                lines.insert(0, f"{title}, {t_start}, {t_end}, {link}")
-
-                # await message.channel.send(lines)
-                # unbobo
-
-                with open("vc_alert.txt", mode='w') as f:
-                    f.writelines(lines)
+                # insert spread sheet
+                # await self.insert_vcdata((title, t_start, t_end, link))
 
             # 話してる途中でうんこ漏らす
             if "[" in msg:
                 replace = ""
-                li_= [["ぶり", "もり", "ぶぴ", "べちょ", "もぐ", "みち"], "ッ", "！", "💩"]
+                li_ = [["コロ", "ぶぴ", "ぶり", "びちゃ", "べちょ", "ぼと", "みち", "もぐ", "もり"], "ッ", "！", "💩"]
 
                 for rep in li_:
                     if type(rep) is str:  # string
