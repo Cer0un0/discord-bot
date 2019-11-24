@@ -247,16 +247,16 @@ class Cog(commands.Cog):
                 link = msg
                 get_url_info = requests.get(link)
                 bs = bs4.BeautifulSoup(get_url_info.text, 'lxml')
+                header = bs.h1.text
+                lines = header.split('\n')
+                TIME_PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
 
-                # title
-                title = bs.h1.get_text().lstrip().split()[0]
-                # start time, end time
-                line = bs.select('small')[0].text
-                PATTERN = '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}'
-                t_start, t_end = tuple(re.findall(PATTERN, line))
+                # get information
+                title = lines[1].lstrip()
+                t_start, t_end = re.findall(TIME_PATTERN, lines[2])
 
                 # post
-                await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title}**：{t_start[:-3]}〜{t_end[:-3]}")
+                await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title}**\n{t_start[:-3]}〜{t_end[:-3]}")
 
                 # insert spread sheet
                 # await self.insert_vcdata((title, t_start, t_end, link))
