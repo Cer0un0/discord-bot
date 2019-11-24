@@ -259,7 +259,7 @@ class Cog(commands.Cog):
                 await message.channel.send(f"💩バーチャルコンテスト開催のお知らせ💩\n**{title}**\n{t_start[:-3]}〜{t_end[:-3]}")
 
                 # insert spread sheet
-                # await self.insert_vcdata((title, t_start, t_end, link))
+                await self.insert_vcdata((title, t_start, t_end, link))
 
             # 話してる途中でうんこ漏らす
             if "[" in msg:

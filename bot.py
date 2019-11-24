@@ -33,6 +33,8 @@ class Bot(commands.Bot):
     # Botの準備完了時に呼び出されるイベント
     async def on_ready(self):
         channel = self.get_channel(int(os.environ["CHANNEL_DEVROOM"]))
+        # channel = self.get_channel(int(CHANNEL_DEVROOM))
+
         await channel.send("アップデートを反映しました")
 
         print('-----')
@@ -41,36 +43,32 @@ class Bot(commands.Bot):
         print('-----')
 
         # VC 通知
-        # while True:
-        #     time_ = datetime.now(timezone(timedelta(hours=+9), 'JST'))
-        #     has_vcdata = False
-        #
-        #     if has_vcdata:
-        #         pass
-        #     else:
-        #         print("a")
-        #         scope = ['https://spreadsheets.google.com/feeds',
-        #                  'https://www.googleapis.com/auth/drive']
-        #
-        #         credentials = ServiceAccountCredentials.from_json_keyfile_name('gspread.json', scope)
-        #         gc = gspread.authorize(credentials)
-        #         worksheet = gc.open('DiscordBot').worksheet('virtual-contest')
-        #
-        #         title = worksheet.acell('A1').value
-        #         t_start = worksheet.acell('B1').value
-        #         t_end = worksheet.acell('C1').value
-        #         link = worksheet.acell('D1').value
-        #
-        #         has_vcdata = True
-        #
-        #     if time_.strftime("%Y-%m-%d %H:%M") == f"{t_start}":
-        #         await channel.send(f"【{title}】始まりました\n{link}")
-        #
-        #     # await channel.send(time_.strftime("%Y/%m/%d %H:%M"))
-        #     # if time_.strftime("%Y-%m-%d %H:%M") == f"{t_start[:-1]}{t_start[-1]-1 }":
-        #     await asyncio.sleep(1)
-        #     # else:
-        #     #     await asyncio.sleep(30)
+        # TODO: リンク貼り直したら、Trueにしないとない
+        has_vcdata = False
+        while True:
+            time_ = datetime.now(timezone(timedelta(hours=+9), 'JST'))
+
+            if has_vcdata:
+                pass
+            else:
+                scope = ['https://spreadsheets.google.com/feeds',
+                         'https://www.googleapis.com/auth/drive']
+
+                credentials = ServiceAccountCredentials.from_json_keyfile_name('gspread.json', scope)
+                gc = gspread.authorize(credentials)
+                worksheet = gc.open('DiscordBot').worksheet('virtual-contest')
+
+                title = worksheet.acell('A1').value
+                t_start = worksheet.acell('B1').value
+                t_end = worksheet.acell('C1').value
+                link = worksheet.acell('D1').value
+
+                has_vcdata = True
+
+            if time_.strftime("%Y-%m-%d %H:%M:%S") == f"{t_start}":
+                await channel.send(f"【{title}】始まりました\n{link}")
+
+            await asyncio.sleep(0.8)
 
 
 # 起動
