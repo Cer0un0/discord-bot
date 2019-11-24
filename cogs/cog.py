@@ -169,7 +169,7 @@ class Cog(commands.Cog):
         await ctx.send(embed=embed)
 
         embed = discord.Embed(title="常駐系", description="", color=0x8b4513)
-        embed.add_field(name="atcoder vcのリンク", value="バチャコンの告知", inline=False)
+        embed.add_field(name="atcoder vcのリンク", value="バチャコンの告知, 開始時間お知らせ", inline=False)
         embed.add_field(name="[凛子|寧々|愛花]", value="lpgacha (\"！\"でエスケープ)", inline=False)
         await ctx.send(embed=embed)
 
