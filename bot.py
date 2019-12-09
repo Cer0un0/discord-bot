@@ -33,7 +33,6 @@ class Bot(commands.Bot):
     # Botの準備完了時に呼び出されるイベント
     async def on_ready(self):
         channel = self.get_channel(int(os.environ["CHANNEL_DEVROOM"]))
-        # channel = self.get_channel(int(CHANNEL_DEVROOM))
 
         await channel.send("アップデートを反映しました")
 
@@ -53,6 +52,7 @@ class Bot(commands.Bot):
             else:
                 scope = ['https://spreadsheets.google.com/feeds',
                          'https://www.googleapis.com/auth/drive']
+                await channel.send(os.environ['SHEET_PRIVATE_KEY'])
 
                 credential = {
                     "type": "service_account",
