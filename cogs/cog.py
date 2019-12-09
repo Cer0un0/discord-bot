@@ -194,6 +194,7 @@ class Cog(commands.Cog):
         embed.add_field(name="/lpgacha", value="カノジョの画像でシコる", inline=False)
         embed.add_field(name="/ochinpo [引数(max:4)]", value="公開オナニー", inline=False)
         embed.add_field(name="/omikuji", value="今日のウン勢", inline=False)
+        embed.add_field(name="/rfgacha", value="僕たち初めてなんですけど色々教えてもらえますか", inline=False)
         await ctx.send(embed=embed)
 
         embed = discord.Embed(title="文章埋め込み系", description="", color=0x8b4513)
