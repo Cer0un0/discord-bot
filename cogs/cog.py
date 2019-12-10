@@ -128,7 +128,7 @@ class Cog(commands.Cog):
     async def rfgacha(self, ctx):
         baselink = "https://www.cityheaven.net"
         # どのページにするかで選ぶ
-        link = f"{baselink}/fukuoka/A4001/A400101/royal_face/girllist/{'' if ra.randrange(2) == 0 else '2/'}"
+        link = f"{baselink}/fukuoka/A4001/A400102/royal_face/girllist/{'' if ra.randrange(2) == 0 else '2/'}"
 
         # ページ内のどの女の子にするか選ぶ
         bs = bs4.BeautifulSoup(requests.get(f"{link}").content, 'lxml')
