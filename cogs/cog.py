@@ -128,19 +128,20 @@ class Cog(commands.Cog):
     async def rfgacha(self, ctx):
         baselink = "https://www.cityheaven.net"
         # どのページにするかで選ぶ
-        link = f"{baselink}/fukuoka/A4001/A400102/royal_face/girllist/{'' if ra.randrange(2) == 0 else '2/'}"
+        link = f"{baselink}/fukuoka/A4001/A400102/fukuoka_royal_face/girllist/{'' if ra.randrange(2) == 0 else '2/'}"
 
         # ページ内のどの女の子にするか選ぶ
         bs = bs4.BeautifulSoup(requests.get(f"{link}").content, 'lxml')
         girls_link = [f"{baselink}{d.a.attrs['href']}" for d in bs.select('div.girllistimg')]
 
         # プロフィール取得
-        bs = bs4.BeautifulSoup(requests.get(f"{ra.choice(girls_link)}").content, 'lxml')
+        gchoice = ra.choice(girls_link)
+        bs = bs4.BeautifulSoup(requests.get(f"{gchoice}").content, 'lxml')
         tr = bs.find('table', id='p_data').find_all('tr')
 
         pf = {}
-        pf['name'] = f"{tr[0].td.text.split(')')[0]})"
-        pf['2tsuna'] = f"[{tr[0].td.text.split(')')[1]}] " if len(tr[0].td.text.split(')')) >= 2 else ''
+        pf['name'] = f"{tr[0].td.text.split()[0]}"
+        pf['2tsuna'] = f"{tr[0].td.text.split()[1]}" if len(tr[0].td.text.split()) >= 2 else ''
         pf['age'] = tr[1].td.text[:-1]
         sp = tr[2].td.text.split()
         pf['tall'] = sp[0][1:]
@@ -153,7 +154,7 @@ class Cog(commands.Cog):
         li_img_url = [l.img.attrs['data-echo'] for l in bs.find('ul', id='slider').find_all('li')]
 
         # post
-        await ctx.send(f"{pf['2tsuna']}{pf['name']} ({pf['age']})")
+        await ctx.send(f"[{pf['2tsuna']}] {pf['name']} ({pf['age']})")
         await ctx.send(f"{pf['tall']}cm {pf['bust']}-{pf['waist']}-{pf['hip']} {pf['cup']}カップ")
         await ctx.send(f"https:{ra.choice(li_img_url)}")
 
