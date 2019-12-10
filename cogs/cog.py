@@ -127,8 +127,8 @@ class Cog(commands.Cog):
     @commands.command()
     async def rfgacha(self, ctx):
         baselink = "https://www.cityheaven.net"
-        # どのページにするかで選ぶ
-        link = f"{baselink}/fukuoka/A4001/A400102/fukuoka_royal_face/girllist/{'' if ra.randrange(2) == 0 else '2/'}"
+        # どのページにするか選ぶ
+        link = f"{baselink}/fukuoka/A4001/A400102/fukuoka_royal_face/girllist/{'' if ra.randrange(44) < 40 else '2/'}"
 
         # ページ内のどの女の子にするか選ぶ
         bs = bs4.BeautifulSoup(requests.get(f"{link}").content, 'lxml')
@@ -154,8 +154,7 @@ class Cog(commands.Cog):
         li_img_url = [l.img.attrs['data-echo'] for l in bs.find('ul', id='slider').find_all('li')]
 
         # post
-        await ctx.send(f"[{pf['2tsuna']}] {pf['name']} ({pf['age']})")
-        await ctx.send(f"{pf['tall']}cm {pf['bust']}-{pf['waist']}-{pf['hip']} {pf['cup']}カップ")
+        await ctx.send(f"[{pf['2tsuna']}] {pf['name']} ({pf['age']}) {pf['tall']}cm {pf['bust']}-{pf['waist']}-{pf['hip']} {pf['cup']}カップ")
         await ctx.send(f"https:{ra.choice(li_img_url)}")
 
     async def insert_vcdata(self, vcdata):
@@ -195,7 +194,7 @@ class Cog(commands.Cog):
         embed.add_field(name="/lpgacha", value="カノジョの画像でシコる", inline=False)
         embed.add_field(name="/ochinpo [引数(max:4)]", value="公開オナニー", inline=False)
         embed.add_field(name="/omikuji", value="今日のウン勢", inline=False)
-        embed.add_field(name="/rfgacha", value="僕たち初めてなんですけど色々教えてもらえますか", inline=False)
+        embed.add_field(name="/rfgacha", value="イイ女は、全てロイヤルフェイスに集まる...", inline=False)
         await ctx.send(embed=embed)
 
         embed = discord.Embed(title="文章埋め込み系", description="", color=0x8b4513)
