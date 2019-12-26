@@ -4,6 +4,7 @@ import random as ra
 import bs4
 import discord
 import gspread
+import os
 import requests
 from discord.ext import commands
 from oauth2client.service_account import ServiceAccountCredentials
@@ -133,9 +134,9 @@ class Cog(commands.Cog):
         # ページ内のどの女の子にするか選ぶ
         bs = bs4.BeautifulSoup(requests.get(f"{link}").content, 'lxml')
         girls_link = [f"{baselink}{d.a.attrs['href']}" for d in bs.select('div.girllistimg')]
+        gchoice = ra.choice(girls_link)
 
         # プロフィール取得
-        gchoice = ra.choice(girls_link)
         bs = bs4.BeautifulSoup(requests.get(f"{gchoice}").content, 'lxml')
         tr = bs.find('table', id='p_data').find_all('tr')
 
@@ -176,6 +177,7 @@ class Cog(commands.Cog):
     async def help(self, ctx):
         embed = discord.Embed(title="単一応答系", description="", color=0x8b4513)
         embed.add_field(name="/colorcorn", value="カラーコーンを放流する", inline=False)
+        embed.add_field(name="/hamabo", value="人様とボーナスを比較する", inline=False)
         embed.add_field(name="/help", value="これ", inline=False)
         embed.add_field(name="/hkonro", value="エッチコンロの火を灯す", inline=False)
         embed.add_field(name="/neko", value="社会性フィルターを通して社会の不条理を嘆く", inline=False)
@@ -227,6 +229,16 @@ class Cog(commands.Cog):
                 sum_ = "" if len(dice) == 1 else f"(sum: {sum(dice)})"
 
                 await message.channel.send(f"{', '.join(map(str, dice))} {sum_}")
+
+            # ハマボー
+            if '/hamabo' in msg:
+                if len(msg.split()) == 1:  # 引数なし
+                    await message.channel.send(f"{int(os.environ['HAMABO'])}")
+                else:
+                    try:
+                        await message.channel.send(f"{(float(msg.split()[1]) / float(os.environ['HAMABO'])):.3f}ハマボー")
+                    except:
+                        await message.channel.send("数値型もわかんねーのかカス")
 
             # おちんぽプログラム
             if '/ochinpo' in msg:  # ochinpoが入っているとき( ◜◡＾)っ✂╰⋃╯
