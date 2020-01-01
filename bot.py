@@ -12,6 +12,7 @@ from time import sleep
 # BotのAccess Token
 TOKEN = os.environ["TOKEN"]
 
+
 # 読み込むコグの名前を格納しておく。
 INITIAL_EXTENSIONS = [
     'cogs.cog'
@@ -52,7 +53,7 @@ class Bot(commands.Bot):
             else:
                 scope = ['https://spreadsheets.google.com/feeds',
                          'https://www.googleapis.com/auth/drive']
-                await channel.send(os.environ['SHEET_PRIVATE_KEY'])
+                # await channel.send(os.environ['SHEET_PRIVATE_KEY'])
 
                 credential = {
                     "type": "service_account",
