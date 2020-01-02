@@ -12,7 +12,6 @@ from time import sleep
 # BotのAccess Token
 TOKEN = os.environ["TOKEN"]
 
-
 # 読み込むコグの名前を格納しておく。
 INITIAL_EXTENSIONS = [
     'cogs.cog'

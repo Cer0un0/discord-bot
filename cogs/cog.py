@@ -233,12 +233,12 @@ class Cog(commands.Cog):
             # ハマボー
             if '/hamabo' in msg:
                 if len(msg.split()) == 1:  # 引数なし
-                    await message.channel.send(f"{int(os.environ['HAMABO'])} / ハマボー")
+                    await message.channel.send(f"{int(os.environ['HAMABO'])}/ハマボー")
                 else:
-                    arg = msg.split()[1]
                     try:
-                        if float(abs(arg)) > 2**31:
-                            await message.channel.send(f"{(float(arg) / float(os.environ['HAMABO'])):.3f}ハマボー")
+                        arg = float(msg.split()[1])
+                        if abs(arg) < 2**31:
+                            await message.channel.send(f"{(arg / float(os.environ['HAMABO'])):.3f}ハマボー")
                         else:
                             await message.channel.send("そんな数字と比べるのはハマボーがかわいそう")
                     except:
