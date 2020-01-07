@@ -230,6 +230,13 @@ class Cog(commands.Cog):
 
                 await message.channel.send(f"{', '.join(map(str, dice))} {sum_}")
 
+            if msg[-1] == '=':
+                try:
+                    await message.channel.send(eval(msg[:-1]))
+                except:
+                    await message.channel.send("ちゃんと計算式書いてよ〜")
+                    break
+
             # ハマボー
             if '/hamabo' in msg:
                 if len(msg.split()) == 1:  # 引数なし
@@ -243,6 +250,7 @@ class Cog(commands.Cog):
                             await message.channel.send("そんな数字と比べるのはハマボーがかわいそう")
                     except:
                         await message.channel.send("数値型もわかんねーのかカス")
+                        break
 
             # おちんぽプログラム
             if '/ochinpo' in msg:  # ochinpoが入っているとき( ◜◡＾)っ✂╰⋃╯
