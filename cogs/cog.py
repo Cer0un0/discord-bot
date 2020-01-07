@@ -320,7 +320,7 @@ class Cog(commands.Cog):
                 await self.insert_vcdata((title, t_start, t_end, link))
 
             # 話してる途中でうんこ漏らす
-            if "[" in msg:
+            if "[unko]" in msg:
                 replace = ""
                 li_ = [["コロ", "ぶぴ", "ぶり", "びちゃ", "べちょ", "ぼと", "みち", "もぐ", "もり"], "ッ", "！", "💩"]
 
