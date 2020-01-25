@@ -86,5 +86,6 @@ class Bot(commands.Bot):
 
 # 起動
 if __name__ == '__main__':
+    print('ochinpo')
     bot = Bot(command_prefix='/')
     bot.run(TOKEN)
