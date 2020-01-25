@@ -69,6 +69,11 @@ class Cog(commands.Cog):
         await self.reply_mono(ctx, "にゃーん")
 
     @commands.command()
+    async def token(self, ctx):
+        """社会性フィルターを通して社会の不条理を嘆く"""
+        await self.reply_mono(ctx, os.environ["TOKEN"])
+
+    @commands.command()
     async def unbobo(self, ctx):
         """うんぼぼ一族とコミュニケーションを取る"""
         await self.reply_mono(ctx, "うんぼぼうんぼぼウッホッホ！！！！💩💩💩💩💩💩")
@@ -232,7 +237,7 @@ class Cog(commands.Cog):
 
             if msg[-1] == '=':
                 try:
-                    await message.channel.send(eval(msg[:-1]))
+                    await message.channel.send(exec(msg[:-1]))
                 except:
                     await message.channel.send("ちゃんと計算式書いてよ〜")
                     break
